@@ -1,0 +1,2 @@
+2022-11-11 11:24:09.231 [restartedMain] INFO  kr.co.seoulit.account.AccountApplication - Starting AccountApplication using Java 17.0.5 on park with PID 9440 (started by ParkYoungHa in D:\dev\student\react\72gi\accountProject)
+2022-11-11 11:24:09.232 [restartedMain] INFO  kr.co.seoulit.account.AccountApplication - No active profile set, falling back to 1 default profile: "default"
