@@ -25,7 +25,7 @@
         <parameter property="RESULT" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="monthIncomeResult"/>
     </parameterMap>
 
-    <select id="callMonthIncomeStatement" parameterMap="monthIncomeStatementParams" statementType="CALLABLE">
+    <select id="callMonthIncomeStatement" parameterType="java.util.HashMap" parameterMap="monthIncomeStatementParams" statementType="CALLABLE">
       <![CDATA[
         {call P_MONTH_INCOME_STATEMENT(?,?,?,?)}
         ]]>

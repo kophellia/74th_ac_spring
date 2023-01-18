@@ -19,9 +19,9 @@ public interface JournalMapper {
 
     public boolean updateJournal(JournalBean journalBean);
 
-    ArrayList<JournalDetailBean> selectJournalDetailList(String journalNo);
+    public ArrayList<JournalDetailBean> selectJournalDetailList(String journalNo);
 
-    String selectJournalDetailDescriptionName(String journalDetailNo);
+    public String selectJournalDetailDescriptionName(String journalDetailNo);
 
     public void deleteJournalDetail(String journalNo);
 

@@ -223,7 +223,7 @@ public class BusinessServiceImpl implements BusinessService {
 
         ArrayList<SlipBean> slip = null;
         slip = slipDAO.selectSlip(slipNo);
-
+        
         return slip;
     }
 

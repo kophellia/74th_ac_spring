@@ -1454,5 +1454,5 @@ TypeError.prototype=new Error("");
 function URIError(){};
 URIError.prototype=new Error("");
 
-//support for debugger keyword
+/*support for debugger keyword*/
 var debugger = null;

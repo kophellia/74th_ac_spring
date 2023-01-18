@@ -116,7 +116,7 @@ public class SlipController {
         return map;
     };*/
 
-    @GetMapping("/slipremoval")
+    @GetMapping("/deleteSlip")
     public void removeSlip(@RequestParam String slipNo) {
         businessService.removeSlip(slipNo);
 
@@ -168,7 +168,7 @@ public class SlipController {
 
         return slipFormList;
     }
-
+    
     @GetMapping("/approvalsliplist")
     public ArrayList<SlipBean> findApprovalSlipList(@RequestParam("startDate") String fromDate,
                                                          @RequestParam("endDate") String toDate){
@@ -190,7 +190,7 @@ public class SlipController {
 
     @GetMapping("/findSlip")
     public ArrayList<SlipBean> findSlip(@RequestParam String slipNo) {
-
+    	
         return businessService.findSlip(slipNo);
     }
 
