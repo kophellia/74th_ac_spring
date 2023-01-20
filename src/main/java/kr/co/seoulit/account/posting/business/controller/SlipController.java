@@ -116,6 +116,7 @@ public class SlipController {
         return map;
     };*/
 
+    
     @GetMapping("/deleteSlip")
     public void removeSlip(@RequestParam String slipNo) {
         businessService.removeSlip(slipNo);
