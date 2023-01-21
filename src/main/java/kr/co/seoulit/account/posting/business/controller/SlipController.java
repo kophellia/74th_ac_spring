@@ -38,7 +38,7 @@ public class SlipController {
     ModelMap map = new ModelMap();
 
 
-
+//이건 뭔지 모르겠음 
     @RequestMapping(value = "/slipmodification", method = {RequestMethod.POST, RequestMethod.GET})
     public String modifySlip(@RequestParam(value = "slipObj", required = false) String slipObj,
                              @RequestParam(value = "journalObj", required = false) String journalObj,
