@@ -170,7 +170,7 @@ public class SlipController {
 
     }
     
-    // ====================전표 삭제======================
+    // ====================전표 추가======================
     @GetMapping("/updateSlip")
     public void updateSlip(@RequestParam String reportingDate,
     		@RequestParam String expenseReport
