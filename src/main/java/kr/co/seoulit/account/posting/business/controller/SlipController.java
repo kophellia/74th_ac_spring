@@ -116,12 +116,6 @@ public class SlipController {
         return map;
     };*/
 
-    
-    @GetMapping("/deleteSlip")
-    public void removeSlip(@RequestParam String slipNo) {
-        businessService.removeSlip(slipNo);
-
-    }
 
     @GetMapping("/approvalslip")
     public void modifyapproveSlip(@RequestParam String approveSlipList,
@@ -169,6 +163,22 @@ public class SlipController {
 
         return slipFormList;
     }
+    // ====================전표 삭제======================
+    @GetMapping("/deleteSlip")
+    public void removeSlip(@RequestParam String slipNo) {
+        businessService.removeSlip(slipNo);
+
+    }
+    
+    // ====================전표 삭제======================
+    @GetMapping("/updateSlip")
+    public void updateSlip(@RequestParam String reportingDate,
+    		@RequestParam String expenseReport
+    		) {
+        businessService.removeSlip(expenseReport);
+
+    }
+    
     
     @GetMapping("/approvalsliplist")
     public ArrayList<SlipBean> findApprovalSlipList(@RequestParam("startDate") String fromDate,
