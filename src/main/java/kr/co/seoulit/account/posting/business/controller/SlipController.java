@@ -38,47 +38,51 @@ public class SlipController {
     ModelMap map = new ModelMap();
 
 
-//이건 뭔지 모르겠음 
-    @RequestMapping(value = "/slipmodification", method = {RequestMethod.POST, RequestMethod.GET})
-    public String modifySlip(@RequestParam(value = "slipObj", required = false) String slipObj,
-                             @RequestParam(value = "journalObj", required = false) String journalObj,
-                             @RequestParam(value = "slipStatus", required = false) String slipStatus) {
+//    @RequestMapping(value = "/slipmodification", method = {RequestMethod.POST, RequestMethod.GET})
+//    public String modifySlip(@RequestParam(value = "slipObj", required = false) String slipObj,
+//                             @RequestParam(value = "journalObj", required = false) String journalObj,
+//                             @RequestParam(value = "slipStatus", required = false) String slipStatus) {
+//
+//        ArrayList<JournalBean> journalBeans;
+//        JSONArray journalJSONArray;
+//        SlipBean slipBean;
+//        Gson gson = new Gson();
+//
+//        journalJSONArray = JSONArray.fromObject(journalObj); //遺꾧컻
+//        slipBean = gson.fromJson(slipObj, SlipBean.class);
+//        journalBeans = new ArrayList<>();
+//        for (Object journalObjs : journalJSONArray) {
+//
+//            JournalBean journalBean = gson.fromJson(journalObjs.toString(), JournalBean.class);
+//            journalBean.setSlipNo(slipBean.getSlipNo());
+//            System.out.println(journalBean.getJournalNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//            System.out.println("customerName: ++" + journalBean.getCustomerName());
+//            journalBeans.add(journalBean);
+//        }
+//
+//        if (slipStatus.equals("승인요청")) {
+//            slipBean.setSlipStatus("승인요청");
+//        }
+//
+//        return businessService.modifySlip(slipBean, journalBeans);
+//    }
 
-        ArrayList<JournalBean> journalBeans;
-        JSONArray journalJSONArray;
-        SlipBean slipBean;
-        Gson gson = new Gson();
-
-        journalJSONArray = JSONArray.fromObject(journalObj); //遺꾧컻
-        slipBean = gson.fromJson(slipObj, SlipBean.class);
-        journalBeans = new ArrayList<>();
-        for (Object journalObjs : journalJSONArray) {
-
-            JournalBean journalBean = gson.fromJson(journalObjs.toString(), JournalBean.class);
-            journalBean.setSlipNo(slipBean.getSlipNo());
-            System.out.println(journalBean.getJournalNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-            System.out.println("customerName: ++" + journalBean.getCustomerName());
-            journalBeans.add(journalBean);
-        }
-
-        if (slipStatus.equals("승인요청")) {
-            slipBean.setSlipStatus("승인요청");
-        }
-
-        return businessService.modifySlip(slipBean, journalBeans);
-    }
-
-    @RequestMapping(value = "/registerslip")
-    public void registerSlip(@RequestParam(value = "slipObj", required = false) String slipObj,
-                             @RequestParam(value = "journalObj", required = false) String journalObj,
-                             @RequestParam(value = "slipStatus", required = false) String slipStatus) {
+    @RequestMapping("/registerslip")
+    public void registerSlip(
+//			@RequestParam(value = "slipObj", required = false) String slipObj,
+//			@RequestParam(value = "journalObj", required = false) String journalObj,
+//			@RequestParam(value = "slipStatus", required = false) String slipStatus) 
+    		@RequestParam("slipObj") String slipObj,
+    		@RequestParam("journalObj") String journalObj,
+    		@RequestParam("slipStatus") String slipStatus) 
+    {
     	System.out.println("registerslip 잡히나"); // 이까지는 잡히는 거 같음
-    	System.out.println(slipObj);
+    	System.out.println(slipObj); 
     	System.out.println(journalObj);
     	System.out.println(slipStatus);
         Gson gson = new Gson();
-        SlipBean slipBean = gson.fromJson(slipObj, SlipBean.class);
-        JSONArray journalObjs = JSONArray.fromObject(journalObj);
+        SlipBean slipBean = gson.fromJson(slipObj, SlipBean.class);//slipObj를 SlipBean 클래스로 변환
+        JSONArray journalObjs = JSONArray.fromObject(journalObj);//journalObj를 JSONArray로 변환
         /*
          * slipBean.setReportingEmpCode(request.getSession().getAttribute("empCode").
          * toString()); // beanCreator에서 셋팅하는데 또함..(dong) //실제 결제신청하는 사람 정보로 바꿔주는 소스임 이름
