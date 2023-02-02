@@ -72,7 +72,10 @@ public class SlipController {
     public void registerSlip(@RequestParam(value = "slipObj", required = false) String slipObj,
                              @RequestParam(value = "journalObj", required = false) String journalObj,
                              @RequestParam(value = "slipStatus", required = false) String slipStatus) {
-
+    	System.out.println("registerslip 잡히나"); // 이까지는 잡히는 거 같음
+    	System.out.println(slipObj);
+    	System.out.println(journalObj);
+    	System.out.println(slipStatus);
         Gson gson = new Gson();
         SlipBean slipBean = gson.fromJson(slipObj, SlipBean.class);
         JSONArray journalObjs = JSONArray.fromObject(journalObj);

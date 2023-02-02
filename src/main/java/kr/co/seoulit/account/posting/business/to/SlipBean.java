@@ -27,5 +27,4 @@ public class SlipBean extends BaseBean {
     private String slipStatus;
     private String balanceDivision;
     private String positionCode;
-
 }
