@@ -2,6 +2,7 @@ package kr.co.seoulit.account.posting.business.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import kr.co.seoulit.account.posting.business.service.BusinessService;
 import kr.co.seoulit.account.posting.business.to.JournalBean;
@@ -47,10 +48,10 @@ public class JournalController {
 
     }
 
-    @GetMapping("modifyJournal")
+    @RequestMapping("/modifyJournal")
     public void modifyJournal(@RequestParam String slipNo,
                               @RequestParam JSONArray journalObj) {
-
+    	System.out.println(slipNo);
         JSONArray journalObjs = JSONArray.fromObject(journalObj);
 
         ArrayList<JournalBean> journalBeanList = new ArrayList<>();
@@ -62,6 +63,12 @@ public class JournalController {
         }
         businessService.modifyJournal(slipNo, journalBeanList);
 
+    }
+    
+    @PostMapping("/modifJour")
+//    public void modifJour(@RequestParam(value="slipNo", required=false) String slipNo) {
+    public void modifJour(@RequestParam String journalObj) {
+    	System.out.println(journalObj);
     }
 
     /*@PostMapping("/updateJournalList")
