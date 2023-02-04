@@ -67,7 +67,7 @@ public class SlipController {
 //        return businessService.modifySlip(slipBean, journalBeans);
 //    }
 
-    @RequestMapping("/registerslip")
+    @GetMapping("/registerslip")
     public void registerSlip(
 //			@RequestParam(value = "slipObj", required = false) String slipObj,
 //			@RequestParam(value = "journalObj", required = false) String journalObj,
