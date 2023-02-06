@@ -87,13 +87,13 @@ public class BusinessServiceImpl implements BusinessService {
 
     @Override
     public void modifyJournal(String slipNo, ArrayList<JournalBean> journalBeanList) {
-
+System.out.println("modifyJournal 서비스 임플 시작");
         for (JournalBean journalBean : journalBeanList) {
-            System.out.println("journal status:" + journalBean.getStatus());
-            if (journalBean.getStatus().equals("insert"))
+//            System.out.println("journal status:" + journalBean.getStatus());
+//            if (journalBean.getStatus().equals("insert"))
                 journalDAO.insertJournal(journalBean);
-            else if (journalBean.getStatus().equals("update")) {
-                boolean isChangeAccountCode = journalDAO.updateJournal(journalBean);  // boolean 반환형 필요없음. 항상 false 반환됨. 예전코드에서 수정된듯(dong)
+//            else if (journalBean.getStatus().equals("update")) {
+//                boolean isChangeAccountCode = journalDAO.updateJournal(journalBean);  // boolean 반환형 필요없음. 항상 false 반환됨. 예전코드에서 수정된듯(dong)
 
                 /* 항상 false로 불필요 , 전표에 분개가없을경우 분개삭제하는 코드임, 업데이트 부분이기때문에 이걸처리하고싶다면 따른데서 처리되어야됨 (dong)
                  *
@@ -107,7 +107,7 @@ public class BusinessServiceImpl implements BusinessService {
                  */
             }
         }
-    }
+    //}
 
     @Override
     public void registerSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans) {
