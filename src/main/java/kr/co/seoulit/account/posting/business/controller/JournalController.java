@@ -48,26 +48,30 @@ public class JournalController {
 
 	}
 
-	@PostMapping("/modifJour")
-	public void modifJour(@RequestParam String slipNo) {
-		System.out.println("modifJour에 잡힘");
-		System.out.println(slipNo);
-	}
+//	@PostMapping("/modifJour")
+//	public void modifJour(@RequestBody String slipNo) {
+//		System.out.println("modifJour에 잡힘");
+//		System.out.println(slipNo);
+//	}
 
 	@PostMapping("/modifyJournal")
-	public void modifyJournal(@RequestParam String slipNo, @RequestParam String journalObj) {
-		System.out.println(slipNo);
-		JSONArray journalObjs = JSONArray.fromObject(journalObj);
-
-		ArrayList<JournalBean> journalBeanList = new ArrayList<>();
-
-		for (Object journalObjt : journalObjs) {
-			JournalBean journalBean = BeanCreator.getInstance().create(JSONObject.fromObject(journalObjt),
-					JournalBean.class);
-			journalBean.setStatus(((JSONObject) journalObjt).getString("status"));
-			journalBeanList.add(journalBean);
-		}
-		businessService.modifyJournal(slipNo, journalBeanList);
+	public void modifyJournal(@RequestBody Map<String,Object> jourData) {
+		System.out.println(jourData.values());
+		System.out.println(jourData.values().getClass().getName());
+		System.out.println();
+		
+		//jourData.forEach((k,v) -> System.out.println(String.format("Key (name) is: %s, Value (age) is : %s", k, v)));
+//		JSONArray journalObjs = JSONArray.fromObject(journalObj);
+//
+//		ArrayList<JournalBean> journalBeanList = new ArrayList<>();
+//
+//		for (Object journalObjt : journalObjs) {
+//			JournalBean journalBean = BeanCreator.getInstance().create(JSONObject.fromObject(journalObjt),
+//					JournalBean.class);
+//			journalBean.setStatus(((JSONObject) journalObjt).getString("status"));
+//			journalBeanList.add(journalBean);
+//		}
+//		businessService.modifyJournal(slipNo, journalBeanList);
 	}
 
 	/*

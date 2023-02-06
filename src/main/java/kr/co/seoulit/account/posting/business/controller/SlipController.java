@@ -72,9 +72,7 @@ public class SlipController {
 //			@RequestParam(value = "slipObj", required = false) String slipObj,
 //			@RequestParam(value = "journalObj", required = false) String journalObj,
 //			@RequestParam(value = "slipStatus", required = false) String slipStatus) 
-    		@RequestParam("slipObj") String slipObj,
-    		@RequestParam("journalObj") String journalObj,
-    		@RequestParam("slipStatus") String slipStatus) 
+    		@RequestBody String slipObj, @RequestBody String journalObj, @RequestBody String slipStatus)
     {
     	System.out.println("registerslip 잡히나"); // 이까지는 잡히는 거 같음
     	System.out.println(slipObj); 
