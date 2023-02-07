@@ -117,19 +117,35 @@ public class SlipController {
 // >>>>>>>>>>>>>>>>>>>여기서부터 하면 됨
 	@PostMapping("/registerslip")
 	public void registerSlip(@RequestBody JSONObject insertSlipData) {
-		System.out.println("registerslip 잡히나"); // 이까지는 잡히는 거 같음
-		System.out.println(insertSlipData);
-		System.out.println(insertSlipData.getClass().getName());
-		System.out.println(((JSONObject) insertSlipData.get(insertSlipData)).get("slipObj"));
-		System.out.println(((JSONObject) insertSlipData.get(insertSlipData)).get("journalObj"));
-		System.out.println(((JSONObject) insertSlipData.get(insertSlipData)).get("slipStatus"));
-
+//		System.out.println(insertSlipData);
+//		System.out.println(insertSlipData.getClass().getName());
+//		System.out.println(insertSlipData.get("insertSlipData"));
+//		System.out.println(((JSONObject) insertSlipData.get("insertSlipData")).get("slipObj"));
+//		System.out.println(((JSONObject) insertSlipData.get("insertSlipData")).get("slipObj").getClass().getName());
+//		System.out.println(((JSONObject) insertSlipData.get("insertSlipData")).get("journalObj"));
+//		System.out.println(((JSONObject) insertSlipData.get("insertSlipData")).get("journalObj").getClass().getName());
+//		System.out.println(((JSONObject) insertSlipData.get(insertSlipData)).get("journalObj"));
+//		System.out.println(((JSONObject) insertSlipData.get(insertSlipData)).get("slipStatus"));
 		
-//		(JSONObject) jourData.get("jourData")).get("slipNo")
+		Object slipObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipObj");
+		Object journalObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("journalObj");
+		String slipStatus = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipStatus").toString();
 		
-//      Gson gson = new Gson();
+		System.out.println(slipObj.getClass().getName());
+		System.out.println(journalObj.getClass().getName());
+		System.out.println(slipStatus.getClass().getName());
+		
+		System.out.println(((Object) slipObj));
+		System.out.println(journalObj);
+		System.out.println(slipStatus);
+		SlipBean slipBean = null;
+      Gson gson = new Gson();
+      JSONArray slipObjs = JSONArray.fromObject(slipObj);//journalObj를 JSONArray로 변환
+		for(Object slipObjt: slipObjs) {
+			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);//slipObj를 SlipBean 클래스로 변환
+		}
 //      SlipBean slipBean = gson.fromJson(slipObj, SlipBean.class);//slipObj를 SlipBean 클래스로 변환
-//      JSONArray journalObjs = JSONArray.fromObject(journalObj);//journalObj를 JSONArray로 변환
+      JSONArray journalObjs = JSONArray.fromObject(journalObj);//journalObj를 JSONArray로 변환
 //      /*
 //       * slipBean.setReportingEmpCode(request.getSession().getAttribute("empCode").
 //       * toString()); // beanCreator에서 셋팅하는데 또함..(dong) //실제 결제신청하는 사람 정보로 바꿔주는 소스임 이름
@@ -140,18 +156,18 @@ public class SlipController {
 //          slipBean.setSlipStatus("승인요청"); //처음에 전표저장을 하면 null이라서 안 바꾸고 승인요청이 오면 바꾼다
 //      }
 //
-//      ArrayList<JournalBean> journalBeans = new ArrayList<>();
+      ArrayList<JournalBean> journalBeans = new ArrayList<>();
 //
 //
-//      for (Object journalObjt : journalObjs) {
-//          JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
-//          System.out.println(slipBean.getSlipNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-//
-//          journalBean.setSlipNo(slipBean.getSlipNo()); //slipNo을 journalBean에 값이 없어서 세팅해줌
-//          journalBeans.add(journalBean);
-//
-//      }
-//      businessService.registerSlip(slipBean, journalBeans);
+      for (Object journalObjt : journalObjs) {
+          JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
+          System.out.println(slipBean.getSlipNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+          journalBean.setSlipNo(slipBean.getSlipNo()); //slipNo을 journalBean에 값이 없어서 세팅해줌
+          journalBeans.add(journalBean);
+
+      }
+      businessService.registerSlip(slipBean, journalBeans);
 	}
 
 	@GetMapping("/approvalslip")
@@ -167,19 +183,8 @@ public class SlipController {
 			String year = calendar.get(Calendar.YEAR) + "";
 			String month = "0" + (calendar.get(Calendar.MONTH) + 1); // 0~11까지
 			String date = "0" + calendar.get(Calendar.DATE);
-			String today = year + "-" + month.substring(month.length() - 2) + "-" + date.substring(date.length() - 2); // 인덱스
-																														// 0,1
-																														// 에서
-																														// 0부터
-																														// 시작하기
-																														// 위해서
-																														// -2를
-																														// 해주는듯
-																														// 만약에
-																														// 1자리인
-																														// 경우에는
-																														// -1이니까
-																														// 앞자리0부터???
+			String today = year + "-" + month.substring(month.length() - 2) + "-" + date.substring(date.length() - 2); 
+			// 인덱스 0,1 에서 0부터 시작하기 위해서 -2를 해주는듯 만약에 1자리인 경우에는 -1이니까 앞자리0부터???
 			// 2021-11-15
 			System.out.println("approveSlip : " + approveSlip);
 			SlipBean slipBean = new SlipBean();
