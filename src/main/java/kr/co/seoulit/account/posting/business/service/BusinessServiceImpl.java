@@ -127,7 +127,7 @@ System.out.println("modifyJournal 서비스 임플 시작");
         slipBean.setSlipNo(slipNo.toString()); //20200118SLIP00001
         slipDAO.insertSlip(slipBean);
         for (JournalBean journalBean : journalBeans) {
-            String journalNo = journalDAO.selectJournalName(slipBean.getSlipNo()+(sum++));
+            String journalNo = journalDAO.selectJournalName(slipBean.getSlipNo())+(sum++);
             journalBean.setJournalNo(journalNo);
             journalDAO.insertJournal(journalBean);
 
