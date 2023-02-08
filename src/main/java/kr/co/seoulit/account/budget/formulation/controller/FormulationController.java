@@ -67,33 +67,47 @@ public class FormulationController {
 
     }
 
+//    @PostMapping("/budgetlist")
+//    public ArrayList<BudgetBean> registerBudget(@RequestParam("deptCode") String deptCode,
+//                                                @RequestParam("workplaceCode") String workplaceCode,
+//                                                @RequestParam("accountPeriodNo") String accountPeriodNo,
+//                                                @RequestParam("accountInnerCode") String accountInnerCode,
+//                                                @RequestParam("m1Budget") String m1Budget,
+//                                                @RequestParam("m2Budget") String m2Budget,
+//                                                @RequestParam("m3Budget") String m3Budget,
+//                                                @RequestParam("m4Budget") String m4Budget,
+//                                                @RequestParam("m5Budget") String m5Budget,
+//                                                @RequestParam("m6Budget") String m6Budget,
+//                                                @RequestParam("m7Budget") String m7Budget,
+//                                                @RequestParam("m8Budget") String m8Budget,
+//                                                @RequestParam("m9Budget") String m9Budget,
+//                                                @RequestParam("m10Budget") String m10Budget,
+//                                                @RequestParam("m11Budget") String m11Budget,
+//                                                @RequestParam("m12Budget") String m12Budget
+//            ) {
+//        ArrayList<BudgetBean> budgetBean = formulationService.registerBudget(
+//                deptCode,workplaceCode,accountPeriodNo,accountInnerCode,m1Budget,m2Budget,m3Budget,m4Budget,m5Budget
+//            ,m6Budget,m7Budget,m8Budget,m9Budget,m10Budget,m11Budget,m12Budget
+//        );
+//        return budgetBean;
+//
+//    };
+    
     @PostMapping("/budgetlist")
-    public ArrayList<BudgetBean> registerBudget(@RequestParam("deptCode") String deptCode,
-                                                @RequestParam("workplaceCode") String workplaceCode,
-                                                @RequestParam("accountPeriodNo") String accountPeriodNo,
-                                                @RequestParam("accountInnerCode") String accountInnerCode,
-                                                @RequestParam("m1Budget") String m1Budget,
-                                                @RequestParam("m2Budget") String m2Budget,
-                                                @RequestParam("m3Budget") String m3Budget,
-                                                @RequestParam("m4Budget") String m4Budget,
-                                                @RequestParam("m5Budget") String m5Budget,
-                                                @RequestParam("m6Budget") String m6Budget,
-                                                @RequestParam("m7Budget") String m7Budget,
-                                                @RequestParam("m8Budget") String m8Budget,
-                                                @RequestParam("m9Budget") String m9Budget,
-                                                @RequestParam("m10Budget") String m10Budget,
-                                                @RequestParam("m11Budget") String m11Budget,
-                                                @RequestParam("m12Budget") String m12Budget
-            ) {
-        ArrayList<BudgetBean> budgetBean = formulationService.registerBudget(
-                deptCode,workplaceCode,accountPeriodNo,accountInnerCode,m1Budget,m2Budget,m3Budget,m4Budget,m5Budget
-            ,m6Budget,m7Budget,m8Budget,m9Budget,m10Budget,m11Budget,m12Budget
-        );
+    public ArrayList<BudgetBean> registerBudget(@RequestBody HashMap<String, HashMap<String, Object>> params
+    ) {
+
+        System.out.println("===================================================================");
+        System.out.println(params);
+        System.out.println(params.get("params").get("deptCode"));
+        System.out.println("===================================================================");
+
+        HashMap<String, Object> test = params.get("params");
+        System.out.println(test);
+        
+        ArrayList<BudgetBean> budgetBean = formulationService.registerBudget(test);
         return budgetBean;
-
-    }
-
-    ;
+    };
 
     @PutMapping("/budgetlist")
     public ModelMap modifyBudget(@RequestParam(value = "budgetObj") String budgetObj) {
