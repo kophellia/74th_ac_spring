@@ -112,6 +112,7 @@ public class FormulationServiceImpl implements FormulationService {
 	@Override
 	public ArrayList<BudgetBean> registerBudget(HashMap<String, Object> test) {
 		// TODO Auto-generated method stub
+		System.out.println("Service Impl 실행됨");
 		return formulationDAO.insertBudget(test);
 	}
 }
