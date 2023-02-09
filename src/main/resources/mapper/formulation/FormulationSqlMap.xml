@@ -116,7 +116,7 @@
 		]]>
     </insert>
 
-	<insert id="insertBudget" parameterType="map">
+	<insert id="insertBudget" parameterType="kr.co.seoulit.account.budget.formulation.to.BudgetBean">
     		<![CDATA[
 		INSERT INTO BUDGET
 		(

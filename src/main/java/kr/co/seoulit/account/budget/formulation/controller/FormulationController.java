@@ -4,6 +4,7 @@ import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import kr.co.seoulit.account.budget.formulation.to.ComparisonBudgetBean;
@@ -92,23 +93,24 @@ public class FormulationController {
 //        return budgetBean;
 //
 //    };
-    
+    //================================================================================
     @PostMapping("/budgetlist")
-    public ArrayList<BudgetBean> registerBudget(@RequestBody HashMap<String, HashMap<String, Object>> params
+    public void registerBudget(@RequestBody JSONObject budgetlist
     ) {
 
         System.out.println("===================================================================");
-        System.out.println(params);
-        System.out.println(params.get("params").get("deptCode"));
+        System.out.println(budgetlist);
+        System.out.println(budgetlist.get("budgetlist"));
+        JSONObject budgetJsonObj = JSONObject.fromObject(budgetlist.get("budgetlist"));
+        System.out.println(budgetJsonObj.getClass().getName());
+        BudgetBean budgetBean = beanCreator.create(budgetJsonObj, BudgetBean.class);
+        System.out.println(budgetBean);
         System.out.println("===================================================================");
+        formulationService.registerBudget(budgetBean);
 
-        HashMap<String, Object> test = params.get("params");
-        System.out.println(test);
-        
-        ArrayList<BudgetBean> budgetBean = formulationService.registerBudget(test);
-        return budgetBean;
+
     };
-
+    //================================================================================
     @PutMapping("/budgetlist")
     public ModelMap modifyBudget(@RequestParam(value = "budgetObj") String budgetObj) {
         JSONObject budgetJsonObj = JSONObject.fromObject(budgetObj); //예산
