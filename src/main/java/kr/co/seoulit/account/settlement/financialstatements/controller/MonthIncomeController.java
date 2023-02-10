@@ -25,6 +25,11 @@ public class MonthIncomeController {
             map.put("errorCode", -1);
             map.put("errorMsg", e.getMessage());
         }
+        
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@킴상@@@@@@@@@@@@@@@@@@@@@@@");
+    	System.out.println(searchDate);
+    	System.out.println(map);
+    	System.out.println("@@@@@@@@@@@@@@@@@@@@@@@킴상@@@@@@@@@@@@@@@@@@@@@@@");
         return map;
     }
 
