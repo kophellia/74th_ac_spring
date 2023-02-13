@@ -77,7 +77,7 @@ public interface BaseService {
 
 	public List<PeriodNoBean> findPeriodNo();
 	
-	public ArrayList<PeriodNoBean> findTPeriodNo(HashMap<String, Object> map);
+	public PeriodNoBean findTPeriodNo(HashMap<String, Object> map);
 
     public List<MonthBean> findMonth();
 }

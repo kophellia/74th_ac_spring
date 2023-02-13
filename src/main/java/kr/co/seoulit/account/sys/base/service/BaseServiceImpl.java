@@ -571,7 +571,7 @@ public class BaseServiceImpl implements BaseService {
 	public List<MonthBean> findMonth() {return monthMapper.findMonth();}
 
 	@Override
-	public ArrayList<PeriodNoBean> findTPeriodNo(HashMap<String, Object> map) {
+	public PeriodNoBean findTPeriodNo(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return periodNoMapper.selectPeriodNo(map);
 	}

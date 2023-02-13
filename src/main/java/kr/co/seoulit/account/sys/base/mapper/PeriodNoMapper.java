@@ -11,5 +11,5 @@ import java.util.List;
 public interface PeriodNoMapper {
     public List<PeriodNoBean> findPeriodNo();
     
-    public ArrayList<PeriodNoBean> selectPeriodNo(HashMap<String, Object> map);
+    public PeriodNoBean selectPeriodNo(HashMap<String, Object> map);
 }
