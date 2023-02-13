@@ -180,6 +180,7 @@ public class SlipController {
 		for (Object slipObjt : slipObjs) {
 			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);// slipObj를 SlipBean 클래스로 변환
 		}
+		slipBean.setSlipStatus(slipStatus);
 
 		JSONArray journalObjs = JSONArray.fromObject(journalObj);// journalObj를 JSONArray로 변환
 //      if (slipStatus.equals("승인요청")) {
