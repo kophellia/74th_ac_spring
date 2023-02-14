@@ -228,11 +228,12 @@ public class SlipController {
 //병합
 	@GetMapping("/approvalsliplist")
 	public ArrayList<SlipBean> findApprovalSlipList(@RequestParam("startDate") String fromDate,
-			@RequestParam("endDate") String toDate) {
+			@RequestParam("endDate") String toDate, @RequestParam("slipStatus") String status ) {
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("fromDate", fromDate);
 		map.put("toDate", toDate);
+		map.put("status", status);
 		ArrayList<SlipBean> approvalSlipList = businessService.findApprovalSlipList(map);
 
 		return approvalSlipList;

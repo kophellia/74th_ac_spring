@@ -110,7 +110,7 @@
                SLIP_STATUS          as slipStatus
         FROM SLIP
         WHERE REPORTING_DATE BETWEEN #{fromDate} AND #{toDate}
-        AND SLIP_STATUS = '승인요청'
+        AND SLIP_STATUS = #{status}
         ]]>
     </select>
 
