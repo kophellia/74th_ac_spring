@@ -68,6 +68,7 @@ public class FormulationController {
 
     }
 
+
     //    @PostMapping("/budgetlist")
 //    public ArrayList<BudgetBean> registerBudget(@RequestParam("deptCode") String deptCode,
 //                                                @RequestParam("workplaceCode") String workplaceCode,
@@ -109,7 +110,6 @@ public class FormulationController {
 //        System.out.println(budgetBean.getM1Budget());
 //        System.out.println(budgetBean.toString());
 //    };
-
 
     //================================================================================
     @PutMapping("/budgetlist")

@@ -39,7 +39,7 @@ public class JournalController {
         return map;
     }
 
-    @GetMapping("/journalremoval")
+    @DeleteMapping("/journalremoval")
     public void removeJournal(@RequestParam String journalNo) {
 
 

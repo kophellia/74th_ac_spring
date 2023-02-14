@@ -15,4 +15,14 @@
         FROM  PERIOD
         ]]>
     </select>
+    
+    <select id ="selectPeriodNo" resultType="kr.co.seoulit.account.sys.base.to.PeriodNoBean">
+    <![CDATA[
+        SELECT
+        	ACCOUNT_PERIOD_NO	as accountPeriodNo 
+        FROM  PERIOD
+        WHERE PERIOD_START_DATE = #{yearFirst}
+        	AND PERIOD_END_DATE = #{yearLast}
+        ]]>
+    </select>
 </mapper>

@@ -76,6 +76,8 @@ public interface BaseService {
 //	public void fileInsert(BoardFIleBean boardFIleBean) throws Exception;
 
 	public List<PeriodNoBean> findPeriodNo();
+	
+	public PeriodNoBean findTPeriodNo(HashMap<String, Object> map);
 
     public List<MonthBean> findMonth();
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import kr.co.seoulit.account.operate.system.to.PeriodBean;
+import kr.co.seoulit.account.posting.business.to.SlipBean;
 import kr.co.seoulit.account.sys.base.mapper.*;
 import kr.co.seoulit.account.sys.base.to.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -568,5 +569,12 @@ public class BaseServiceImpl implements BaseService {
 
 	@Override
 	public List<MonthBean> findMonth() {return monthMapper.findMonth();}
+
+	@Override
+	public PeriodNoBean findTPeriodNo(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return periodNoMapper.selectPeriodNo(map);
+	}
+	
 }
 
