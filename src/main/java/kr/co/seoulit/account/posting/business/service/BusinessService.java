@@ -17,7 +17,9 @@ public interface BusinessService {
 
     public void removeJournal(String journalNo);
 
-    void modifyJournal(String slipNo, ArrayList<JournalBean> journalBeanList);
+    public void modifyJournal(String slipNo, ArrayList<JournalBean> journalBeanList);
+    
+    public void updateJournal(String slipNo, ArrayList<JournalBean> journalBeanList);
 
     public ArrayList<SlipBean> findRangedSlipList(HashMap<String, Object> map);
 
@@ -40,5 +42,7 @@ public interface BusinessService {
     public ArrayList<JournalBean> findRangedJournalList(String fromDate, String toDate);
 
     public ArrayList<SlipBean> findApprovalSlipList(HashMap<String, Object> map);
+
+	public void updateSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans);
 }
 

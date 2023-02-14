@@ -35,7 +35,7 @@
     <update id="updateSlip" parameterType="kr.co.seoulit.account.posting.business.to.SlipBean">
 			<![CDATA[
         UPDATE SLIP
-        SET SLIP_STATUS=#{slipStatus}
+        SET EXPENSE_REPORT=#{expenseReport}
         WHERE SLIP_NO = #{slipNo}
         ]]>
 		 </update>

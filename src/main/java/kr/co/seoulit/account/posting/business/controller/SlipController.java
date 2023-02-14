@@ -166,14 +166,16 @@ public class SlipController {
 
 	}
 
-	// ====================전표 저장 ======================
+	// =======================전표 저장==========================
 	@PostMapping("/registerslip")
 	public void registerSlip(@RequestBody JSONObject insertSlipData) {
-
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		System.out.println(insertSlipData);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		Object slipObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipObj");
 		Object journalObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("journalObj");
 		String slipStatus = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipStatus").toString();
-
+		System.out.println(slipObj);
 		SlipBean slipBean = null;
 		Gson gson = new Gson();
 		JSONArray slipObjs = JSONArray.fromObject(slipObj);// journalObj를 JSONArray로 변환
@@ -197,7 +199,32 @@ public class SlipController {
 		}
 		businessService.registerSlip(slipBean, journalBeans);
 	}
-	
+
+	// =======================전표 수정==========================
+	@PutMapping("/updateSlip")
+	public void updateSlip(@RequestBody JSONObject updateSlipData) {
+		System.out.println("전표 수정 잡힘");
+		System.out.println(updateSlipData);
+		Object slipObj = ((JSONObject) updateSlipData.get("updateSlipData")).get("slipObj");
+		Object journalObj = ((JSONObject) updateSlipData.get("updateSlipData")).get("journalObj");
+		System.out.println(slipObj);
+		System.out.println(journalObj);
+		SlipBean slipBean = null;
+		Gson gson = new Gson();
+		JSONArray slipObjs = JSONArray.fromObject(slipObj);// journalObj를 JSONArray로 변환
+		for (Object slipObjt : slipObjs) {
+			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);// slipObj를 SlipBean 클래스로 변환
+		}
+		JSONArray journalObjs = JSONArray.fromObject(journalObj);
+		ArrayList<JournalBean> journalBeans = new ArrayList<>();
+		for (Object journalObjt : journalObjs) {
+			JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
+			journalBeans.add(journalBean);
+
+		}
+		businessService.updateSlip(slipBean, journalBeans);
+	}
+
 //병합
 	@GetMapping("/approvalsliplist")
 	public ArrayList<SlipBean> findApprovalSlipList(@RequestParam("startDate") String fromDate,

@@ -17,7 +17,7 @@ public interface JournalMapper {
 
     public void deleteJournalAll(String slipNo);
 
-    public boolean updateJournal(JournalBean journalBean);
+    public void updateJournal(JournalBean journalBean);
 
     public ArrayList<JournalDetailBean> selectJournalDetailList(String journalNo);
 

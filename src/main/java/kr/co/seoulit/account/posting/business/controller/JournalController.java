@@ -90,4 +90,24 @@ public class JournalController {
 
         businessService.updateJournalList(journalList);
     }*/
+    
+    @PutMapping("/updateJournalList")
+    public void updateJournalList (@RequestBody JSONObject jourData) {
+    	String slipNo = ((JSONObject) jourData.get("jourData")).get("slipNo").toString();
+		Object journalObj = ((JSONObject) jourData.get("jourData")).get("journalObj");
+		JSONArray journalObjs = JSONArray.fromObject(journalObj);
+		System.out.println(journalObjs);//JSONArray까지 변환 시킴
+
+		ArrayList<JournalBean> journalBeanList = new ArrayList<>();
+
+		for (Object journalObjt : journalObjs) {
+            JournalBean journalBean = BeanCreator.getInstance().create(JSONObject.fromObject(journalObjt), JournalBean.class);
+            //System.out.println(((JSONObject) journalObjt).getString("status"));
+            journalBean.setStatus(((JSONObject) journalObjt).getString("status"));
+            journalBeanList.add(journalBean);
+        }
+		businessService.updateJournal(slipNo, journalBeanList);
+		
+    }
+    
 }
