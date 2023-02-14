@@ -80,12 +80,12 @@
 	
 	<select id="selectDetailAccountList" parameterType="String" resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
 		<![CDATA[
-		SELECT b.ACCOUNT_INNER_CODE        AS accountInnerCode,
-			   b.ACCOUNT_NAME              AS accountName,
-			   b.PARENT_ACCOUNT_INNER_CODE AS parentAccountInnercode,
-			   b.group_code                AS groupCode,
-			   b.ACCOUNT_CODE			   AS accountCode
-			   a.ACCOUNT_NAME              AS accountName
+		SELECT b.ACCOUNT_INNER_CODE			AS accountInnerCode,
+			   b.ACCOUNT_NAME				AS accountName,
+			   b.PARENT_ACCOUNT_INNER_CODE	AS parentAccountInnercode,
+			   b.group_code					AS groupCode,
+			   b.ACCOUNT_CODE				AS accountCode,
+			   a.ACCOUNT_NAME				AS accountName
 		FROM ACCOUNT a,
 			 ACCOUNT b
 		WHERE b.ACCOUNT_INNER_CODE NOT LIKE '%-%'
