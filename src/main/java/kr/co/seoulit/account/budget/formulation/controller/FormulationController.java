@@ -68,7 +68,8 @@ public class FormulationController {
 
     }
 
-//    @PostMapping("/budgetlist")
+
+    //    @PostMapping("/budgetlist")
 //    public ArrayList<BudgetBean> registerBudget(@RequestParam("deptCode") String deptCode,
 //                                                @RequestParam("workplaceCode") String workplaceCode,
 //                                                @RequestParam("accountPeriodNo") String accountPeriodNo,
@@ -94,22 +95,22 @@ public class FormulationController {
 //
 //    };
     //================================================================================
+
     @PostMapping("/budgetlist")
     public void registerBudget(@RequestBody JSONObject budgetlist
     ) {
-
-        System.out.println("===================================================================");
-        System.out.println(budgetlist);
-        System.out.println(budgetlist.get("budgetlist"));
         JSONObject budgetJsonObj = JSONObject.fromObject(budgetlist.get("budgetlist"));
         System.out.println(budgetJsonObj.getClass().getName());
         BudgetBean budgetBean = beanCreator.create(budgetJsonObj, BudgetBean.class);
-        System.out.println(budgetBean);
-        System.out.println("===================================================================");
         formulationService.registerBudget(budgetBean);
-
-
     };
+
+//    @PostMapping("/budgetlist")
+//    public void registerBudget(@RequestBody BudgetBean budgetBean){
+//        System.out.println(budgetBean.getM1Budget());
+//        System.out.println(budgetBean.toString());
+//    };
+
     //================================================================================
     @PutMapping("/budgetlist")
     public ModelMap modifyBudget(@RequestParam(value = "budgetObj") String budgetObj) {
