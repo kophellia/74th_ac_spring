@@ -3,7 +3,6 @@
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.seoulit.account.posting.business.mapper.JournalMapper">
 
-
     <select id="selectRangedJournalList" parameterType="java.util.HashMap" resultType="kr.co.seoulit.account.posting.business.to.JournalBean">
 		<![CDATA[
         SELECT J.JOURNAL_NO          as journalNo,

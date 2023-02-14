@@ -198,7 +198,7 @@ public class SlipController {
 		businessService.registerSlip(slipBean, journalBeans);
 	}
 	
-
+//병합
 	@GetMapping("/approvalsliplist")
 	public ArrayList<SlipBean> findApprovalSlipList(@RequestParam("startDate") String fromDate,
 			@RequestParam("endDate") String toDate) {
