@@ -84,6 +84,7 @@
 			   b.ACCOUNT_NAME              AS accountName,
 			   b.PARENT_ACCOUNT_INNER_CODE AS parentAccountInnercode,
 			   b.group_code                AS groupCode,
+			   b.ACCOUNT_CODE			   AS accountCode
 			   a.ACCOUNT_NAME              AS accountName
 		FROM ACCOUNT a,
 			 ACCOUNT b

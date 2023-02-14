@@ -5,6 +5,7 @@ import kr.co.seoulit.account.sys.base.to.BaseBean;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import java.util.HashMap;
 
 public class BudgetBean extends BaseBean{
 	
@@ -126,6 +127,5 @@ public class BudgetBean extends BaseBean{
 	public void setM12Budget(String m12Budget) {
 		this.m12Budget = m12Budget;
 	}
-	
-	
+
 }
