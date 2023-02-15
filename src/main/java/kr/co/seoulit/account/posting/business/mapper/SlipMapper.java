@@ -27,4 +27,6 @@ public interface SlipMapper {
     public HashMap<String, Object> selectAccountingSettlementStatus(HashMap<String, Object> param);
 
     public ArrayList<SlipBean> selectApprovalSlipList(HashMap<String , Object> map);
+    
+    public void updateSlipApproval(HashMap<String , Object> map);
 }

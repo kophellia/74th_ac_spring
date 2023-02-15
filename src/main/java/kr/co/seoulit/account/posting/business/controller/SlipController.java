@@ -224,6 +224,18 @@ public class SlipController {
 		}
 		businessService.updateSlip(slipBean, journalBeans);
 	}
+	
+	// =======================전표 승인 요청==========================
+	@PatchMapping("/approvalSlipRequest")
+	public void approvalSlipRequest(@RequestBody JSONObject patchData) {
+		System.out.println( ((JSONObject)patchData.get("patchData")).get("slipNo").getClass().getName());
+		System.out.println( ((JSONObject)patchData.get("patchData")).get("slipStatus"));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("slipNo",((JSONObject)patchData.get("patchData")).get("slipNo"));
+		map.put("slipStatus",((JSONObject)patchData.get("patchData")).get("slipStatus"));
+		businessService.approvalSlipRequest(map);
+		
+	}
 
 //병합
 	@GetMapping("/approvalsliplist")

@@ -256,4 +256,12 @@ public class BusinessServiceImpl implements BusinessService {
 //				}
 		}
 	}
+
+	@Override
+	public void approvalSlipRequest(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		System.out.println("AppServiceImp_approvalSlipRequest 시작");
+		slipDAO.updateSlipApproval(map);
+		
+	}
 }
