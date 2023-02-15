@@ -110,4 +110,11 @@ public class JournalController {
 		
     }
     
+    @GetMapping("/approvalJournalList")
+    public ArrayList<JournalBean> findApprovalJournalList(@RequestParam("slipNo") String slipNo) {
+
+        ArrayList<JournalBean> approvalJournalList = businessService.findApprovalJournalList(slipNo);
+
+        return approvalJournalList;
+    }
 }

@@ -264,4 +264,10 @@ public class BusinessServiceImpl implements BusinessService {
 		slipDAO.updateSlipApproval(map);
 		
 	}
+
+	@Override
+	public ArrayList<JournalBean> findApprovalJournalList(String slipNo) {
+		// TODO Auto-generated method stub
+		return slipApprovalAndReturnDAO.selectApprovalJournalList(slipNo);
+	}
 }

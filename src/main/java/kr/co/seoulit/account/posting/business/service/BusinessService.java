@@ -46,5 +46,7 @@ public interface BusinessService {
 	public void updateSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans);
 	
 	public void approvalSlipRequest(HashMap<String, Object> map);
+	
+	public ArrayList<JournalBean> findApprovalJournalList(String slipNo);
 }
 
