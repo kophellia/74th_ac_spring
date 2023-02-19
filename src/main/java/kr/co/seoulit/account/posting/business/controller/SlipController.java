@@ -234,8 +234,9 @@ public class SlipController {
 		map.put("slipNo",((JSONObject)patchData.get("patchData")).get("slipNo"));
 		map.put("slipStatus",((JSONObject)patchData.get("patchData")).get("slipStatus"));
 		businessService.approvalSlipRequest(map);
-		
 	}
+	
+	// =======================전표 승인==========================
 
 //병합
 	@GetMapping("/approvalsliplist")

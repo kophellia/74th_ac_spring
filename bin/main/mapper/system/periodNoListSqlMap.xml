@@ -9,7 +9,6 @@
         SELECT
             SUBSTR(PERIOD_START_DATE,1,4)              as fiscalYear
              , ACCOUNT_PERIOD_NO                          as accountPeriodNo
-             , WORKPLACE_CODE                             as workplaceCode
              , PERIOD_START_DATE                          as periodStartDate
              , PERIOD_END_DATE                            as periodEndDate
         FROM  PERIOD
