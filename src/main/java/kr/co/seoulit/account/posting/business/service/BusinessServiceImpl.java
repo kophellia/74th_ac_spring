@@ -177,14 +177,14 @@ public class BusinessServiceImpl implements BusinessService {
 		return slipBean.getSlipNo();
 	}
 
-	@Override
-	public void modifyapproveSlip(ArrayList<SlipBean> slipBeans) {
-
-		for (SlipBean slipBean : slipBeans) {
-			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
-			slipApprovalAndReturnDAO.updateapproveSlip(slipBean);
-		}
-	}
+//	@Override
+//	public void modifyapproveSlip(ArrayList<SlipBean> slipBeans) {
+//
+//		for (SlipBean slipBean : slipBeans) {
+//			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
+//			slipApprovalAndReturnDAO.updateapproveSlip(slipBean);
+//		}
+//	}
 
 	@Override
 	public ArrayList<SlipBean> findRangedSlipList(HashMap<String, Object> map) {
@@ -270,4 +270,19 @@ public class BusinessServiceImpl implements BusinessService {
 		// TODO Auto-generated method stub
 		return slipApprovalAndReturnDAO.selectApprovalJournalList(slipNo);
 	}
+
+	@Override
+	public void modifyapproveSlip(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		System.out.println("AppServiceImp_modifyapproveSlip 시작");
+		slipApprovalAndReturnDAO.updateSlipApproval(map);
+	}
+//	@Override
+//	public void modifyapproveSlip(ArrayList<SlipBean> slipBeans) {
+//
+//		for (SlipBean slipBean : slipBeans) {
+//			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
+//			slipApprovalAndReturnDAO.updateapproveSlip(slipBean);
+//		}
+//	}
 }

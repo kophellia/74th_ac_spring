@@ -1,6 +1,7 @@
 package kr.co.seoulit.account.posting.business.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -15,4 +16,6 @@ public interface SlipApprovalAndReturnMapper {
     public ArrayList<SlipBean> selectDisApprovalSlipList();
     
     public ArrayList<JournalBean> selectApprovalJournalList(String slipNo);
+    
+    public void updateSlipApproval(HashMap<String, Object> map);
 }

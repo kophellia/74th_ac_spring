@@ -115,35 +115,35 @@ public class SlipController {
 	 * e2.printStackTrace(); } return map; };
 	 */
 
-	@GetMapping("/approvalslip")
-	public void modifyapproveSlip(@RequestParam String approveSlipList, @RequestParam String isApprove) {
-
-		JSONArray approveSlipLists = JSONArray.fromObject(approveSlipList); // slip_no만 가지고옴 //JSONArray.fromObject json
-																			// 객체로 만들어줌
-		String slipStatus = isApprove; // true 승인버튼 누르면 true 가 넘어옴
-		ArrayList<SlipBean> slipBeans = new ArrayList<>(); // 담는 값이 여러개
-
-		for (Object approveSlip : approveSlipLists) { // 승인일자를 자바로 만든다
-			Calendar calendar = Calendar.getInstance(); // import함
-			String year = calendar.get(Calendar.YEAR) + "";
-			String month = "0" + (calendar.get(Calendar.MONTH) + 1); // 0~11까지
-			String date = "0" + calendar.get(Calendar.DATE);
-			String today = year + "-" + month.substring(month.length() - 2) + "-" + date.substring(date.length() - 2);
-			// 인덱스 0,1 에서 0부터 시작하기 위해서 -2를 해주는듯 만약에 1자리인 경우에는 -1이니까 앞자리0부터???
-			// 2021-11-15
-			System.out.println("approveSlip : " + approveSlip);
-			SlipBean slipBean = new SlipBean();
-			slipBean.setSlipNo(approveSlip.toString()); // 전표번호
-			slipBean.setApprovalDate(today); // 승인데이터 오늘날짜
-			slipBean.setSlipStatus(slipStatus); // 전표상태
-			// slipBean.setApprovalEmpCode(request.getSession().getAttribute("empCode").toString());
-			// //String 형식 세션 값 읽기
-			slipBeans.add(slipBean);
-		}
-
-		businessService.modifyapproveSlip(slipBeans);
-
-	}
+//	@GetMapping("/approvalslip")
+//	public void modifyapproveSlip(@RequestParam String approveSlipList, @RequestParam String isApprove) {
+//
+//		JSONArray approveSlipLists = JSONArray.fromObject(approveSlipList); // slip_no만 가지고옴 //JSONArray.fromObject json
+//																			// 객체로 만들어줌
+//		String slipStatus = isApprove; // true 승인버튼 누르면 true 가 넘어옴
+//		ArrayList<SlipBean> slipBeans = new ArrayList<>(); // 담는 값이 여러개
+//
+//		for (Object approveSlip : approveSlipLists) { // 승인일자를 자바로 만든다
+//			Calendar calendar = Calendar.getInstance(); // import함
+//			String year = calendar.get(Calendar.YEAR) + "";
+//			String month = "0" + (calendar.get(Calendar.MONTH) + 1); // 0~11까지
+//			String date = "0" + calendar.get(Calendar.DATE);
+//			String today = year + "-" + month.substring(month.length() - 2) + "-" + date.substring(date.length() - 2);
+//			// 인덱스 0,1 에서 0부터 시작하기 위해서 -2를 해주는듯 만약에 1자리인 경우에는 -1이니까 앞자리0부터???
+//			// 2021-11-15
+//			System.out.println("approveSlip : " + approveSlip);
+//			SlipBean slipBean = new SlipBean();
+//			slipBean.setSlipNo(approveSlip.toString()); // 전표번호
+//			slipBean.setApprovalDate(today); // 승인데이터 오늘날짜
+//			slipBean.setSlipStatus(slipStatus); // 전표상태
+//			// slipBean.setApprovalEmpCode(request.getSession().getAttribute("empCode").toString());
+//			// //String 형식 세션 값 읽기
+//			slipBeans.add(slipBean);
+//		}
+//
+//		businessService.modifyapproveSlip(slipBeans);
+//
+//	}
 
 	// ====================전표 조회 ======================
 	@GetMapping("/rangedsliplist")
@@ -237,7 +237,45 @@ public class SlipController {
 	}
 	
 	// =======================전표 승인==========================
+	@PatchMapping("/approvalslip")
+	public void modifyapproveSlip(@RequestBody JSONObject approvalData) {
+		System.out.println(approvalData);
+		System.out.println((approvalData.get("approvalData")));
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("slipNo",((JSONObject)approvalData.get("approvalData")).get("slipNo"));
+		map.put("slipStatus",((JSONObject)approvalData.get("approvalData")).get("slipStatus"));
+		map.put("approvalDate",((JSONObject)approvalData.get("approvalData")).get("approvalDate"));
+		
+		businessService.modifyapproveSlip(map);
+		
+//		JSONArray approveSlipLists = JSONArray.fromObject(approveSlipList); // slip_no만 가지고옴 //JSONArray.fromObject json
+//																			// 객체로 만들어줌
+//		String slipStatus = isApprove; // true 승인버튼 누르면 true 가 넘어옴
+//		ArrayList<SlipBean> slipBeans = new ArrayList<>(); // 담는 값이 여러개
+//
+//		for (Object approveSlip : approveSlipLists) { // 승인일자를 자바로 만든다
+//			Calendar calendar = Calendar.getInstance(); // import함
+//			String year = calendar.get(Calendar.YEAR) + "";
+//			String month = "0" + (calendar.get(Calendar.MONTH) + 1); // 0~11까지
+//			String date = "0" + calendar.get(Calendar.DATE);
+//			String today = year + "-" + month.substring(month.length() - 2) + "-" + date.substring(date.length() - 2);
+//			// 인덱스 0,1 에서 0부터 시작하기 위해서 -2를 해주는듯 만약에 1자리인 경우에는 -1이니까 앞자리0부터???
+//			// 2021-11-15
+//			System.out.println("approveSlip : " + approveSlip);
+//			SlipBean slipBean = new SlipBean();
+//			slipBean.setSlipNo(approveSlip.toString()); // 전표번호
+//			slipBean.setApprovalDate(today); // 승인데이터 오늘날짜
+//			slipBean.setSlipStatus(slipStatus); // 전표상태
+//			// slipBean.setApprovalEmpCode(request.getSession().getAttribute("empCode").toString());
+//			// //String 형식 세션 값 읽기
+//			slipBeans.add(slipBean);
+//		}
+//
+//		businessService.modifyapproveSlip(slipBeans);
 
+	}
+	
+	
 //병합
 	@GetMapping("/approvalsliplist")
 	public ArrayList<SlipBean> findApprovalSlipList(@RequestParam("startDate") String fromDate,
