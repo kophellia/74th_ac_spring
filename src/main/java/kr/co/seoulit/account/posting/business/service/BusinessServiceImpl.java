@@ -149,11 +149,11 @@ public class BusinessServiceImpl implements BusinessService {
 
 			System.out.println("removeSlip@@@@ :" + journal.getJournalNo());
 		}
-		slipDAO.deleteSlip(slipNo);
-		journalDAO.deleteJournalAll(slipNo);
 		for (JournalBean journal : list) {
 			journalDAO.deleteJournalDetail(journal.getJournalNo());
 		}
+		journalDAO.deleteJournalAll(slipNo);// 역순으로 지워야 다 지워짐...-> 테이블이 연결되있어서 fk 제약 조건 때문에 
+		slipDAO.deleteSlip(slipNo);
 
 	}
 
@@ -262,7 +262,7 @@ public class BusinessServiceImpl implements BusinessService {
 		// TODO Auto-generated method stub
 		System.out.println("AppServiceImp_approvalSlipRequest 시작");
 		slipDAO.updateSlipApproval(map);
-		
+
 	}
 
 	@Override

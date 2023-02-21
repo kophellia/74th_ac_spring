@@ -163,7 +163,6 @@ public class SlipController {
 	@DeleteMapping("/deleteSlip")
 	public void removeSlip(@RequestParam String slipNo) {
 		businessService.removeSlip(slipNo);
-
 	}
 
 	// =======================전표 저장==========================
@@ -236,15 +235,19 @@ public class SlipController {
 		businessService.approvalSlipRequest(map);
 	}
 	
-	// =======================전표 승인==========================
+	// =======================전표 승인/반려==========================
 	@PatchMapping("/approvalslip")
-	public void modifyapproveSlip(@RequestBody JSONObject approvalData) {
-		System.out.println(approvalData);
-		System.out.println((approvalData.get("approvalData")));
+	public void modifyapproveSlip(@RequestBody JSONObject approvalReturnData) {
+		System.out.println(approvalReturnData);
+		System.out.println((approvalReturnData.get("approvalReturnData")));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("slipNo",((JSONObject)approvalData.get("approvalData")).get("slipNo"));
-		map.put("slipStatus",((JSONObject)approvalData.get("approvalData")).get("slipStatus"));
-		map.put("approvalDate",((JSONObject)approvalData.get("approvalData")).get("approvalDate"));
+		map.put("slipNo",((JSONObject)approvalReturnData.get("approvalReturnData")).get("slipNo"));
+		map.put("slipStatus",((JSONObject)approvalReturnData.get("approvalReturnData")).get("slipStatus"));
+		System.out.println("@@@@@@@@@@@@@@@@@@@@");
+		System.out.println(((JSONObject)approvalReturnData.get("approvalReturnData")).get("approvalDate"));
+		System.out.println("@@@@@@@@@@@@@@@@@@@@");
+		map.put("approvalDate",((JSONObject)approvalReturnData.get("approvalReturnData")).get("approvalDate"));
+		map.put("approvalEmpCode",((JSONObject)approvalReturnData.get("approvalReturnData")).get("approvalEmpCode"));
 		
 		businessService.modifyapproveSlip(map);
 		

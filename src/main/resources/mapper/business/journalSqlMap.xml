@@ -76,7 +76,7 @@
 	</delete>
 	<delete id="deleteJournalAll" parameterType="String">
 			<![CDATA[
-				DELETE FROM JOURNAL WHERE SLIP_NO=#{journalBean}
+				DELETE FROM JOURNAL WHERE SLIP_NO=#{slipNo}
 			 ]]>
 	</delete>
 	<update id="updateJournal" parameterType="kr.co.seoulit.account.posting.business.to.JournalBean">

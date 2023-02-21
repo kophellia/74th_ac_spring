@@ -55,7 +55,7 @@
 				UPDATE SLIP 
 				SET APPROVAL_DATE=#{approvalDate},
 				     SLIP_STATUS=#{slipStatus},
-				     APPROVAL_EMP_CODE=#{approvalEmpCode} 
+				     APPROVAL_EMP_CODE='admin' 
 				WHERE SLIP_NO=#{slipNo}
 			 ]]>
 		 </update>
