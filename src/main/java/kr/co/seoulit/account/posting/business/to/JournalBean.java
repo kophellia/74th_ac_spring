@@ -18,6 +18,8 @@ public class JournalBean extends BaseBean {
     private String price;
     private String deptCode;
     private String accountPeriodNo;
+    private String expenseReport;
+    private String reportingDate;
     private List<JournalDetailBean> journalDetailList;
     
 	public List<JournalDetailBean> getJournalDetailList() {
@@ -103,6 +105,18 @@ public class JournalBean extends BaseBean {
 	}
 	public void setAccountPeriodNo(String accountPeriodNo) {
 		this.accountPeriodNo = accountPeriodNo;
+	}
+	public String getExpenseReport() {
+		return expenseReport;
+	}
+	public void setExpenseReport(String expenseReport) {
+		this.expenseReport = expenseReport;
+	}
+	public String getReportingDate() {
+		return reportingDate;
+	}
+	public void setReportingDate(String reportingDate) {
+		this.reportingDate = reportingDate;
 	}
 
     

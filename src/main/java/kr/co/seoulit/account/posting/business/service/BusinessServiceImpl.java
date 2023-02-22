@@ -66,14 +66,14 @@ public class BusinessServiceImpl implements BusinessService {
 
 		return journalList;
 	}
-
+	//분개장 - 복식부기
 	@Override
 	public ArrayList<JournalBean> findRangedJournalList(String fromDate, String toDate) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("fromDate", fromDate);
 		map.put("toDate", toDate);
 		ArrayList<JournalBean> journalList = journalDAO.selectRangedJournalList(map);
-
+		
 		return journalList;
 	}
 
