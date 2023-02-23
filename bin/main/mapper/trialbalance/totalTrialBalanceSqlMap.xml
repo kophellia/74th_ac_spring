@@ -148,7 +148,7 @@
                         LEFT_DEBTOR_PRICE   AS CASH_CREDITS, 
                         RIGHT_CREDITS_PRICE AS CASH_DEBITS 
                  FROM   JOURNAL 
-                 WHERE  ACCOUNT_INNER_CODE = '0101') J2 
+                 WHERE  ACCOUNT_INNER_CODE = '101') J2 
          WHERE  J1.SLIP_NO = J2.SLIP_NO 
                 AND J1.ACCOUNT_CODE = A3.ACCOUNT_INNER_CODE 
                 AND A3.PARENT_ACCOUNT_INNER_CODE = A2.ACCOUNT_INNER_CODE(+) 

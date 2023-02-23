@@ -193,6 +193,11 @@ public class SlipController {
 			System.out.println(slipBean.getSlipNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 			journalBean.setSlipNo(slipBean.getSlipNo()); // slipNo을 journalBean에 값이 없어서 세팅해줌
+			if(journalBean.getLeftDebtorPrice() == null) {
+				journalBean.setLeftDebtorPrice("0");
+			}else if(journalBean.getRightCreditsPrice() == null){
+				journalBean.setRightCreditsPrice("0");
+			}
 			journalBeans.add(journalBean);
 
 		}
