@@ -28,7 +28,7 @@ public class JournalController {
 
         return journalList;
     }
-    // 분개장 - 복식부기 조회
+
     @GetMapping("/rangedjournallist")
     public HashMap<String, Object> findRangedJournalList(@RequestParam("startDate") String fromDate,
                                                          @RequestParam("endDate") String toDate) {
