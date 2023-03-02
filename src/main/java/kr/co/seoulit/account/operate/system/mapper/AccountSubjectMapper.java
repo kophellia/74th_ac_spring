@@ -33,5 +33,7 @@ public interface AccountSubjectMapper {
     ArrayList<AccountBean> selectParentBudgetList2(String workplaceCode, String deptCode, String accountPeriodNo);
 
     public ArrayList<AccountBean> selectCurrentAssetList();
+    
+    public ArrayList<AccountBean> JournalAccountList(HashMap<String, Object> map);
 
 }

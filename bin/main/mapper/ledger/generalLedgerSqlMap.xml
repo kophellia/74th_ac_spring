@@ -39,7 +39,7 @@
            , JOURNAL J
            , ACCOUNT A
         WHERE S.SLIP_NO = J.SLIP_NO
-          AND A.ACCOUNT_INNER_CODE = #{accountCode}
+          AND A.ACCOUNT_INNER_CODE = #{accountInnerCode}
           AND S.REPORTING_DATE BETWEEN #{fromDate} AND #{toDate}
           AND S.SLIP_STATUS = '승인완료'
         ORDER BY S.REPORTING_DATE

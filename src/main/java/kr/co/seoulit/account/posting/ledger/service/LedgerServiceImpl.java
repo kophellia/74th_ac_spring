@@ -33,10 +33,8 @@ public class LedgerServiceImpl implements LedgerService {
 
 
 	@Override
-	public ArrayList<GeneralLedgerBean> findGeneralAccountLedgerList(String fromDate, String toDate){
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("fromDate", fromDate);
-		map.put("toDate", toDate);
+	public ArrayList<GeneralLedgerBean> findGeneralAccountLedgerList(HashMap<String , Object> map){
+		
 		return generalLedgerMapper.selectGeneralAccountLedgerList(map);
 	}
 

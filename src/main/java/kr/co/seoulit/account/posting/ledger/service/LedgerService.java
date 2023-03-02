@@ -32,7 +32,7 @@ public interface LedgerService {
 
     public ArrayList<AccountBean> currentAssetCode();
 
-    public ArrayList<GeneralLedgerBean> findGeneralAccountLedgerList(String fromDate, String toDate);
+    public ArrayList<GeneralLedgerBean> findGeneralAccountLedgerList(HashMap<String , Object> map);
 
     public ArrayList<AssetItemBean> findAssetDta(String parentsCode);
 
