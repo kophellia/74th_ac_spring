@@ -26,6 +26,8 @@ public class GeneralLedgerController {
     	System.out.println(accountInnerCode);
     	
         HashMap<String , Object> map = new HashMap<>();
+        map.put("fromDate", fromDate);
+        map.put("toDate", toDate);
         if(accountInnerCode.length()>5) {
     		String fromCode=accountInnerCode.substring(0, 4);
     		String toCode = accountInnerCode.substring(5);
@@ -33,10 +35,11 @@ public class GeneralLedgerController {
     		System.out.println(toCode);
     		map.put("fromCode",fromCode);
     		map.put("toCode", toCode);
-    	};
-        map.put("fromDate", fromDate);
-        map.put("toDate", toDate);
-        map.put("accountInnerCode", accountInnerCode);
+    		map.put("accountInnerCode", null);
+    	}else {
+    		map.put("accountInnerCode", accountInnerCode);	
+    	}
+        
         ArrayList<GeneralLedgerBean> generalAccountLedgerList = ledgerService.findGeneralAccountLedgerList(map);
 //        map.put("generalAccountLedgerList" , generalAccountLedgerList);
         return generalAccountLedgerList;
