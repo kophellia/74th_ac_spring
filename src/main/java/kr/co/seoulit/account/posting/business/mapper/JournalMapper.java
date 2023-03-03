@@ -31,7 +31,7 @@ public interface JournalMapper {
 
     public void insertJournalDetailList(JournalDetailBean journalDetailBean);
 
-    public ArrayList<JournalBean> selectRangedJournalList(HashMap<String, String> map);
+    public ArrayList<JournalBean> selectRangedJournalList(HashMap<String, Object> map);
 
     public void insertJournal(JournalBean journalBean);
 

@@ -39,7 +39,8 @@ public interface BusinessService {
 
     public ArrayList<SlipBean> findSlip(String slipNo);
 
-    public ArrayList<JournalBean> findRangedJournalList(String fromDate, String toDate);
+    //public ArrayList<JournalBean> findRangedJournalList(String fromDate, String toDate);
+    public ArrayList<JournalBean> findRangedJournalList(HashMap<String, Object> map);
 
     public ArrayList<SlipBean> findApprovalSlipList(HashMap<String, Object> map);
 

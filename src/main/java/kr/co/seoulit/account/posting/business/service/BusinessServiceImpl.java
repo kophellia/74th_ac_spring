@@ -67,11 +67,17 @@ public class BusinessServiceImpl implements BusinessService {
 		return journalList;
 	}
 
+//	@Override
+//	public ArrayList<JournalBean> findRangedJournalList(String fromDate, String toDate) {
+//		HashMap<String, String> map = new HashMap<String, String>();
+//		map.put("fromDate", fromDate);
+//		map.put("toDate", toDate);
+//		ArrayList<JournalBean> journalList = journalDAO.selectRangedJournalList(map);
+//
+//		return journalList;
+//	}
 	@Override
-	public ArrayList<JournalBean> findRangedJournalList(String fromDate, String toDate) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("fromDate", fromDate);
-		map.put("toDate", toDate);
+	public ArrayList<JournalBean> findRangedJournalList(HashMap<String, Object> map){
 		ArrayList<JournalBean> journalList = journalDAO.selectRangedJournalList(map);
 
 		return journalList;

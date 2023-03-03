@@ -184,15 +184,22 @@ public class SlipController {
 		slipBean.setSlipStatus(slipStatus);
 
 		JSONArray journalObjs = JSONArray.fromObject(journalObj);// journalObj를 JSONArray로 변환
-//      if (slipStatus.equals("승인요청")) {
-//          slipBean.setSlipStatus("승인요청"); //처음에 전표저장을 하면 null이라서 안 바꾸고 승인요청이 오면 바꾼다
-//      }
+//	      if (slipStatus.equals("승인요청")) {
+//	          slipBean.setSlipStatus("승인요청"); //처음에 전표저장을 하면 null이라서 안 바꾸고 승인요청이 오면 바꾼다
+//	      }
 		ArrayList<JournalBean> journalBeans = new ArrayList<>();
 		for (Object journalObjt : journalObjs) {
 			JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
 			System.out.println(slipBean.getSlipNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 			journalBean.setSlipNo(slipBean.getSlipNo()); // slipNo을 journalBean에 값이 없어서 세팅해줌
+			System.out.println(journalBean.getLeftDebtorPrice());
+			System.out.println(journalBean.getRightCreditsPrice());
+			if (journalBean.getLeftDebtorPrice() == null) {
+				journalBean.setLeftDebtorPrice("0");
+			} else if (journalBean.getRightCreditsPrice() == null) {
+				journalBean.setRightCreditsPrice("0");
+			}
 			journalBeans.add(journalBean);
 
 		}
@@ -223,23 +230,23 @@ public class SlipController {
 		}
 		businessService.updateSlip(slipBean, journalBeans);
 	}
-	
+
 	// =======================전표 승인 요청==========================
 	@PatchMapping("/approvalSlipRequest")
 	public void approvalSlipRequest(@RequestBody JSONObject patchData) {
-		System.out.println( ((JSONObject)patchData.get("patchData")).get("slipNo").getClass().getName());
-		System.out.println( ((JSONObject)patchData.get("patchData")).get("slipStatus"));
+		System.out.println(((JSONObject) patchData.get("patchData")).get("slipNo").getClass().getName());
+		System.out.println(((JSONObject) patchData.get("patchData")).get("slipStatus"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("slipNo",((JSONObject)patchData.get("patchData")).get("slipNo"));
-		map.put("slipStatus",((JSONObject)patchData.get("patchData")).get("slipStatus"));
+		map.put("slipNo", ((JSONObject) patchData.get("patchData")).get("slipNo"));
+		map.put("slipStatus", ((JSONObject) patchData.get("patchData")).get("slipStatus"));
 		businessService.approvalSlipRequest(map);
-		
+
 	}
 
 //병합
 	@GetMapping("/approvalsliplist")
 	public ArrayList<SlipBean> findApprovalSlipList(@RequestParam("startDate") String fromDate,
-			@RequestParam("endDate") String toDate, @RequestParam("slipStatus") String status ) {
+			@RequestParam("endDate") String toDate, @RequestParam("slipStatus") String status) {
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("fromDate", fromDate);
