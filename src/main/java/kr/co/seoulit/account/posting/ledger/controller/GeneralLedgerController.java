@@ -24,7 +24,16 @@ public class GeneralLedgerController {
     	System.out.println(fromDate);
     	System.out.println(toDate);
     	System.out.println(accountInnerCode);
+    	
         HashMap<String , Object> map = new HashMap<>();
+        if(accountInnerCode.length()>5) {
+    		String fromCode=accountInnerCode.substring(0, 4);
+    		String toCode = accountInnerCode.substring(5);
+    		System.out.println(fromCode);
+    		System.out.println(toCode);
+    		map.put("fromCode",fromCode);
+    		map.put("toCode", toCode);
+    	};
         map.put("fromDate", fromDate);
         map.put("toDate", toDate);
         map.put("accountInnerCode", accountInnerCode);
