@@ -7,8 +7,9 @@
     <select id="findPeriodNo" resultType="kr.co.seoulit.account.sys.base.to.PeriodNoBean">
         <![CDATA[
         SELECT
-            SUBSTR(TO_CHAR(PERIOD_START_DATE,'YYYYMMDD'),1,4)		AS fiscalYear
+            SUBSTR(PERIOD_START_DATE,1,4)              as fiscalYear
              , ACCOUNT_PERIOD_NO                          as accountPeriodNo
+             , WORKPLACE_CODE                             as workplaceCode
              , PERIOD_START_DATE                          as periodStartDate
              , PERIOD_END_DATE                            as periodEndDate
         FROM  PERIOD

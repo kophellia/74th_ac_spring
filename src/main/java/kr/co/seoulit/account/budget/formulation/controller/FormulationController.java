@@ -68,6 +68,7 @@ public class FormulationController {
 
     }
 
+
     //    @PostMapping("/budgetlist")
 //    public ArrayList<BudgetBean> registerBudget(@RequestParam("deptCode") String deptCode,
 //                                                @RequestParam("workplaceCode") String workplaceCode,
@@ -110,7 +111,6 @@ public class FormulationController {
 //        System.out.println(budgetBean.toString());
 //    };
 
-
     //================================================================================
     @PutMapping("/budgetlist")
     public ModelMap modifyBudget(@RequestParam(value = "budgetObj") String budgetObj) {
@@ -128,40 +128,8 @@ public class FormulationController {
         return map;
     }
 
-    @PostMapping("/budgetstatus")
-    public HashMap<String, Object> searchBudgetStatus(@RequestBody BudgetBean budgetBean) {
-        System.out.println("야ㅡㅡ");
-        System.out.println(budgetBean);
-        System.out.println(budgetBean.getAccountPeriodNo()+","+budgetBean.getDeptCode()+","+budgetBean.getWorkplaceCode());
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("accountPeriodNo", budgetBean.getAccountPeriodNo());
-        params.put("deptCode", budgetBean.getDeptCode());
-        params.put("workplaceCode", budgetBean.getWorkplaceCode());
-        formulationService.findBudgetStatus(params);
 
-        return params;
-    }
-
-    @PostMapping("/comparisonBudget")
-    public HashMap<String, Object> findComparisonBudget(@RequestBody BudgetBean budgetBean) {
-        System.out.println("요청옴? ");
-        HashMap<String, Object> params = new HashMap<>();
-        System.out.println("버짓빈:" + budgetBean);
-
-        params.put("accountPeriodNo", budgetBean.getAccountPeriodNo());
-        params.put("deptCode", budgetBean.getDeptCode());
-        params.put("workplaceCode", budgetBean.getWorkplaceCode());
-        params.put("accountInnerCode", budgetBean.getAccountInnerCode());
-
-        params = formulationService.findComparisonBudget(params);
-
-        System.out.println("params = " + params);
-        System.out.println(params);
-        return params;
-    }
-
-
-/*    @GetMapping("/budgetstatus")
+    @GetMapping("/budgetstatus")
     public HashMap<String, Object> findBudgetStatus(@RequestParam String budgetObj) {
 
         HashMap<String, Object> params = new HashMap<>();
@@ -173,7 +141,7 @@ public class FormulationController {
         formulationService.findBudgetStatus(params);
 
         return params;
-    }*/
+    }
 
     @GetMapping("/budgetappl")
     public BudgetBean findBudgetAppl(@RequestParam String budgetObj) {
@@ -184,7 +152,7 @@ public class FormulationController {
         return formulationService.findBudgetAppl(budgetBean);
     }
 
-  /*  @GetMapping("/comparisonBudget")
+    @GetMapping("/comparisonBudget")
     public HashMap<String, Object> findComparisonBudget(@RequestParam String budgetObj) {
 
         System.out.println("budgetObj = " + budgetObj);
@@ -201,7 +169,7 @@ public class FormulationController {
 
         System.out.println("params = " + params);
         return params;
-    }*/
+    }
 
     /*@GetMapping("/currentbudget")
     public BudgetBean findCurrentBudget(@RequestParam String budgetObj) {

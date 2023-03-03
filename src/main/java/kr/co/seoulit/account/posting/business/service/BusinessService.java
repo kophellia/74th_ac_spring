@@ -31,8 +31,7 @@ public interface BusinessService {
 
     public String modifySlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans);
 
-//    public void modifyapproveSlip(ArrayList<SlipBean> slipBeans);
-    public void modifyapproveSlip(HashMap<String, Object> map);
+    public void modifyapproveSlip(ArrayList<SlipBean> slipBeans);
 
     public ArrayList<SlipBean> findSlipDataList(String slipDate);
 
