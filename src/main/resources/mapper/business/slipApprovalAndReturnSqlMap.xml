@@ -49,14 +49,4 @@
 				   AND J.SLIP_NO = #{slipNo}
 		 ]]>
 		 </select>
-		 
-		 <update id="updateSlipApproval" parameterType="kr.co.seoulit.account.posting.business.to.SlipBean" >
-		 <![CDATA[
-				UPDATE SLIP 
-				SET APPROVAL_DATE=#{approvalDate},
-				     SLIP_STATUS=#{slipStatus},
-				     APPROVAL_EMP_CODE='admin' 
-				WHERE SLIP_NO=#{slipNo}
-			 ]]>
-		 </update>
 </mapper>

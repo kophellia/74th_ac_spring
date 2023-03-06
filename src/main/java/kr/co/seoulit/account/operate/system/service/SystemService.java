@@ -14,6 +14,8 @@ public interface SystemService {
     
     public ArrayList<AccountBean> findDetailAccountList(String code);
     
+    public ArrayList<AccountBean> findJournalAccountList(HashMap<String , Object> map);
+    
     public void modifyAccount(AccountBean accountBean);
 
     ArrayList<AccountBean> findAccountListByName(String accountName);

@@ -93,7 +93,7 @@
 	</delete>
 	<delete id="deleteJournalAll" parameterType="String">
 			<![CDATA[
-				DELETE FROM JOURNAL WHERE SLIP_NO=#{slipNo}
+				DELETE FROM JOURNAL WHERE SLIP_NO=#{journalBean}
 			 ]]>
 	</delete>
 	<update id="updateJournal"

@@ -1,6 +1,5 @@
 package kr.co.seoulit.account.posting.business.controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
 
 import java.util.ArrayList;
@@ -115,35 +114,35 @@ public class SlipController {
 	 * e2.printStackTrace(); } return map; };
 	 */
 
-//	@GetMapping("/approvalslip")
-//	public void modifyapproveSlip(@RequestParam String approveSlipList, @RequestParam String isApprove) {
-//
-//		JSONArray approveSlipLists = JSONArray.fromObject(approveSlipList); // slip_no만 가지고옴 //JSONArray.fromObject json
-//																			// 객체로 만들어줌
-//		String slipStatus = isApprove; // true 승인버튼 누르면 true 가 넘어옴
-//		ArrayList<SlipBean> slipBeans = new ArrayList<>(); // 담는 값이 여러개
-//
-//		for (Object approveSlip : approveSlipLists) { // 승인일자를 자바로 만든다
-//			Calendar calendar = Calendar.getInstance(); // import함
-//			String year = calendar.get(Calendar.YEAR) + "";
-//			String month = "0" + (calendar.get(Calendar.MONTH) + 1); // 0~11까지
-//			String date = "0" + calendar.get(Calendar.DATE);
-//			String today = year + "-" + month.substring(month.length() - 2) + "-" + date.substring(date.length() - 2);
-//			// 인덱스 0,1 에서 0부터 시작하기 위해서 -2를 해주는듯 만약에 1자리인 경우에는 -1이니까 앞자리0부터???
-//			// 2021-11-15
-//			System.out.println("approveSlip : " + approveSlip);
-//			SlipBean slipBean = new SlipBean();
-//			slipBean.setSlipNo(approveSlip.toString()); // 전표번호
-//			slipBean.setApprovalDate(today); // 승인데이터 오늘날짜
-//			slipBean.setSlipStatus(slipStatus); // 전표상태
-//			// slipBean.setApprovalEmpCode(request.getSession().getAttribute("empCode").toString());
-//			// //String 형식 세션 값 읽기
-//			slipBeans.add(slipBean);
-//		}
-//
-//		businessService.modifyapproveSlip(slipBeans);
-//
-//	}
+	@GetMapping("/approvalslip")
+	public void modifyapproveSlip(@RequestParam String approveSlipList, @RequestParam String isApprove) {
+
+		JSONArray approveSlipLists = JSONArray.fromObject(approveSlipList); // slip_no만 가지고옴 //JSONArray.fromObject json
+																			// 객체로 만들어줌
+		String slipStatus = isApprove; // true 승인버튼 누르면 true 가 넘어옴
+		ArrayList<SlipBean> slipBeans = new ArrayList<>(); // 담는 값이 여러개
+
+		for (Object approveSlip : approveSlipLists) { // 승인일자를 자바로 만든다
+			Calendar calendar = Calendar.getInstance(); // import함
+			String year = calendar.get(Calendar.YEAR) + "";
+			String month = "0" + (calendar.get(Calendar.MONTH) + 1); // 0~11까지
+			String date = "0" + calendar.get(Calendar.DATE);
+			String today = year + "-" + month.substring(month.length() - 2) + "-" + date.substring(date.length() - 2);
+			// 인덱스 0,1 에서 0부터 시작하기 위해서 -2를 해주는듯 만약에 1자리인 경우에는 -1이니까 앞자리0부터???
+			// 2021-11-15
+			System.out.println("approveSlip : " + approveSlip);
+			SlipBean slipBean = new SlipBean();
+			slipBean.setSlipNo(approveSlip.toString()); // 전표번호
+			slipBean.setApprovalDate(today); // 승인데이터 오늘날짜
+			slipBean.setSlipStatus(slipStatus); // 전표상태
+			// slipBean.setApprovalEmpCode(request.getSession().getAttribute("empCode").toString());
+			// //String 형식 세션 값 읽기
+			slipBeans.add(slipBean);
+		}
+
+		businessService.modifyapproveSlip(slipBeans);
+
+	}
 
 	// ====================전표 조회 ======================
 	@GetMapping("/rangedsliplist")
@@ -163,6 +162,7 @@ public class SlipController {
 	@DeleteMapping("/deleteSlip")
 	public void removeSlip(@RequestParam String slipNo) {
 		businessService.removeSlip(slipNo);
+
 	}
 
 	// =======================전표 저장==========================
@@ -184,18 +184,20 @@ public class SlipController {
 		slipBean.setSlipStatus(slipStatus);
 
 		JSONArray journalObjs = JSONArray.fromObject(journalObj);// journalObj를 JSONArray로 변환
-//      if (slipStatus.equals("승인요청")) {
-//          slipBean.setSlipStatus("승인요청"); //처음에 전표저장을 하면 null이라서 안 바꾸고 승인요청이 오면 바꾼다
-//      }
+//	      if (slipStatus.equals("승인요청")) {
+//	          slipBean.setSlipStatus("승인요청"); //처음에 전표저장을 하면 null이라서 안 바꾸고 승인요청이 오면 바꾼다
+//	      }
 		ArrayList<JournalBean> journalBeans = new ArrayList<>();
 		for (Object journalObjt : journalObjs) {
 			JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
 			System.out.println(slipBean.getSlipNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 			journalBean.setSlipNo(slipBean.getSlipNo()); // slipNo을 journalBean에 값이 없어서 세팅해줌
-			if(journalBean.getLeftDebtorPrice() == null) {
+			System.out.println(journalBean.getLeftDebtorPrice());
+			System.out.println(journalBean.getRightCreditsPrice());
+			if (journalBean.getLeftDebtorPrice() == null) {
 				journalBean.setLeftDebtorPrice("0");
-			}else if(journalBean.getRightCreditsPrice() == null){
+			} else if (journalBean.getRightCreditsPrice() == null) {
 				journalBean.setRightCreditsPrice("0");
 			}
 			journalBeans.add(journalBean);
@@ -228,66 +230,23 @@ public class SlipController {
 		}
 		businessService.updateSlip(slipBean, journalBeans);
 	}
-	
+
 	// =======================전표 승인 요청==========================
 	@PatchMapping("/approvalSlipRequest")
 	public void approvalSlipRequest(@RequestBody JSONObject patchData) {
-		System.out.println( ((JSONObject)patchData.get("patchData")).get("slipNo").getClass().getName());
-		System.out.println( ((JSONObject)patchData.get("patchData")).get("slipStatus"));
+		System.out.println(((JSONObject) patchData.get("patchData")).get("slipNo").getClass().getName());
+		System.out.println(((JSONObject) patchData.get("patchData")).get("slipStatus"));
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("slipNo",((JSONObject)patchData.get("patchData")).get("slipNo"));
-		map.put("slipStatus",((JSONObject)patchData.get("patchData")).get("slipStatus"));
+		map.put("slipNo", ((JSONObject) patchData.get("patchData")).get("slipNo"));
+		map.put("slipStatus", ((JSONObject) patchData.get("patchData")).get("slipStatus"));
 		businessService.approvalSlipRequest(map);
-	}
-	
-	// =======================전표 승인/반려==========================
-	@PatchMapping("/approvalslip")
-	public void modifyapproveSlip(@RequestBody JSONObject approvalReturnData) {
-		System.out.println(approvalReturnData);
-		System.out.println((approvalReturnData.get("approvalReturnData")));
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("slipNo",((JSONObject)approvalReturnData.get("approvalReturnData")).get("slipNo"));
-		map.put("slipStatus",((JSONObject)approvalReturnData.get("approvalReturnData")).get("slipStatus"));
-		System.out.println("@@@@@@@@@@@@@@@@@@@@");
-		System.out.println(((JSONObject)approvalReturnData.get("approvalReturnData")).get("approvalDate"));
-		System.out.println("@@@@@@@@@@@@@@@@@@@@");
-		map.put("approvalDate",((JSONObject)approvalReturnData.get("approvalReturnData")).get("approvalDate"));
-		map.put("approvalEmpCode",((JSONObject)approvalReturnData.get("approvalReturnData")).get("approvalEmpCode"));
-		
-		businessService.modifyapproveSlip(map);
-		
-//		JSONArray approveSlipLists = JSONArray.fromObject(approveSlipList); // slip_no만 가지고옴 //JSONArray.fromObject json
-//																			// 객체로 만들어줌
-//		String slipStatus = isApprove; // true 승인버튼 누르면 true 가 넘어옴
-//		ArrayList<SlipBean> slipBeans = new ArrayList<>(); // 담는 값이 여러개
-//
-//		for (Object approveSlip : approveSlipLists) { // 승인일자를 자바로 만든다
-//			Calendar calendar = Calendar.getInstance(); // import함
-//			String year = calendar.get(Calendar.YEAR) + "";
-//			String month = "0" + (calendar.get(Calendar.MONTH) + 1); // 0~11까지
-//			String date = "0" + calendar.get(Calendar.DATE);
-//			String today = year + "-" + month.substring(month.length() - 2) + "-" + date.substring(date.length() - 2);
-//			// 인덱스 0,1 에서 0부터 시작하기 위해서 -2를 해주는듯 만약에 1자리인 경우에는 -1이니까 앞자리0부터???
-//			// 2021-11-15
-//			System.out.println("approveSlip : " + approveSlip);
-//			SlipBean slipBean = new SlipBean();
-//			slipBean.setSlipNo(approveSlip.toString()); // 전표번호
-//			slipBean.setApprovalDate(today); // 승인데이터 오늘날짜
-//			slipBean.setSlipStatus(slipStatus); // 전표상태
-//			// slipBean.setApprovalEmpCode(request.getSession().getAttribute("empCode").toString());
-//			// //String 형식 세션 값 읽기
-//			slipBeans.add(slipBean);
-//		}
-//
-//		businessService.modifyapproveSlip(slipBeans);
 
 	}
-	
-	
+
 //병합
 	@GetMapping("/approvalsliplist")
 	public ArrayList<SlipBean> findApprovalSlipList(@RequestParam("startDate") String fromDate,
-			@RequestParam("endDate") String toDate, @RequestParam("slipStatus") String status ) {
+			@RequestParam("endDate") String toDate, @RequestParam("slipStatus") String status) {
 
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("fromDate", fromDate);

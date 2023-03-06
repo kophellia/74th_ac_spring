@@ -17,12 +17,32 @@ public class GeneralLedgerController {
     private LedgerService ledgerService;
 
     @GetMapping("/generalLedgers")
-    public HashMap<String, Object> findGeneralAccountLedgerList(@RequestParam("startDate") String fromDate,
-                                                                @RequestParam("endDate") String toDate){
+    public ArrayList<GeneralLedgerBean> findGeneralAccountLedgerList(@RequestParam String fromDate,
+                                                                @RequestParam String toDate,
+                                                                @RequestParam String accountInnerCode){
+    	
+    	System.out.println(fromDate);
+    	System.out.println(toDate);
+    	System.out.println(accountInnerCode);
+    	
         HashMap<String , Object> map = new HashMap<>();
-        ArrayList<GeneralLedgerBean> generalAccountLedgerList = ledgerService.findGeneralAccountLedgerList(fromDate,toDate);
-        map.put("generalAccountLedgerList" , generalAccountLedgerList);
-        return map;
+        map.put("fromDate", fromDate);
+        map.put("toDate", toDate);
+        if(accountInnerCode.length()>5) {
+    		String fromCode=accountInnerCode.substring(0, 4);
+    		String toCode = accountInnerCode.substring(5);
+    		System.out.println(fromCode);
+    		System.out.println(toCode);
+    		map.put("fromCode",fromCode);
+    		map.put("toCode", toCode);
+    		map.put("accountInnerCode", null);
+    	}else {
+    		map.put("accountInnerCode", accountInnerCode);	
+    	}
+        
+        ArrayList<GeneralLedgerBean> generalAccountLedgerList = ledgerService.findGeneralAccountLedgerList(map);
+//        map.put("generalAccountLedgerList" , generalAccountLedgerList);
+        return generalAccountLedgerList;
     }
 
     @GetMapping("/ledgers")

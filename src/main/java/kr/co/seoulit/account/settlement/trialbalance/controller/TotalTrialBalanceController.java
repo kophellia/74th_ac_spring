@@ -16,21 +16,21 @@ public class TotalTrialBalanceController {
 	private TrialBalanceService trialBalanceService;
 
 
-	@PostMapping("/totaltrialbalance")
-	public HashMap<String, Object> finddoClosing(@RequestParam("accountPeriodNo") String accountPeriodNo,
-			                                     @RequestParam("callResult") String callResult) {
+//	@PostMapping("/totaltrialbalance")
+//	public HashMap<String, Object> finddoClosing(@RequestParam("accountPeriodNo") String accountPeriodNo,
+//			                                     @RequestParam("callResult") String callResult) {
+//
+//		HashMap<String,Object> params = new HashMap<>();
+//		params.put("accountPeriodNo",accountPeriodNo);
+//		params.put("callResult",callResult);
+//
+//
+//             HashMap<String, Object> closingResult = trialBalanceService.findEarlyStatements(params);
+//
+//           return closingResult;
+//	}
 
-		HashMap<String,Object> params = new HashMap<>();
-		params.put("accountPeriodNo",accountPeriodNo);
-		params.put("callResult",callResult);
-
-
-             HashMap<String, Object> closingResult = trialBalanceService.findEarlyStatements(params);
-
-           return closingResult;
-	}
-
-	  @GetMapping("/totaltrialbalance")
+	@GetMapping("/totaltrialbalance")
 	public HashMap<String,Object> findTotalTrialBalance(@RequestParam("accountPeriodNo") String accountPeriodNo
 	  														, @RequestParam("callResult") String callResult
 	  													) {

@@ -66,14 +66,20 @@ public class BusinessServiceImpl implements BusinessService {
 
 		return journalList;
 	}
-	//분개장 - 복식부기
+
+//	@Override
+//	public ArrayList<JournalBean> findRangedJournalList(String fromDate, String toDate) {
+//		HashMap<String, String> map = new HashMap<String, String>();
+//		map.put("fromDate", fromDate);
+//		map.put("toDate", toDate);
+//		ArrayList<JournalBean> journalList = journalDAO.selectRangedJournalList(map);
+//
+//		return journalList;
+//	}
 	@Override
-	public ArrayList<JournalBean> findRangedJournalList(String fromDate, String toDate) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("fromDate", fromDate);
-		map.put("toDate", toDate);
+	public ArrayList<JournalBean> findRangedJournalList(HashMap<String, Object> map){
 		ArrayList<JournalBean> journalList = journalDAO.selectRangedJournalList(map);
-		
+
 		return journalList;
 	}
 
@@ -149,11 +155,11 @@ public class BusinessServiceImpl implements BusinessService {
 
 			System.out.println("removeSlip@@@@ :" + journal.getJournalNo());
 		}
+		slipDAO.deleteSlip(slipNo);
+		journalDAO.deleteJournalAll(slipNo);
 		for (JournalBean journal : list) {
 			journalDAO.deleteJournalDetail(journal.getJournalNo());
 		}
-		journalDAO.deleteJournalAll(slipNo);// 역순으로 지워야 다 지워짐...-> 테이블이 연결되있어서 fk 제약 조건 때문에 
-		slipDAO.deleteSlip(slipNo);
 
 	}
 
@@ -177,14 +183,14 @@ public class BusinessServiceImpl implements BusinessService {
 		return slipBean.getSlipNo();
 	}
 
-//	@Override
-//	public void modifyapproveSlip(ArrayList<SlipBean> slipBeans) {
-//
-//		for (SlipBean slipBean : slipBeans) {
-//			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
-//			slipApprovalAndReturnDAO.updateapproveSlip(slipBean);
-//		}
-//	}
+	@Override
+	public void modifyapproveSlip(ArrayList<SlipBean> slipBeans) {
+
+		for (SlipBean slipBean : slipBeans) {
+			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
+			slipApprovalAndReturnDAO.updateapproveSlip(slipBean);
+		}
+	}
 
 	@Override
 	public ArrayList<SlipBean> findRangedSlipList(HashMap<String, Object> map) {
@@ -262,7 +268,7 @@ public class BusinessServiceImpl implements BusinessService {
 		// TODO Auto-generated method stub
 		System.out.println("AppServiceImp_approvalSlipRequest 시작");
 		slipDAO.updateSlipApproval(map);
-
+		
 	}
 
 	@Override
@@ -270,19 +276,4 @@ public class BusinessServiceImpl implements BusinessService {
 		// TODO Auto-generated method stub
 		return slipApprovalAndReturnDAO.selectApprovalJournalList(slipNo);
 	}
-
-	@Override
-	public void modifyapproveSlip(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		System.out.println("AppServiceImp_modifyapproveSlip 시작");
-		slipApprovalAndReturnDAO.updateSlipApproval(map);
-	}
-//	@Override
-//	public void modifyapproveSlip(ArrayList<SlipBean> slipBeans) {
-//
-//		for (SlipBean slipBean : slipBeans) {
-//			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
-//			slipApprovalAndReturnDAO.updateapproveSlip(slipBean);
-//		}
-//	}
 }

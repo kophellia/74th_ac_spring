@@ -130,34 +130,27 @@
 							A2.ACCOUNT_INNER_CODE AS APPEND_CODE,
 							A3.ACCOUNT_CODE AS ACCOUNT_CODE,
 							J1.DEBITS AS DEBITS_SUM,
-							--> 선택한 일자에서 현금거래가 아닌 차변의 값
-							--> 이렇게 할꺼면 j1 서브쿼리에서 현금 거래가 아닌것을 빼야 할듯
 						CASE
 								WHEN J1.DEBITS = 0
 							THEN 0
 								ELSE J1.DEBITS - J2.CASH_DEBITS
 							END AS EXCEPT_CASH_DEBITS,
-							--> 현금거래가 아닌 차변에서 우변의 현금 뺀거? 
 						CASE
 								WHEN J1.DEBITS = 0 
 							THEN 0
 								ELSE J2.CASH_DEBITS
 							END AS CASH_DEBITS,
-							--> 차변의 현금
 						CASE
 								WHEN J1.CREDITS = 0 
 							THEN 0
 								ELSE J2.CASH_CREDITS
 							END AS CASH_CREDITS,
-							--> 대변의 현금
 						CASE
 								WHEN J1.CREDITS = 0 
 							THEN 0
 								ELSE J1.CREDITS - J2.CASH_CREDITS
-							END AS EXCEPT_CASH_CREDITS,
-							--> 대변의 현금 뺀 값에서 
+							END AS EXCEPT_CASH_CREDITS, 
 							J1.CREDITS AS CREDITS_SUM
-							--> 대변의 총합
 						FROM
 							ACCOUNT A1,
 							ACCOUNT A2,
@@ -176,9 +169,7 @@
 								J.SLIP_NO = S.SLIP_NO
 								AND J.ACCOUNT_INNER_CODE = A.ACCOUNT_INNER_CODE
 								AND S.SLIP_STATUS = '승인완료'
-								AND S.REPORTING_DATE BETWEEN #{fromDate} AND #{toDate}
-							
-								--AND J.ACCOUNT_INNER_CODE != '0101'
+								AND S.REPORTING_DATE BETWEEN '${fromDate}' AND '${toDate}'
 							) J1,
 							(
 							SELECT

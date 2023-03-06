@@ -28,15 +28,28 @@ public class JournalController {
 
         return journalList;
     }
-    // 분개장 - 복식부기 조회
+//원본
+//    @GetMapping("/rangedjournallist")
+//    public HashMap<String, Object> findRangedJournalList(@RequestParam("startDate") String fromDate,
+//                                                         @RequestParam("endDate") String toDate) {
+//        HashMap<String, Object> map = new HashMap<>();
+//        ArrayList<JournalBean> journalList = businessService.findRangedJournalList(fromDate, toDate);
+//
+//        map.put("journalList", journalList);
+//        return map;
+//    }
+    
     @GetMapping("/rangedjournallist")
-    public HashMap<String, Object> findRangedJournalList(@RequestParam("startDate") String fromDate,
+    public ArrayList<JournalBean> findRangedJournalList(@RequestParam("startDate") String fromDate,
                                                          @RequestParam("endDate") String toDate) {
         HashMap<String, Object> map = new HashMap<>();
-        ArrayList<JournalBean> journalList = businessService.findRangedJournalList(fromDate, toDate);
+        map.put("fromDate", fromDate);
+        map.put("toDate", toDate);
+        map.put("expenseReport", null);
+        map.put("reportingDate", null);
+        ArrayList<JournalBean> journalList = businessService.findRangedJournalList(map);
 
-        map.put("journalList", journalList);
-        return map;
+        return journalList;
     }
 
     @DeleteMapping("/journalremoval")

@@ -18,107 +18,119 @@ import kr.co.seoulit.account.operate.system.to.PeriodBean;
 @RestController
 @RequestMapping("/operate")
 public class AccountSubjectController {
-	
+
 	@Autowired
-    private SystemService systemService;
+	private SystemService systemService;
 
-	
-    ModelAndView mav = null;
-    ModelMap map = new ModelMap();
+	ModelAndView mav = null;
+	ModelMap map = new ModelMap();
 
+	@GetMapping("/account")
+	public ArrayList<AccountBean> findAccount(@RequestParam String accountCode, @RequestParam String accountName) {
 
-    @GetMapping("/account")
-    public ArrayList<AccountBean> findAccount(@RequestParam String accountCode
-                                    , @RequestParam String accountName
-                                ) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("accountCode", accountCode);
+		map.put("accountName", accountName);
+		ArrayList<AccountBean> accountBean = systemService.findAccount(map);
+		map.put("accountBean", accountBean);
+		return accountBean;
+	}
 
-            HashMap<String,Object> map = new HashMap<>();
-            map.put("accountCode", accountCode);
-            map.put("accountName", accountName);
-            ArrayList<AccountBean> accountBean = systemService.findAccount(map);
-            map.put("accountBean", accountBean);
-        return accountBean;
-    }
+	@GetMapping("/accountcontrollist")
+	public ArrayList<AccountControlBean> findAccountControlList(
+			@RequestParam(value = "accountCode", required = false) String accountCode) {
 
-    @GetMapping("/accountcontrollist")
-    public ArrayList<AccountControlBean> findAccountControlList(@RequestParam(value="accountCode", required=false) String accountCode) {
+		ArrayList<AccountControlBean> accountControlList = systemService.findAccountControlList(accountCode);
 
-            ArrayList<AccountControlBean> accountControlList = systemService.findAccountControlList(accountCode);
+		return accountControlList;
+	}
 
+	@GetMapping("/accountlistbyname")
+	public ArrayList<AccountBean> findAccountListByName(@RequestParam String accountName) {
 
-        return accountControlList;
-    }
-    @GetMapping("/accountlistbyname")
-    public ArrayList<AccountBean> findAccountListByName(@RequestParam String accountName) {
- 
+		ArrayList<AccountBean> accountList = systemService.findAccountListByName(accountName);
 
-    	ArrayList<AccountBean> accountList = systemService.findAccountListByName(accountName);
- 
-        return accountList;
-    }
-    @GetMapping("/parentaccountlist") // 계정과목조회
-    public HashMap<String, Object> getAccountList() {
+		return accountList;
+	}
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("accountCodeList" , systemService.findParentAccountList());
-        return map;
-    }
+	@GetMapping("/parentaccountlist") // 계정과목조회
+	public HashMap<String, Object> getAccountList() {
 
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("accountCodeList", systemService.findParentAccountList());
+		return map;
+	}
 
+	@GetMapping("/detailaccountlist")
+	public ArrayList<AccountBean> findDetailAccountList(@RequestParam("code") String code) {
 
+		ArrayList<AccountBean> accountList = systemService.findDetailAccountList(code);
 
-    @GetMapping("/detailaccountlist")
-    public ArrayList<AccountBean> findDetailAccountList(@RequestParam("code") String code) {
+		return accountList;
+	}
 
-            ArrayList<AccountBean> accountList = systemService.findDetailAccountList(code);
-         
-        return accountList;
-    }
+//    fromDate: fromDate,
+//    toDate: toDate,
+//    parentAccount: parentAccount
+	@GetMapping("/jouranlaccountlist")
+	public ArrayList<AccountBean> findJournalAccountList(@RequestParam String fromDate, @RequestParam String toDate,
+			@RequestParam String parentAccountCode) {
+		System.out.println(fromDate);
+		System.out.println(toDate);
+		System.out.println(parentAccountCode);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("fromDate", fromDate);
+		map.put("toDate", toDate);
+		map.put("parentAccountCode", parentAccountCode);
 
-    @GetMapping("/accountmodification")
-    public void modifyAccount(@RequestParam String accountInnerCode,
-    						  @RequestParam String accountName) {
+		ArrayList<AccountBean> accountList = systemService.findJournalAccountList(map);
 
-            AccountBean accountBean = new AccountBean();
+		return accountList;
+	}
 
-            accountBean.setAccountInnerCode(accountInnerCode);
-            accountBean.setAccountName(accountName);
+	@GetMapping("/accountmodification")
+	public void modifyAccount(@RequestParam String accountInnerCode, @RequestParam String accountName) {
 
-    }
+		AccountBean accountBean = new AccountBean();
 
-    @GetMapping("/detailbudgetlist")
-    public HashMap<String, Object> findDetailBudgetList(@RequestParam("code") String code){
-        HashMap<String , Object> map =new HashMap<>();
-        ArrayList<AccountBean> budgetList = systemService.findDetailBudgetList(code);
-        map.put("budgetList", budgetList);
-        return map;
-    }
+		accountBean.setAccountInnerCode(accountInnerCode);
+		accountBean.setAccountName(accountName);
 
-    @GetMapping("/parentbudgetlist")
-    public HashMap<String, Object> findParentBudgetList(){
+	}
 
-        HashMap<String , Object> map =new HashMap<>();
-        ArrayList<AccountBean> parentBudgetList = systemService.findParentBudgetList();
-        map.put("parentBudgetList", parentBudgetList);
-        return map;
-    }
+	@GetMapping("/detailbudgetlist")
+	public HashMap<String, Object> findDetailBudgetList(@RequestParam("code") String code) {
+		HashMap<String, Object> map = new HashMap<>();
+		ArrayList<AccountBean> budgetList = systemService.findDetailBudgetList(code);
+		map.put("budgetList", budgetList);
+		return map;
+	}
 
-    @GetMapping("/parentbudgetlist2")
-    public ArrayList<AccountBean> findParentBudgetList2(@RequestParam String workplaceCode,
-                                                        @RequestParam String deptCode,
-                                                        @RequestParam String accountPeriodNo) {
-        System.out.println("workplaceCode:" +workplaceCode);
-        System.out.println("deptCode:" +deptCode);
-        ArrayList<AccountBean> parentBudgetList = systemService.findParentBudgetList2(workplaceCode,deptCode,accountPeriodNo);
+	@GetMapping("/parentbudgetlist")
+	public HashMap<String, Object> findParentBudgetList() {
 
-        return parentBudgetList;
-    }
+		HashMap<String, Object> map = new HashMap<>();
+		ArrayList<AccountBean> parentBudgetList = systemService.findParentBudgetList();
+		map.put("parentBudgetList", parentBudgetList);
+		return map;
+	}
 
-    @GetMapping("/accountperiodlist")
-    public ArrayList<PeriodBean> findAccountPeriodList() {
-     
-            ArrayList<PeriodBean> accountPeriodList = systemService.findAccountPeriodList();
+	@GetMapping("/parentbudgetlist2")
+	public ArrayList<AccountBean> findParentBudgetList2(@RequestParam String workplaceCode,
+			@RequestParam String deptCode, @RequestParam String accountPeriodNo) {
+		System.out.println("workplaceCode:" + workplaceCode);
+		System.out.println("deptCode:" + deptCode);
+		ArrayList<AccountBean> parentBudgetList = systemService.findParentBudgetList2(workplaceCode, deptCode,
+				accountPeriodNo);
 
-        return accountPeriodList;
-    }
+		return parentBudgetList;
+	}
+
+	@GetMapping("/accountperiodlist")
+	public ArrayList<PeriodBean> findAccountPeriodList() {
+
+		ArrayList<PeriodBean> accountPeriodList = systemService.findAccountPeriodList();
+
+		return accountPeriodList;
+	}
 }

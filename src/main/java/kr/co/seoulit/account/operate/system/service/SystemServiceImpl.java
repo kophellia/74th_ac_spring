@@ -49,6 +49,13 @@ public class SystemServiceImpl implements SystemService{
 
         return accountList;
     }
+    
+    @Override
+	public ArrayList<AccountBean> findJournalAccountList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+    	ArrayList<AccountBean> accountBean = accountDAO.JournalAccountList(map);
+		return accountBean;
+	}
 
     @Override
     public void modifyAccount(AccountBean accountBean) {
@@ -256,4 +263,5 @@ public class SystemServiceImpl implements SystemService{
 	public List<CustomerBean> getCreditCard(){
 		return customerDAO.selectCreditCardList();
 	}
+
 }
