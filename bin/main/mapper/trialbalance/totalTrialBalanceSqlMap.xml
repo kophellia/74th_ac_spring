@@ -55,7 +55,7 @@
 	</select>
 
 
-	<parameterMap id="earlyStatementsParams"
+	<!-- <parameterMap id="earlyStatementsParams"
 		type="java.util.HashMap">
 		<parameter property="accountPeriodNo" jdbcType="VARCHAR"
 			javaType="String" mode="IN" />
@@ -76,7 +76,7 @@
 		<![CDATA[
          {call P_EARLY_STATEMENTS(?, ?, ?, ?, ?)}
        ]]>
-	</select>
+	</select> -->
 
 	<select id="selectAccountingSettlement"
 		parameterMap="earlyStatementsParams" statementType="CALLABLE">
@@ -198,6 +198,31 @@
       ]]>
 
 
+	</select>
+
+
+
+	<parameterMap id="earlyStatementsParams"
+		type="java.util.HashMap">
+		<parameter property="accountPeriodNo" jdbcType="VARCHAR"
+			javaType="String" mode="IN" />
+		<!-- <parameter property="callResult" jdbcType="VARCHAR"
+			javaType="String" mode="IN" />
+		<parameter property="errorCode" jdbcType="DECIMAL"
+			javaType="long" mode="OUT" />
+		<parameter property="errorMsg" jdbcType="VARCHAR"
+			javaType="String" mode="OUT" />
+		<parameter property="accountingSettlementStatus"
+			jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT"
+			resultMap="accountingSettlementStatusResult" /> -->
+	</parameterMap>
+
+	<select id="selectcallEarlyStatements"
+		parameterMap="earlyStatementsParams"
+		resultMap="accountingSettlementStatusResult" statementType="CALLABLE">
+		<![CDATA[
+         {call P_TMP_EARLY_STATEMENTS(?)}
+       ]]>
 	</select>
 
 </mapper>
