@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.seoulit.account.posting.business.entity.SlipEntity;
+import kr.co.seoulit.account.posting.business.service.JpaSlipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,9 @@ public class SlipController {
 
 	@Autowired
 	private BusinessService businessService;
+
+	@Autowired
+	JpaSlipService jpaSlipService;
 
 	ModelAndView mav = null;
 	ModelMap map = new ModelMap();
@@ -158,12 +163,19 @@ public class SlipController {
 		return slipFormList;
 	}
 
-	// ====================전표 삭제======================
+//	// ====================전표 삭제======================
+//	@DeleteMapping("/deleteSlip")
+//	public void removeSlip(@RequestParam String slipNo) {
+//		businessService.removeSlip(slipNo);
+//	}
+// ====================전표 삭제 JPA======================
 	@DeleteMapping("/deleteSlip")
-	public void removeSlip(@RequestParam String slipNo) {
-		businessService.removeSlip(slipNo);
-
-	}
+	public void removeSlip(@RequestParam String slipNo){
+		System.out.println("여기 슬립엔티티 슬립넘버있어요!!!!!!!!!!!+"+slipNo);
+		SlipEntity test = new SlipEntity();
+		test.setSlipNo(slipNo);
+		jpaSlipService.removeSlip(test.getSlipNo());
+}
 
 	// =======================전표 저장==========================
 	@PostMapping("/registerslip")

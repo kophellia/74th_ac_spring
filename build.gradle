@@ -105,6 +105,8 @@ dependencies {
     implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
     implementation group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
 
+    //jpa 사용 하기위해 선언
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 }
 
 tasks.named('test') {
