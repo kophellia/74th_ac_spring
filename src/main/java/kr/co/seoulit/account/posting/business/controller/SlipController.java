@@ -164,18 +164,18 @@ public class SlipController {
 	}
 
 //	// ====================전표 삭제======================
-//	@DeleteMapping("/deleteSlip")
-//	public void removeSlip(@RequestParam String slipNo) {
-//		businessService.removeSlip(slipNo);
-//	}
-// ====================전표 삭제 JPA======================
 	@DeleteMapping("/deleteSlip")
-	public void removeSlip(@RequestParam String slipNo){
-		System.out.println("여기 슬립엔티티 슬립넘버있어요!!!!!!!!!!!+"+slipNo);
-		SlipEntity test = new SlipEntity();
-		test.setSlipNo(slipNo);
-		jpaSlipService.removeSlip(test.getSlipNo());
-}
+	public void removeSlip(@RequestParam String slipNo) {
+		businessService.removeSlip(slipNo);
+	}
+// ====================전표 삭제 JPA======================
+//	@DeleteMapping("/deleteSlip")
+//	public void removeSlip(@RequestParam String slipNo){
+//		System.out.println("여기 슬립엔티티 슬립넘버있어요!!!!!!!!!!!+"+slipNo);
+//		SlipEntity test = new SlipEntity();
+//		test.setSlipNo(slipNo);
+//		jpaSlipService.removeSlip(test.getSlipNo());
+//}
 
 	// =======================전표 저장==========================
 	@PostMapping("/registerslip")
