@@ -152,14 +152,13 @@ public class BusinessServiceImpl implements BusinessService {
 
 		ArrayList<JournalBean> list = journalDAO.selectJournalList(slipNo);
 		for (JournalBean journal : list) {
-
 			System.out.println("removeSlip@@@@ :" + journal.getJournalNo());
 		}
-		slipDAO.deleteSlip(slipNo);
 		journalDAO.deleteJournalAll(slipNo);
 		for (JournalBean journal : list) {
 			journalDAO.deleteJournalDetail(journal.getJournalNo());
 		}
+		slipDAO.deleteSlip(slipNo);
 
 	}
 
