@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.co.seoulit.account.operate.system.mapper.AccountSubjectMapper">
+<mapper
+	namespace="kr.co.seoulit.account.operate.system.mapper.AccountSubjectMapper">
 
-	
-	<resultMap id="accountResult" type="kr.co.seoulit.account.operate.system.to.AccountBean">
-	    <result property="accountInnerCode" column="ACCOUNT_INNER_CODE"/>
-        <result property="parentAccountInnercode" column="PARENT_ACCOUNT_INNER_CODE"/>
-        <result property="accountCode" column="ACCOUNT_CODE"/>
-        <result property="accountCharacter" column="ACCOUNT_CHARACTER"/>
-        <result property="accountName" column="ACCOUNT_NAME"/>
-        <result property="accountUseCheck" column="ACCOUNT_USE_CHECK"/>
-        <result property="accountDescription" column="ACCOUNT_DESCRIPTION"/>
-        <result property="editform" column="EDITABLE"/>
-        <result property="lev" column="LEV"/>
+
+	<resultMap id="accountResult"
+		type="kr.co.seoulit.account.operate.system.to.AccountBean">
+		<result property="accountInnerCode" column="ACCOUNT_INNER_CODE" />
+		<result property="parentAccountInnercode"
+			column="PARENT_ACCOUNT_INNER_CODE" />
+		<result property="accountCode" column="ACCOUNT_CODE" />
+		<result property="accountCharacter" column="ACCOUNT_CHARACTER" />
+		<result property="accountName" column="ACCOUNT_NAME" />
+		<result property="accountUseCheck" column="ACCOUNT_USE_CHECK" />
+		<result property="accountDescription"
+			column="ACCOUNT_DESCRIPTION" />
+		<result property="editform" column="EDITABLE" />
+		<result property="lev" column="LEV" />
 	</resultMap>
-	
-  <resultMap id="accountControlResult" type="kr.co.seoulit.account.operate.system.to.AccountControlBean">
-        <result property="accountControlCode" column="ACCOUNT_CONTROL_CODE"/>
-        <result property="accountControlName" column="ACCOUNT_CONTROL_NAME"/>
-        <result property="accountControlType" column="ACCOUNT_CONTROL_TYPE"/>
-        <result property="accountControlDescription" column="ACCOUNT_CONTROL_DESCRIPTION"/>
-        
-    </resultMap>
+
+	<resultMap id="accountControlResult"
+		type="kr.co.seoulit.account.operate.system.to.AccountControlBean">
+		<result property="accountControlCode"
+			column="ACCOUNT_CONTROL_CODE" />
+		<result property="accountControlName"
+			column="ACCOUNT_CONTROL_NAME" />
+		<result property="accountControlType"
+			column="ACCOUNT_CONTROL_TYPE" />
+		<result property="accountControlDescription"
+			column="ACCOUNT_CONTROL_DESCRIPTION" />
+
+	</resultMap>
 
 
 	<select id="selectCurrentAssetList" resultMap="accountResult">
@@ -34,11 +43,12 @@
 		  AND  account_name != '사용자설정계정과목'
         AND  account_name != '감가상각누계액'
 		]]>
-    </select>
+	</select>
 
 
 
-	<select id="selectAccount" parameterType="map" resultMap="accountResult">
+	<select id="selectAccount" parameterType="map"
+		resultMap="accountResult">
 
 		SELECT
 		ACCOUNT_INNER_CODE,
@@ -51,17 +61,21 @@
 		ACCOUNT_DESCRIPTION,
 		EDITABLE
 		from ACCOUNT
-		WHERE PARENT_ACCOUNT_INNER_CODE IS not NULL
-		<if test="accountName != 'undefined'" >
-			AND ACCOUNT_NAME LIKE '%' || #{accountName} || '%'
+		WHERE
+		PARENT_ACCOUNT_INNER_CODE IS not NULL
+		<if test="accountName != 'undefined'">
+			AND ACCOUNT_NAME LIKE '%' ||
+			#{accountName} || '%'
 		</if>
-		<if test="accountCode != 'undefined'" >
-			AND ACCOUNT_CODE LIKE '%' || #{accountCode} || '%'
+		<if test="accountCode != 'undefined'">
+			AND ACCOUNT_CODE LIKE '%' ||
+			#{accountCode} || '%'
 		</if>
 
 	</select>
-	
-	<select id="selectParentAccountList"  resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
+
+	<select id="selectParentAccountList"
+		resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
       <![CDATA[
 			SELECT ACCOUNT_INNER_CODE        as accountInnerCode,
 				   PARENT_ACCOUNT_INNER_CODE as parentAccountInnerCode,
@@ -77,14 +91,31 @@
 			ORDER BY ACCOUNT_INNER_CODE
 			]]>
 	</select>
-	
-	<select id="selectDetailAccountList" parameterType="String" resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
+
+	<select id="JournalAccountList" parameterType="map"
+		resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
 		<![CDATA[
-		SELECT b.ACCOUNT_INNER_CODE        AS accountInnerCode,
-			   b.ACCOUNT_NAME              AS accountName,
-			   b.PARENT_ACCOUNT_INNER_CODE AS parentAccountInnercode,
-			   b.group_code                AS groupCode,
-			   a.ACCOUNT_NAME              AS accountName
+			SELECT DISTINCT A.ACCOUNT_INNER_CODE, A.ACCOUNT_NAME
+			FROM ACCOUNT A, JOURNAL J, SLIP S
+			WHERE S.SLIP_NO =J.SLIP_NO  
+			AND S.REPORTING_DATE BETWEEN #{fromDate} AND #{toDate}
+			AND A.PARENT_ACCOUNT_INNER_CODE=#{parentAccountCode}
+			AND J.ACCOUNT_INNER_CODE = A.ACCOUNT_INNER_CODE
+			AND S.SLIP_STATUS = '승인완료' 
+			ORDER BY ACCOUNT_INNER_CODE
+		]]>
+
+	</select>
+
+	<select id="selectDetailAccountList" parameterType="String"
+		resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
+		<![CDATA[
+		SELECT b.ACCOUNT_INNER_CODE			AS accountInnerCode,
+			   b.ACCOUNT_NAME				AS accountName,
+			   b.PARENT_ACCOUNT_INNER_CODE	AS parentAccountInnercode,
+			   b.group_code					AS groupCode,
+			   b.ACCOUNT_CODE				AS accountCode,
+			   a.ACCOUNT_NAME				AS accountName
 		FROM ACCOUNT a,
 			 ACCOUNT b
 		WHERE b.ACCOUNT_INNER_CODE NOT LIKE '%-%'
@@ -93,16 +124,18 @@
 		ORDER BY b.ACCOUNT_INNER_CODE
 		]]>
 	</select>
-	
-	<select id="updateAccount" parameterType="String" resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
+
+	<select id="updateAccount" parameterType="String"
+		resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
 		<![CDATA[
 			UPDATE ACCOUNT SET
 					   ACCOUNT_NAME= #accountName#	
 			     WHERE ACCOUNT_INNER_CODE = #{accountInnerCode}
 		]]>
 	</select>
-	
-	<select id="selectAccountListByName" parameterType="String" resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
+
+	<select id="selectAccountListByName" parameterType="String"
+		resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
 		<![CDATA[
 			select ACCOUNT_INNER_CODE        as accountInnerCode,
 				PARENT_ACCOUNT_INNER_CODE as parentAccountInnerCode,
@@ -120,8 +153,9 @@
 			ORDER BY ACCOUNT_CODE
 		]]>
 	</select>
-	
-	<select id="selectAccountControlList" parameterType="String" resultType="kr.co.seoulit.account.operate.system.to.AccountControlBean">
+
+	<select id="selectAccountControlList" parameterType="String"
+		resultType="kr.co.seoulit.account.operate.system.to.AccountControlBean">
 		<![CDATA[
 			SELECT    D.ACCOUNT_CONTROL_CODE    as accountControlCode
 					    , D.ACCOUNT_CONTROL_NAME    as accountControlName
@@ -133,8 +167,9 @@
 	        		AND   C.ACCOUNT_CONTROL_CODE = D.ACCOUNT_CONTROL_CODE	  
 		]]>
 	</select>
-	
-	<select id="selectParentBudgetList" parameterType="Map" resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
+
+	<select id="selectParentBudgetList" parameterType="Map"
+		resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
 		<![CDATA[
 			SELECT  ACCOUNT_INNER_CODE        as accountInnerCode,
 					PARENT_ACCOUNT_INNER_CODE as parentAccountInnerCode,
@@ -155,7 +190,8 @@
 		]]>
 	</select>
 
-	<select id="selectDetailBudgetList" parameterType="String" resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
+	<select id="selectDetailBudgetList" parameterType="String"
+		resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
 		<![CDATA[
 			SELECT 
 			        ACCOUNT_INNER_CODE        as accountInnerCode,
@@ -173,8 +209,9 @@
 			ORDER BY ACCOUNT_INNER_CODE
 		]]>
 	</select>
-		
-	<select id="selectAccountPeriodList" parameterType="String" resultType="kr.co.seoulit.account.operate.system.to.PeriodBean">
+
+	<select id="selectAccountPeriodList" parameterType="String"
+		resultType="kr.co.seoulit.account.operate.system.to.PeriodBean">
 		<![CDATA[
 			SELECT 
 					  SUBSTR(PERIOD_START_DATE,1,4)              as fiscalYear
@@ -186,7 +223,8 @@
 		]]>
 	</select>
 
-	<select id="selectParentBudgetList2" parameterType="String" resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
+	<select id="selectParentBudgetList2" parameterType="String"
+		resultType="kr.co.seoulit.account.operate.system.to.AccountBean">
 		<![CDATA[
 		SELECT
 			A.ACCOUNT_INNER_CODE                as accountInnerCode,
@@ -202,12 +240,12 @@
 		  AND B.DEPT_CODE= #{deptCode}
 		]]>
 	</select>
-	
-	
 
 
-	
-	
-	
-	
+
+
+
+
+
+
 </mapper>
