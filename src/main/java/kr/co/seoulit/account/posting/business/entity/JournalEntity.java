@@ -11,24 +11,23 @@ import javax.persistence.Table;
 @Table(name = "Journal")
 @NoArgsConstructor
 @Data
-public class JournalEntitiy {
+public class JournalEntity {
 
     @Id
     private String journalNo;
+    private String slipNo;
     private String balanceDivision;
-    private String accountCode;
-    private String accountName;
+    private String accountInnerCode;
     private String customerCode;
-    private String customerName;
     private String leftDebtorPrice;
     private String rightCreditsPrice;
-    private String price;
-    private String deptCode;
-    private String accountPeriodNo;
 //    private List<JournalDetailBean> journalDetailList;
-
-    private String id;
-    private String slipNo;
-
+//    private String id;
+//    private String accountCode;
+//    private String accountName;
+//    private String customerName;
+//    private String price;
+//    private String deptCode;
+//    private String accountPeriodNo;
 
 }

@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface JpaSlipService {
     List<SlipEntity> selectSlipList();
-
     void removeSlip(String slipNo);
+    void removeJournal(String journalNo);
 }

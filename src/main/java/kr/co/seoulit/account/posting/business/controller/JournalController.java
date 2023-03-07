@@ -3,7 +3,9 @@ package kr.co.seoulit.account.posting.business.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import kr.co.seoulit.account.posting.business.entity.JournalEntity;
 import kr.co.seoulit.account.posting.business.service.BusinessService;
+import kr.co.seoulit.account.posting.business.service.JpaSlipService;
 import kr.co.seoulit.account.posting.business.to.JournalBean;
 import kr.co.seoulit.account.sys.common.util.BeanCreator;
 
@@ -20,6 +22,8 @@ public class JournalController {
 
     @Autowired
     private BusinessService businessService;
+    @Autowired
+    JpaSlipService jpaSlipService;
 
     @GetMapping("/singlejournallist")
     public ArrayList<JournalBean> findSingleJournalList(@RequestParam("slipNo") String slipNo) {
@@ -52,13 +56,17 @@ public class JournalController {
         return journalList;
     }
 
+//    @DeleteMapping("/journalremoval")
+//    public void removeJournal(@RequestParam String journalNo) {
+//        businessService.removeJournal(journalNo);
+//    }
     @DeleteMapping("/journalremoval")
     public void removeJournal(@RequestParam String journalNo) {
-
-
-        businessService.removeJournal(journalNo);
-
-    }
+        System.out.println("여기 슬립엔티티 슬립넘버있어요!!!!!!!!!!!+"+journalNo);
+        JournalEntity entity = new JournalEntity();
+        entity.setJournalNo(journalNo);
+        jpaSlipService.removeJournal(entity.getJournalNo());
+}
     
     @PostMapping("/modifyJournal")
 	public void modifyJournal(@RequestBody JSONObject jourData) {

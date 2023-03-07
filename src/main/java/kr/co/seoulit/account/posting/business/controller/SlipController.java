@@ -269,9 +269,9 @@ public class SlipController {
 		return approvalSlipList;
 	}
 
+	// ============ 이거 없음 ============ //
 	@GetMapping("/disapprovalsliplist")
 	public ArrayList<SlipBean> findDisApprovalSlipList() {
-
 		return businessService.findDisApprovalSlipList();
 	}
 
