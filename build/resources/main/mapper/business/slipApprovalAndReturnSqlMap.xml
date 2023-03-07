@@ -32,4 +32,21 @@
 			 ]]>
 		 </select>
 		 
+		 
+		 <select id="selectApprovalJournalList" parameterType="String" resultType="kr.co.seoulit.account.posting.business.to.JournalBean">
+		 <![CDATA[
+		 	SELECT J.JOURNAL_NO          as journalNo,
+               		   J.SLIP_NO             as slipNo,
+               		   J.BALANCE_DIVISION    as balanceDivision,
+               		   J.ACCOUNT_INNER_CODE  as accountCode,
+               		   J.CUSTOMER_CODE       as customerCode,
+               		   J.LEFT_DEBTOR_PRICE   as leftDebtorPrice,
+               		   J.RIGHT_CREDITS_PRICE as rightCreditsPrice,
+               		   A.ACCOUNT_NAME        as accountName
+				  FROM JOURNAL J, 
+					   ACCOUNT A 
+				 WHERE J.ACCOUNT_INNER_CODE = A.ACCOUNT_INNER_CODE 
+				   AND J.SLIP_NO = #{slipNo}
+		 ]]>
+		 </select>
 </mapper>

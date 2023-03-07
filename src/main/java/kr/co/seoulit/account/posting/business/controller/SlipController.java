@@ -163,12 +163,20 @@ public class SlipController {
 		return slipFormList;
 	}
 
+<<<<<<< HEAD
 //	// ====================전표 삭제======================
+=======
+	// ====================전표 삭제======================
+>>>>>>> origin/main
 	@DeleteMapping("/deleteSlip")
 	public void removeSlip(@RequestParam String slipNo) {
 		businessService.removeSlip(slipNo);
 	}
+<<<<<<< HEAD
 // ====================전표 삭제 JPA======================
+=======
+// ====================전표 삭제 JPA Journal삭제 생각안함. FK부터 지워야됨.======================
+>>>>>>> origin/main
 //	@DeleteMapping("/deleteSlip")
 //	public void removeSlip(@RequestParam String slipNo){
 //		System.out.println("여기 슬립엔티티 슬립넘버있어요!!!!!!!!!!!+"+slipNo);
@@ -269,9 +277,9 @@ public class SlipController {
 		return approvalSlipList;
 	}
 
+	// ============ 이거 없음 ============ //
 	@GetMapping("/disapprovalsliplist")
 	public ArrayList<SlipBean> findDisApprovalSlipList() {
-
 		return businessService.findDisApprovalSlipList();
 	}
 
