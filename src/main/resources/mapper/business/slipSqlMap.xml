@@ -14,7 +14,7 @@
                SLIP_TYPE            as slipType,
                EXPENSE_REPORT       as expenseReport,
                REPORTING_EMP_CODE   as reportingEmpCode,
-               REPORTING_DATE       as reportingDate,
+               TO_CHAR(REPORTING_DATE,'YYYY-MM-DD')       as reportingDate,
                APPROVAL_EMP_CODE    as approvalEmpCode,
                APPROVAL_DATE        as approvalDate,
                SLIP_STATUS          as slipStatus
@@ -98,16 +98,18 @@
 		s.SLIP_TYPE as slipType,
 		s.SLIP_STATUS as slipStatus,
 		s.APPROVAL_DATE as approvalDate,
-		s.REPORTING_DATE as reportingDate,
+		TO_CHAR(s.REPORTING_DATE,'YYYY-MM-DD') as reportingDate,
 		s.DEPT_CODE as deptCode,
 		s.ACCOUNT_PERIOD_NO as accountPeriodNo
 		FROM slip s
 		WHERE s.REPORTING_DATE BETWEEN #{fromDate} AND #{toDate}
 		AND NOT s.SLIP_STATUS IN ('승인요청')
+		AND NOT s.SLIP_STATUS IN ('승인완료')
 		<if test='slipStatus!="전체"'>
 			AND s.SLIP_STATUS = #{slipStatus}
 		</if>
 		ORDER BY s.REPORTING_DATE, SLIP_NO
+
 	</select>
 
 	<select id="selectApprovalSlipList"
@@ -121,7 +123,7 @@
                SLIP_TYPE            as slipType,
                EXPENSE_REPORT       as expenseReport,
                REPORTING_EMP_CODE   as reportingEmpCode,
-               REPORTING_DATE       as reportingDate,
+               TO_CHAR(REPORTING_DATE,'YYYY-MM-DD')       as reportingDate,
                APPROVAL_EMP_CODE    as approvalEmpCode,
                APPROVAL_DATE        as approvalDate,
                SLIP_STATUS          as slipStatus
@@ -140,7 +142,7 @@
                SLIP_TYPE            as slipType,
                EXPENSE_REPORT       as expenseReport,
                REPORTING_EMP_CODE   as reportingEmpCode,
-               REPORTING_DATE       as reportingDate,
+               TO_CHAR(REPORTING_DATE,'YYYY-MM-DD')       as reportingDate,
                APPROVAL_EMP_CODE    as approvalEmpCode,
                APPROVAL_DATE        as approvalDate,
                SLIP_STATUS          as slipStatus
@@ -167,7 +169,7 @@
             Authorization_status as authorizationStatus
             Dept_code as deptCode
             Expense_report as expenseReport
-            Reporting_date as  reportingDate
+            TO_CHAR(REPORTING_DATE,'YYYY-MM-DD') as  reportingDate
             Reporting_emp_code as reportingEmpCode
             Slip_status as slipStatus
             Slip_type as slipType

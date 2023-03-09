@@ -28,9 +28,6 @@ public class PeriodNoController {
 	@GetMapping("/tPeriodNoList")
 	public PeriodNoBean findPeriodNo(@RequestParam("yearFirst") String yearFirst,
 			@RequestParam("yearLast") String yearLast) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		System.out.println("여기 걸림");
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("yearFirst", yearFirst);
 		map.put("yearLast", yearLast);

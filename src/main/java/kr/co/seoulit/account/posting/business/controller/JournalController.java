@@ -27,7 +27,6 @@ public class JournalController {
 
     @GetMapping("/singlejournallist")
     public ArrayList<JournalBean> findSingleJournalList(@RequestParam("slipNo") String slipNo) {
-
         ArrayList<JournalBean> journalList = businessService.findSingleJournalList(slipNo);
 
         return journalList;
@@ -68,25 +67,43 @@ public class JournalController {
         jpaSlipService.removeJournal(entity.getJournalNo());
 }
     
+//    @PostMapping("/modifyJournal")
+//	public void modifyJournal(@RequestBody JSONObject jourData) {
+//		String slipNo = ((JSONObject) jourData.get("jourData")).get("slipNo").toString();
+//		Object journalObj = ((JSONObject) jourData.get("jourData")).get("journalObj");
+//
+//		JSONArray journalObjs = JSONArray.fromObject(journalObj);
+//		System.out.println(journalObjs);//JSONArray까지 변환 시킴
+//
+//		ArrayList<JournalBean> journalBeanList = new ArrayList<>();
+//
+//		for (Object journalObjt : journalObjs) {
+//            JournalBean journalBean = BeanCreator.getInstance().create(JSONObject.fromObject(journalObjt), JournalBean.class);
+//            //System.out.println(((JSONObject) journalObjt).getString("status"));
+//            journalBean.setStatus(((JSONObject) journalObjt).getString("status"));
+//            journalBeanList.add(journalBean);
+//        }
+//		businessService.modifyJournal(slipNo, journalBeanList);
+//	}
     @PostMapping("/modifyJournal")
-	public void modifyJournal(@RequestBody JSONObject jourData) {
-		String slipNo = ((JSONObject) jourData.get("jourData")).get("slipNo").toString();
-		Object journalObj = ((JSONObject) jourData.get("jourData")).get("journalObj");
-
-		JSONArray journalObjs = JSONArray.fromObject(journalObj);
-		System.out.println(journalObjs);//JSONArray까지 변환 시킴
-
-		ArrayList<JournalBean> journalBeanList = new ArrayList<>();
-
-		for (Object journalObjt : journalObjs) {
-            JournalBean journalBean = BeanCreator.getInstance().create(JSONObject.fromObject(journalObjt), JournalBean.class);
-            //System.out.println(((JSONObject) journalObjt).getString("status"));
-            journalBean.setStatus(((JSONObject) journalObjt).getString("status"));
-            journalBeanList.add(journalBean);
-        }
-		businessService.modifyJournal(slipNo, journalBeanList);
+	public void modifyJournal(@RequestBody JournalBean jourData) {
+    	System.out.println(jourData);
+//		String slipNo = ((JSONObject) jourData.get("jourData")).get("slipNo").toString();
+//		Object journalObj = ((JSONObject) jourData.get("jourData")).get("journalObj");
+//
+//		JSONArray journalObjs = JSONArray.fromObject(journalObj);
+//		System.out.println(journalObjs);//JSONArray까지 변환 시킴
+//
+//		ArrayList<JournalBean> journalBeanList = new ArrayList<>();
+//
+//		for (Object journalObjt : journalObjs) {
+//            JournalBean journalBean = BeanCreator.getInstance().create(JSONObject.fromObject(journalObjt), JournalBean.class);
+//            //System.out.println(((JSONObject) journalObjt).getString("status"));
+//            journalBean.setStatus(((JSONObject) journalObjt).getString("status"));
+//            journalBeanList.add(journalBean);
+//        }
+//		businessService.modifyJournal(slipNo, journalBeanList);
 	}
-
     
     /*이전 modifyJournal
     @GetMapping("modifyJournal")

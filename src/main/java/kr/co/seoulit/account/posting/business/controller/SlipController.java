@@ -189,6 +189,7 @@ public class SlipController {
 		Object journalObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("journalObj");
 		String slipStatus = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipStatus").toString();
 		System.out.println(slipObj);
+		
 		SlipBean slipBean = null;
 		Gson gson = new Gson();
 		JSONArray slipObjs = JSONArray.fromObject(slipObj);// journalObj를 JSONArray로 변환
@@ -196,6 +197,7 @@ public class SlipController {
 			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);// slipObj를 SlipBean 클래스로 변환
 		}
 		slipBean.setSlipStatus(slipStatus);
+		System.out.println(slipBean.getReportingDate()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
 		JSONArray journalObjs = JSONArray.fromObject(journalObj);// journalObj를 JSONArray로 변환
 //	      if (slipStatus.equals("승인요청")) {
@@ -222,27 +224,29 @@ public class SlipController {
 
 	// =======================전표 수정==========================
 	@PutMapping("/updateSlip")
-	public void updateSlip(@RequestBody JSONObject updateSlipData) {
-		System.out.println("전표 수정 잡힘");
-		System.out.println(updateSlipData);
-		Object slipObj = ((JSONObject) updateSlipData.get("updateSlipData")).get("slipObj");
-		Object journalObj = ((JSONObject) updateSlipData.get("updateSlipData")).get("journalObj");
-		System.out.println(slipObj);
-		System.out.println(journalObj);
-		SlipBean slipBean = null;
-		Gson gson = new Gson();
-		JSONArray slipObjs = JSONArray.fromObject(slipObj);// journalObj를 JSONArray로 변환
-		for (Object slipObjt : slipObjs) {
-			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);// slipObj를 SlipBean 클래스로 변환
-		}
-		JSONArray journalObjs = JSONArray.fromObject(journalObj);
-		ArrayList<JournalBean> journalBeans = new ArrayList<>();
-		for (Object journalObjt : journalObjs) {
-			JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
-			journalBeans.add(journalBean);
-
-		}
-		businessService.updateSlip(slipBean, journalBeans);
+	public void updateSlip(@RequestBody	SlipBean updateSlipData) {
+			System.out.println(updateSlipData);
+		
+//		System.out.println("전표 수정 잡힘");
+//		System.out.println(updateSlipData);
+//		Object slipObj = ((JSONObject) updateSlipData.get("updateSlipData")).get("slipObj");
+//		Object journalObj = ((JSONObject) updateSlipData.get("updateSlipData")).get("journalObj");
+//		System.out.println(slipObj);
+//		System.out.println(journalObj);
+//		SlipBean slipBean = null;
+//		Gson gson = new Gson();
+//		JSONArray slipObjs = JSONArray.fromObject(slipObj);// journalObj를 JSONArray로 변환
+//		for (Object slipObjt : slipObjs) {
+//			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);// slipObj를 SlipBean 클래스로 변환
+//		}
+//		JSONArray journalObjs = JSONArray.fromObject(journalObj);
+//		ArrayList<JournalBean> journalBeans = new ArrayList<>();
+//		for (Object journalObjt : journalObjs) {
+//			JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
+//			journalBeans.add(journalBean);
+//
+//		}
+//		businessService.updateSlip(slipBean, journalBeans);
 	}
 
 	// =======================전표 승인 요청==========================
