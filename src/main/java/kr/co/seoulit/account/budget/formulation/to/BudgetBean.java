@@ -27,6 +27,29 @@ public class BudgetBean extends BaseBean{
 	private String m11Budget;
 	private String m12Budget;
 
+	@Override
+	public String toString() {
+		return "BudgetBean{" +
+				"deptCode='" + deptCode + '\'' +
+				", workplaceCode='" + workplaceCode + '\'' +
+				", accountInnerCode='" + accountInnerCode + '\'' +
+				", accountPeriodNo='" + accountPeriodNo + '\'' +
+				", budgetingCode='" + budgetingCode + '\'' +
+				", m1Budget='" + m1Budget + '\'' +
+				", m2Budget='" + m2Budget + '\'' +
+				", m3Budget='" + m3Budget + '\'' +
+				", m4Budget='" + m4Budget + '\'' +
+				", m5Budget='" + m5Budget + '\'' +
+				", m6Budget='" + m6Budget + '\'' +
+				", m7Budget='" + m7Budget + '\'' +
+				", m8Budget='" + m8Budget + '\'' +
+				", m9Budget='" + m9Budget + '\'' +
+				", m10Budget='" + m10Budget + '\'' +
+				", m11Budget='" + m11Budget + '\'' +
+				", m12Budget='" + m12Budget + '\'' +
+				'}';
+	}
+
 	public String getDeptCode() {return deptCode;}
 	public void setDeptCode(String deptCode) {
 		this.deptCode = deptCode;

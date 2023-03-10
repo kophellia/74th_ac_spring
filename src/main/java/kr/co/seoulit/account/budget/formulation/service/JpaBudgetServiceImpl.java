@@ -5,14 +5,23 @@ import kr.co.seoulit.account.budget.formulation.repository.BudgetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class JpaBudgetServiceImpl implements JpaBudgetService {
    @Autowired
    BudgetRepository budgetRepository;
 
    @Override
-   public void savebudget(BudgetEntity budgetEntity) throws Exception{
+   public void save(BudgetEntity budgetEntity){
+      System.out.println(budgetEntity);
+      System.out.println(budgetEntity.getAccountInnerCode());
       budgetRepository.save(budgetEntity);
+   }
+
+   @Override
+   public ArrayList<BudgetEntity> findBudget(String deptCode, String workplaceCode, String accountPeriodNo, String accountInnerCode, String budgetingCode) {
+      return budgetRepository.findByDeptCodeAndWorkplaceCodeAndAccountInnerCodeAndAccountPeriodNoAndBudgetingCode(deptCode, workplaceCode, accountInnerCode, accountPeriodNo, budgetingCode);
    }
 }
 

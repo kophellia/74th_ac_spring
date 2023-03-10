@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.Vector;
 
+import kr.co.seoulit.account.budget.formulation.entity.BudgetEntity;
+import kr.co.seoulit.account.budget.formulation.service.JpaBudgetService;
 import kr.co.seoulit.account.budget.formulation.to.ComparisonBudgetBean;
 import kr.co.seoulit.account.sys.common.exception.DataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,19 +34,37 @@ public class FormulationController {
     @Autowired
     private FormulationService formulationService;
 
+    @Autowired
+    private JpaBudgetService jpaBudgetService;
+
     ModelMap map = null;
     BeanCreator beanCreator = BeanCreator.getInstance();
 
+//    @GetMapping("/budget")
+//    public HashMap<String ,Object> findBudget(
+//            @RequestParam("deptCode") String deptCode,
+//            @RequestParam("workplaceCode") String workplaceCode,
+//            @RequestParam("accountPeriodNo") String accountPeriodNo,
+//            @RequestParam("accountInnerCode") String accountInnerCode
+//    ) {
+//        HashMap<String , Object> map =new HashMap<>();
+//        ArrayList<BudgetBean> preBudgetList = formulationService.findBudget(deptCode,workplaceCode,accountPeriodNo,accountInnerCode);
+//        map.put("preBudgetList" , preBudgetList);
+//        return map;
+//    }
+
+    // JPA로 변경중 ======== 조회 =========
     @GetMapping("/budget")
     public HashMap<String ,Object> findBudget(
             @RequestParam("deptCode") String deptCode,
             @RequestParam("workplaceCode") String workplaceCode,
             @RequestParam("accountPeriodNo") String accountPeriodNo,
-            @RequestParam("accountInnerCode") String accountInnerCode
+            @RequestParam("accountInnerCode") String accountInnerCode,
+            @RequestParam("budgetingCode") String budgetingCode
     ) {
         HashMap<String , Object> map =new HashMap<>();
-        ArrayList<BudgetBean> preBudgetList = formulationService.findBudget(deptCode,workplaceCode,accountPeriodNo,accountInnerCode);
-        map.put("preBudgetList" , preBudgetList);
+        ArrayList<BudgetEntity> preBudgetList = jpaBudgetService.findBudget(deptCode,workplaceCode,accountPeriodNo,accountInnerCode,budgetingCode);
+        map.put("currentBudgetList" , preBudgetList);
         return map;
     }
 
@@ -60,13 +80,15 @@ public class FormulationController {
 
     @GetMapping("/budgetlist")
     public void findBudgetList(@RequestParam String budgetObj) {
-
-
         JSONObject budgetJsonObj = JSONObject.fromObject(budgetObj); //예산
         BudgetBean budgetBean = beanCreator.create(budgetJsonObj, BudgetBean.class);
         formulationService.findBudgetList(budgetBean);
-
     }
+
+//    @GetMapping("/budgetlist")
+//    public void findBudgetList(@RequestParam String budgetObj) {
+//        System.out.println("참조+++++"+budgetObj);
+//    }
 
 
     //    @PostMapping("/budgetlist")
@@ -96,20 +118,22 @@ public class FormulationController {
 //    };
     //================================================================================
 
-    @PostMapping("/budgetlist")
-    public void registerBudget(@RequestBody JSONObject budgetlist
-    ) {
-        JSONObject budgetJsonObj = JSONObject.fromObject(budgetlist.get("budgetlist"));
-        System.out.println(budgetJsonObj.getClass().getName());
-        BudgetBean budgetBean = beanCreator.create(budgetJsonObj, BudgetBean.class);
-        formulationService.registerBudget(budgetBean);
-    };
-
 //    @PostMapping("/budgetlist")
-//    public void registerBudget(@RequestBody BudgetBean budgetBean){
-//        System.out.println(budgetBean.getM1Budget());
-//        System.out.println(budgetBean.toString());
+//    public void registerBudget(@RequestBody JSONObject budgetlist
+//    ) {
+//        JSONObject budgetJsonObj = JSONObject.fromObject(budgetlist.get("budgetlist"));
+//        System.out.println(budgetJsonObj.getClass().getName());
+//        BudgetBean budgetBean = beanCreator.create(budgetJsonObj, BudgetBean.class);
+//        formulationService.registerBudget(budgetBean);
 //    };
+
+    // JPA ++ 예산신청 ++ (save insert)
+    @PostMapping("/budgetlist")
+    public void registerBudget(@RequestBody BudgetEntity budgetEntity){
+        System.out.println(budgetEntity);
+        jpaBudgetService.save(budgetEntity);
+
+    };
 
     //================================================================================
     @PutMapping("/budgetlist")

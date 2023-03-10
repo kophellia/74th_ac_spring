@@ -22,6 +22,7 @@ public class SlipEntity {
     private String approvalEmpCode;
     private String approvalDate;
     private String slipStatus;
+
 //    private String deptName;
 //    private String id;
 //    private String authorizationStatus;

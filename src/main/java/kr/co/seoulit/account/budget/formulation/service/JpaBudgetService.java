@@ -2,8 +2,11 @@ package kr.co.seoulit.account.budget.formulation.service;
 
 import kr.co.seoulit.account.budget.formulation.entity.BudgetEntity;
 
-public interface JpaBudgetService {
+import java.util.ArrayList;
 
-    public void savebudget(BudgetEntity budgetEntity) throws Exception;
+public interface JpaBudgetService {
+    void save(BudgetEntity budgetEntity);
+
+    ArrayList<BudgetEntity> findBudget(String deptCode, String workplaceCode, String accountPeriodNo, String accountInnerCode, String budgetingCode);
 }
 
