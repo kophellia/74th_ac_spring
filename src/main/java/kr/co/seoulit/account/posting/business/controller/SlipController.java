@@ -224,8 +224,12 @@ public class SlipController {
 
 	// =======================전표 수정==========================
 	@PutMapping("/updateSlip")
-	public void updateSlip(@RequestBody	ArrayList<SlipBean> updateSlipData) {
-			System.out.println(updateSlipData);
+	public void updateSlip(@RequestBody SlipBean slipBean) {
+		System.out.println(slipBean);
+		businessService.updateSlip(slipBean);
+//			System.out.println(updateSlipData.get("selecSlip"));
+////			System.out.println(updateSlipData.get("selecSlip").getSlipNo());
+//			System.out.println(updateSlipData.get("selecSlip").getJournalBean());
 			
 		
 //		System.out.println("전표 수정 잡힘");

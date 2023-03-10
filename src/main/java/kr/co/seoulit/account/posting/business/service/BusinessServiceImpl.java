@@ -251,12 +251,12 @@ public class BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
-	public void updateSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans) {
+	public void updateSlip(SlipBean slipBean) {
 		// TODO Auto-generated method stub
 		System.out.println("AppServiceImpl_addSlip 시작");
 
 		slipDAO.updateSlip(slipBean);
-		for (JournalBean journalBean : journalBeans) {
+		for (JournalBean journalBean : slipBean.getJournalBean()) {
 			journalDAO.updateJournal(journalBean);
 //			if (journalBean.getJournalDetailList() != null)
 //				for (JournalDetailBean journalDetailBean : journalBean.getJournalDetailList()) { // 분개상세항목들
