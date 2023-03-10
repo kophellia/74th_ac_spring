@@ -6,8 +6,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
-public class BudgetId implements Serializable {
+public class BudgetProductPK implements Serializable {
 
     private String accountInnerCode;
     private String accountPeriodNo;

@@ -98,6 +98,7 @@ public class HRController {
         return deptList;
     }*/
 
+    // 복합키사용해야함 key 2개사용
     @GetMapping("/deptlist")
     public ArrayList<DepartmentBean> findDeptList(){
 
