@@ -28,5 +28,5 @@ public interface SlipMapper {
 
     public ArrayList<SlipBean> selectApprovalSlipList(HashMap<String , Object> map);
     
-    public void updateSlipApproval(HashMap<String , Object> map);
+    public void updateSlipApproval(SlipBean slipBean);
 }

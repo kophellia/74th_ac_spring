@@ -229,9 +229,8 @@ public class SlipController {
 
 		slipBean.setSlipStatus(slipBean.getSlipStatus());
 
-
-		for (JournalBean journalBean: slipBean.getJournalBean()) {
-			journalBean.setSlipNo(slipBean.getSlipNo());//journal에 slipNo세팅
+		for (JournalBean journalBean : slipBean.getJournalBean()) {
+			journalBean.setSlipNo(slipBean.getSlipNo());// journal에 slipNo세팅
 			if (journalBean.getLeftDebtorPrice() == null) {
 				journalBean.setLeftDebtorPrice("0");
 			} else if (journalBean.getRightCreditsPrice() == null) {
@@ -249,8 +248,7 @@ public class SlipController {
 //			System.out.println(updateSlipData.get("selecSlip"));
 ////			System.out.println(updateSlipData.get("selecSlip").getSlipNo());
 //			System.out.println(updateSlipData.get("selecSlip").getJournalBean());
-			
-		
+
 //		System.out.println("전표 수정 잡힘");
 //		System.out.println(updateSlipData);
 //		Object slipObj = ((JSONObject) updateSlipData.get("updateSlipData")).get("slipObj");
@@ -275,13 +273,15 @@ public class SlipController {
 
 	// =======================전표 승인 요청==========================
 	@PatchMapping("/approvalSlipRequest")
-	public void approvalSlipRequest(@RequestBody JSONObject patchData) {
-		System.out.println(((JSONObject) patchData.get("patchData")).get("slipNo").getClass().getName());
-		System.out.println(((JSONObject) patchData.get("patchData")).get("slipStatus"));
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("slipNo", ((JSONObject) patchData.get("patchData")).get("slipNo"));
-		map.put("slipStatus", ((JSONObject) patchData.get("patchData")).get("slipStatus"));
-		businessService.approvalSlipRequest(map);
+	public void approvalSlipRequest(@RequestBody SlipBean slipBean) {
+		System.out.println(slipBean);
+		businessService.approvalSlipRequest(slipBean);
+//		System.out.println(((JSONObject) patchData.get("patchData")).get("slipNo").getClass().getName());
+//		System.out.println(((JSONObject) patchData.get("patchData")).get("slipStatus"));
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("slipNo", ((JSONObject) patchData.get("patchData")).get("slipNo"));
+//		map.put("slipStatus", ((JSONObject) patchData.get("patchData")).get("slipStatus"));
+//		businessService.approvalSlipRequest(map);
 
 	}
 
