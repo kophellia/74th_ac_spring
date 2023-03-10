@@ -25,7 +25,7 @@ public interface BusinessService {
 
     public ArrayList<SlipBean> findDisApprovalSlipList();
 
-    public void registerSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans);
+    public void registerSlip(SlipBean slipBean);
 
     public void removeSlip(String slipNo);
 

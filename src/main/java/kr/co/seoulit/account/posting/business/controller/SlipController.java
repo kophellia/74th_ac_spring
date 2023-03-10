@@ -180,46 +180,65 @@ public class SlipController {
 //}
 
 	// =======================전표 저장==========================
+//	@PostMapping("/registerslip")
+//	public void registerSlip(@RequestBody JSONObject insertSlipData) {
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//		System.out.println(insertSlipData);
+//		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//		Object slipObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipObj");
+//		Object journalObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("journalObj");
+//		String slipStatus = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipStatus").toString();
+//		System.out.println(slipObj);
+//		
+//		SlipBean slipBean = null;
+//		Gson gson = new Gson();
+//		JSONArray slipObjs = JSONArray.fromObject(slipObj);// journalObj를 JSONArray로 변환
+//		for (Object slipObjt : slipObjs) {
+//			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);// slipObj를 SlipBean 클래스로 변환
+//		}
+//		slipBean.setSlipStatus(slipStatus);
+//		System.out.println(slipBean.getReportingDate()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//
+//		JSONArray journalObjs = JSONArray.fromObject(journalObj);// journalObj를 JSONArray로 변환
+////	      if (slipStatus.equals("승인요청")) {
+////	          slipBean.setSlipStatus("승인요청"); //처음에 전표저장을 하면 null이라서 안 바꾸고 승인요청이 오면 바꾼다
+////	      }
+//		ArrayList<JournalBean> journalBeans = new ArrayList<>();
+//		for (Object journalObjt : journalObjs) {
+//			JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
+//			System.out.println(slipBean.getSlipNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+//
+//			journalBean.setSlipNo(slipBean.getSlipNo()); // slipNo을 journalBean에 값이 없어서 세팅해줌
+//			System.out.println(journalBean.getLeftDebtorPrice());
+//			System.out.println(journalBean.getRightCreditsPrice());
+//			if (journalBean.getLeftDebtorPrice() == null) {
+//				journalBean.setLeftDebtorPrice("0");
+//			} else if (journalBean.getRightCreditsPrice() == null) {
+//				journalBean.setRightCreditsPrice("0");
+//			}
+//			journalBeans.add(journalBean);
+//
+//		}
+//		businessService.registerSlip(slipBean, journalBeans);
+//	}
 	@PostMapping("/registerslip")
-	public void registerSlip(@RequestBody JSONObject insertSlipData) {
+	public void registerSlip(@RequestBody SlipBean slipBean) {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		System.out.println(insertSlipData);
+		System.out.println(slipBean);
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		Object slipObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipObj");
-		Object journalObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("journalObj");
-		String slipStatus = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipStatus").toString();
-		System.out.println(slipObj);
-		
-		SlipBean slipBean = null;
-		Gson gson = new Gson();
-		JSONArray slipObjs = JSONArray.fromObject(slipObj);// journalObj를 JSONArray로 변환
-		for (Object slipObjt : slipObjs) {
-			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);// slipObj를 SlipBean 클래스로 변환
-		}
-		slipBean.setSlipStatus(slipStatus);
-		System.out.println(slipBean.getReportingDate()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
-		JSONArray journalObjs = JSONArray.fromObject(journalObj);// journalObj를 JSONArray로 변환
-//	      if (slipStatus.equals("승인요청")) {
-//	          slipBean.setSlipStatus("승인요청"); //처음에 전표저장을 하면 null이라서 안 바꾸고 승인요청이 오면 바꾼다
-//	      }
-		ArrayList<JournalBean> journalBeans = new ArrayList<>();
-		for (Object journalObjt : journalObjs) {
-			JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
-			System.out.println(slipBean.getSlipNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		slipBean.setSlipStatus(slipBean.getSlipStatus());
 
-			journalBean.setSlipNo(slipBean.getSlipNo()); // slipNo을 journalBean에 값이 없어서 세팅해줌
-			System.out.println(journalBean.getLeftDebtorPrice());
-			System.out.println(journalBean.getRightCreditsPrice());
+
+		for (JournalBean journalBean: slipBean.getJournalBean()) {
+			journalBean.setSlipNo(slipBean.getSlipNo());//journal에 slipNo세팅
 			if (journalBean.getLeftDebtorPrice() == null) {
 				journalBean.setLeftDebtorPrice("0");
 			} else if (journalBean.getRightCreditsPrice() == null) {
 				journalBean.setRightCreditsPrice("0");
 			}
-			journalBeans.add(journalBean);
-
 		}
-		businessService.registerSlip(slipBean, journalBeans);
+		businessService.registerSlip(slipBean);
 	}
 
 	// =======================전표 수정==========================

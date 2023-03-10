@@ -117,14 +117,12 @@ public class BusinessServiceImpl implements BusinessService {
 	// }
 
 	@Override
-	public void registerSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans) {
+	public void registerSlip(SlipBean slipBean) {
 		System.out.println("AppServiceImpl_addSlip 시작");
-
 		StringBuffer slipNo = new StringBuffer();
 		int sum = 0;
 
 		String slipNoDate = slipBean.getReportingDate().replace("-", ""); // 2021-10-27 -> 20211027
-		System.out.println("AppServiceImpl_addSlip 시작");
 		// 처음에 빈값
 		slipNo.append(slipNoDate); // 20200118
 		slipNo.append("SLIP"); // 20200118SLIP
@@ -133,7 +131,7 @@ public class BusinessServiceImpl implements BusinessService {
 		System.out.println("slipNo: " + slipNo.toString());
 		slipBean.setSlipNo(slipNo.toString()); // 20200118SLIP00001
 		slipDAO.insertSlip(slipBean);
-		for (JournalBean journalBean : journalBeans) {
+		for (JournalBean journalBean : slipBean.getJournalBean()) {
 			String journalNo = journalDAO.selectJournalName(slipBean.getSlipNo());
 			journalBean.setJournalNo(journalNo);
 			journalBean.setSlipNo(slipNo.toString());
