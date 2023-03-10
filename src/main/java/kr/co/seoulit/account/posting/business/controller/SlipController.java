@@ -224,8 +224,9 @@ public class SlipController {
 
 	// =======================전표 수정==========================
 	@PutMapping("/updateSlip")
-	public void updateSlip(@RequestBody	SlipBean updateSlipData) {
+	public void updateSlip(@RequestBody	ArrayList<SlipBean> updateSlipData) {
 			System.out.println(updateSlipData);
+			
 		
 //		System.out.println("전표 수정 잡힘");
 //		System.out.println(updateSlipData);
