@@ -14,7 +14,7 @@
                SLIP_TYPE            as slipType,
                EXPENSE_REPORT       as expenseReport,
                REPORTING_EMP_CODE   as reportingEmpCode,
-               TO_CHAR(REPORTING_DATE,'YYYY-MM-DD')       as reportingDate,
+               REPORTING_DATE       as reportingDate,
                APPROVAL_EMP_CODE    as approvalEmpCode,
                APPROVAL_DATE        as approvalDate,
                SLIP_STATUS          as slipStatus
@@ -98,7 +98,7 @@
 		s.SLIP_TYPE as slipType,
 		s.SLIP_STATUS as slipStatus,
 		s.APPROVAL_DATE as approvalDate,
-		TO_CHAR(s.REPORTING_DATE,'YYYY-MM-DD') as reportingDate,
+		s.REPORTING_DATE as reportingDate,
 		s.DEPT_CODE as deptCode,
 		s.ACCOUNT_PERIOD_NO as accountPeriodNo
 		FROM slip s
@@ -123,7 +123,7 @@
                SLIP_TYPE            as slipType,
                EXPENSE_REPORT       as expenseReport,
                REPORTING_EMP_CODE   as reportingEmpCode,
-               TO_CHAR(REPORTING_DATE,'YYYY-MM-DD')       as reportingDate,
+               REPORTING_DATE       as reportingDate,
                APPROVAL_EMP_CODE    as approvalEmpCode,
                APPROVAL_DATE        as approvalDate,
                SLIP_STATUS          as slipStatus
@@ -142,7 +142,7 @@
                SLIP_TYPE            as slipType,
                EXPENSE_REPORT       as expenseReport,
                REPORTING_EMP_CODE   as reportingEmpCode,
-               TO_CHAR(REPORTING_DATE,'YYYY-MM-DD')       as reportingDate,
+               REPORTING_DATE       as reportingDate,
                APPROVAL_EMP_CODE    as approvalEmpCode,
                APPROVAL_DATE        as approvalDate,
                SLIP_STATUS          as slipStatus
@@ -169,7 +169,7 @@
             Authorization_status as authorizationStatus
             Dept_code as deptCode
             Expense_report as expenseReport
-            TO_CHAR(REPORTING_DATE,'YYYY-MM-DD') as  reportingDate
+            REPORTING_DATE as  reportingDate
             Reporting_emp_code as reportingEmpCode
             Slip_status as slipStatus
             Slip_type as slipType

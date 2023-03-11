@@ -177,7 +177,7 @@
 					DESCRIPTION
 				)VALUES(
 					#{journalNo},
-					JOURNAL_DETAIL_NO_SEQUENCE.NEXTVAL,
+					JOURNAL_DETAIL_NO_SEQUENCES.NEXTVAL,
 					#{accountControlCode},
 					#{journalDescription}
 				)
