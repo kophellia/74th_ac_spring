@@ -190,12 +190,12 @@ public class BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
-	public void modifyapproveSlip(ArrayList<SlipBean> slipBeans) {
+	public void modifyapproveSlip(SlipBean slipBean) {
 
-		for (SlipBean slipBean : slipBeans) {
-			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
+//		for (SlipBean slipBean : slipBeans) {
+//			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
 			slipApprovalAndReturnDAO.updateapproveSlip(slipBean);
-		}
+		
 	}
 
 	@Override

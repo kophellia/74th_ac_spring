@@ -31,16 +31,7 @@ public class JournalController {
 
         return journalList;
     }
-//원본
-//    @GetMapping("/rangedjournallist")
-//    public HashMap<String, Object> findRangedJournalList(@RequestParam("startDate") String fromDate,
-//                                                         @RequestParam("endDate") String toDate) {
-//        HashMap<String, Object> map = new HashMap<>();
-//        ArrayList<JournalBean> journalList = businessService.findRangedJournalList(fromDate, toDate);
-//
-//        map.put("journalList", journalList);
-//        return map;
-//    }
+
     
     @GetMapping("/rangedjournallist")
     public ArrayList<JournalBean> findRangedJournalList(@RequestParam("startDate") String fromDate,
@@ -55,10 +46,7 @@ public class JournalController {
         return journalList;
     }
 
-//    @DeleteMapping("/journalremoval")
-//    public void removeJournal(@RequestParam String journalNo) {
-//        businessService.removeJournal(journalNo);
-//    }
+
     @DeleteMapping("/journalremoval")
     public void removeJournal(@RequestParam String journalNo) {
         System.out.println("여기 슬립엔티티 슬립넘버있어요!!!!!!!!!!!+"+journalNo);
@@ -149,7 +137,7 @@ public class JournalController {
     }
     
     @GetMapping("/approvalJournalList")
-    public ArrayList<JournalBean> findApprovalJournalList(@RequestParam("slipNo") String slipNo) {
+    public ArrayList<JournalBean> findApprovalJournalList(@RequestParam String slipNo) {
 
         ArrayList<JournalBean> approvalJournalList = businessService.findApprovalJournalList(slipNo);
 

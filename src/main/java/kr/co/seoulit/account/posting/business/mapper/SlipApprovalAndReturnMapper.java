@@ -10,7 +10,7 @@ import kr.co.seoulit.account.posting.business.to.SlipBean;
 @Mapper
 public interface SlipApprovalAndReturnMapper {
 	
-    void updateapproveSlip(SlipBean slipBean);
+    public void updateapproveSlip(SlipBean slipBean);
     
     public ArrayList<SlipBean> selectDisApprovalSlipList();
     
