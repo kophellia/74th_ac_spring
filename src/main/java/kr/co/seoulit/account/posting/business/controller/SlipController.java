@@ -80,7 +80,6 @@ public class SlipController {
 		slipBean.setSlipStatus(slipBean.getSlipStatus());
 
 		for (JournalBean journalBean : slipBean.getJournalBean()) {
-			journalBean.setSlipNo(slipBean.getSlipNo());// journal에 slipNo세팅
 			if (journalBean.getLeftDebtorPrice() == null) {
 				journalBean.setLeftDebtorPrice("0");
 			} else if (journalBean.getRightCreditsPrice() == null) {

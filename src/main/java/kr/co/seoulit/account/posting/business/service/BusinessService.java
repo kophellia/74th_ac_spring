@@ -10,6 +10,8 @@ import kr.co.seoulit.account.posting.business.to.SlipBean;
 public interface BusinessService {
 
     public ArrayList<JournalDetailBean> findJournalDetailList(String journalNo);
+    
+    public ArrayList<JournalDetailBean> addJournalDetailList(String accountCode);
 
     public String modifyJournalDetail(JournalDetailBean journalDetailBean);
 
@@ -49,5 +51,7 @@ public interface BusinessService {
 	public void approvalSlipRequest(SlipBean slipBean);
 	
 	public ArrayList<JournalBean> findApprovalJournalList(String slipNo);
+	
+	
 }
 

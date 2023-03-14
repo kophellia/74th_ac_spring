@@ -30,6 +30,13 @@ public class JournalDetailController {
 	ModelAndView mav = null;
 	ModelMap map = new ModelMap();
 
+	@GetMapping("/journaldetailAdd")
+	public ArrayList<JournalDetailBean> addJournalDetailList(@RequestParam String accountCode) {
+
+		ArrayList<JournalDetailBean> journalDetailList = businessService.addJournalDetailList(accountCode);
+		return journalDetailList;
+	}
+
 	@GetMapping("/journaldetaillist")
 	public ArrayList<JournalDetailBean> findJournalDetailList(@RequestParam("journalNo") String journalNo) {
 

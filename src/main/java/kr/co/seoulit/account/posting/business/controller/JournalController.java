@@ -54,7 +54,7 @@ public class JournalController {
         entity.setJournalNo(journalNo);
         jpaSlipService.removeJournal(entity.getJournalNo());
 }
-    
+   
 //    @PostMapping("/modifyJournal")
 //	public void modifyJournal(@RequestBody JSONObject jourData) {
 //		String slipNo = ((JSONObject) jourData.get("jourData")).get("slipNo").toString();
