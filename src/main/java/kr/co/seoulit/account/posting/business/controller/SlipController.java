@@ -42,112 +42,7 @@ public class SlipController {
 	ModelAndView mav = null;
 	ModelMap map = new ModelMap();
 
-//    @RequestMapping(value = "/slipmodification", method = {RequestMethod.POST, RequestMethod.GET})
-//    public String modifySlip(@RequestParam(value = "slipObj", required = false) String slipObj,
-//                             @RequestParam(value = "journalObj", required = false) String journalObj,
-//                             @RequestParam(value = "slipStatus", required = false) String slipStatus) {
-//
-//        ArrayList<JournalBean> journalBeans;
-//        JSONArray journalJSONArray;
-//        SlipBean slipBean;
-//        Gson gson = new Gson();
-//
-//        journalJSONArray = JSONArray.fromObject(journalObj); //遺꾧컻
-//        slipBean = gson.fromJson(slipObj, SlipBean.class);
-//        journalBeans = new ArrayList<>();
-//        for (Object journalObjs : journalJSONArray) {
-//
-//            JournalBean journalBean = gson.fromJson(journalObjs.toString(), JournalBean.class);
-//            journalBean.setSlipNo(slipBean.getSlipNo());
-//            System.out.println(journalBean.getJournalNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-//            System.out.println("customerName: ++" + journalBean.getCustomerName());
-//            journalBeans.add(journalBean);
-//        }
-//
-//        if (slipStatus.equals("승인요청")) {
-//            slipBean.setSlipStatus("승인요청");
-//        }
-//
-//        return businessService.modifySlip(slipBean, journalBeans);
-//    }
 
-//    @GetMapping("/registerslip")
-//    public void registerSlip(
-//			@RequestParam(value = "slipObj", required = false) String slipObj,
-//			@RequestParam(value = "journalObj", required = false) String journalObj,
-//			@RequestParam(value = "slipStatus", required = false) String slipStatus) 
-//    		@RequestBody String slipObj, @RequestBody String journalObj, @RequestBody String slipStatus)
-//    {
-//    	System.out.println("registerslip 잡히나"); // 이까지는 잡히는 거 같음
-//    	System.out.println(slipObj); 
-//    	System.out.println(journalObj);
-//    	System.out.println(slipStatus);
-//        Gson gson = new Gson();
-//        SlipBean slipBean = gson.fromJson(slipObj, SlipBean.class);//slipObj를 SlipBean 클래스로 변환
-//        JSONArray journalObjs = JSONArray.fromObject(journalObj);//journalObj를 JSONArray로 변환
-//        /*
-//         * slipBean.setReportingEmpCode(request.getSession().getAttribute("empCode").
-//         * toString()); // beanCreator에서 셋팅하는데 또함..(dong) //실제 결제신청하는 사람 정보로 바꿔주는 소스임 이름
-//         * slipBean.setDeptCode(request.getSession().getAttribute("deptCode").toString()
-//         * ); //부서번호
-//         */
-//        if (slipStatus.equals("승인요청")) {
-//            slipBean.setSlipStatus("승인요청"); //처음에 전표저장을 하면 null이라서 안 바꾸고 승인요청이 오면 바꾼다
-//        }
-//
-//        ArrayList<JournalBean> journalBeans = new ArrayList<>();
-//
-//
-//        for (Object journalObjt : journalObjs) {
-//            JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
-//            System.out.println(slipBean.getSlipNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-//
-//            journalBean.setSlipNo(slipBean.getSlipNo()); //slipNo을 journalBean에 값이 없어서 세팅해줌
-//            journalBeans.add(journalBean);
-//
-//        }
-//        businessService.registerSlip(slipBean, journalBeans);
-//    }
-
-	/*
-	 * @PostMapping("/registerslip") public HashMap<String, Object>
-	 * addSlip(@RequestBody HashMap<String, SlipBean> slipData){ HashMap<String
-	 * ,Object> map= new HashMap<>(); try{ String slipNo =
-	 * businessService.addSlip(slipData); map.put("slipNo", slipNo);
-	 * map.put("errorCode", 0); map.put("errorMsg", "등록완료"); } catch (Exception e2)
-	 * { map.put("errorCode", -1); map.put("errorMsg", e2.getMessage());
-	 * e2.printStackTrace(); } return map; };
-	 */
-
-	@GetMapping("/approvalslip")
-	public void modifyapproveSlip(@RequestParam String approveSlipList, @RequestParam String isApprove) {
-
-		JSONArray approveSlipLists = JSONArray.fromObject(approveSlipList); // slip_no만 가지고옴 //JSONArray.fromObject json
-																			// 객체로 만들어줌
-		String slipStatus = isApprove; // true 승인버튼 누르면 true 가 넘어옴
-		ArrayList<SlipBean> slipBeans = new ArrayList<>(); // 담는 값이 여러개
-
-		for (Object approveSlip : approveSlipLists) { // 승인일자를 자바로 만든다
-			Calendar calendar = Calendar.getInstance(); // import함
-			String year = calendar.get(Calendar.YEAR) + "";
-			String month = "0" + (calendar.get(Calendar.MONTH) + 1); // 0~11까지
-			String date = "0" + calendar.get(Calendar.DATE);
-			String today = year + "-" + month.substring(month.length() - 2) + "-" + date.substring(date.length() - 2);
-			// 인덱스 0,1 에서 0부터 시작하기 위해서 -2를 해주는듯 만약에 1자리인 경우에는 -1이니까 앞자리0부터???
-			// 2021-11-15
-			System.out.println("approveSlip : " + approveSlip);
-			SlipBean slipBean = new SlipBean();
-			slipBean.setSlipNo(approveSlip.toString()); // 전표번호
-			slipBean.setApprovalDate(today); // 승인데이터 오늘날짜
-			slipBean.setSlipStatus(slipStatus); // 전표상태
-			// slipBean.setApprovalEmpCode(request.getSession().getAttribute("empCode").toString());
-			// //String 형식 세션 값 읽기
-			slipBeans.add(slipBean);
-		}
-
-		businessService.modifyapproveSlip(slipBeans);
-
-	}
 
 	// ====================전표 조회 ======================
 	@GetMapping("/rangedsliplist")
@@ -168,7 +63,9 @@ public class SlipController {
 	public void removeSlip(@RequestParam String slipNo) {
 		businessService.removeSlip(slipNo);
 	}
+
 // ====================전표 삭제 JPA Journal삭제 생각안함. FK부터 지워야됨.======================
+
 //	@DeleteMapping("/deleteSlip")
 //	public void removeSlip(@RequestParam String slipNo){
 //		System.out.println("여기 슬립엔티티 슬립넘버있어요!!!!!!!!!!!+"+slipNo);
@@ -179,82 +76,37 @@ public class SlipController {
 
 	// =======================전표 저장==========================
 	@PostMapping("/registerslip")
-	public void registerSlip(@RequestBody JSONObject insertSlipData) {
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		System.out.println(insertSlipData);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		Object slipObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipObj");
-		Object journalObj = ((JSONObject) insertSlipData.get("insertSlipData")).get("journalObj");
-		String slipStatus = ((JSONObject) insertSlipData.get("insertSlipData")).get("slipStatus").toString();
-		System.out.println(slipObj);
-		SlipBean slipBean = null;
-		Gson gson = new Gson();
-		JSONArray slipObjs = JSONArray.fromObject(slipObj);// journalObj를 JSONArray로 변환
-		for (Object slipObjt : slipObjs) {
-			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);// slipObj를 SlipBean 클래스로 변환
-		}
-		slipBean.setSlipStatus(slipStatus);
+	public void registerSlip(@RequestBody SlipBean slipBean) {
+		slipBean.setSlipStatus(slipBean.getSlipStatus());
 
-		JSONArray journalObjs = JSONArray.fromObject(journalObj);// journalObj를 JSONArray로 변환
-//	      if (slipStatus.equals("승인요청")) {
-//	          slipBean.setSlipStatus("승인요청"); //처음에 전표저장을 하면 null이라서 안 바꾸고 승인요청이 오면 바꾼다
-//	      }
-		ArrayList<JournalBean> journalBeans = new ArrayList<>();
-		for (Object journalObjt : journalObjs) {
-			JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
-			System.out.println(slipBean.getSlipNo() + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-
-			journalBean.setSlipNo(slipBean.getSlipNo()); // slipNo을 journalBean에 값이 없어서 세팅해줌
-			System.out.println(journalBean.getLeftDebtorPrice());
-			System.out.println(journalBean.getRightCreditsPrice());
+		for (JournalBean journalBean : slipBean.getJournalBean()) {
 			if (journalBean.getLeftDebtorPrice() == null) {
 				journalBean.setLeftDebtorPrice("0");
 			} else if (journalBean.getRightCreditsPrice() == null) {
 				journalBean.setRightCreditsPrice("0");
 			}
-			journalBeans.add(journalBean);
-
 		}
-		businessService.registerSlip(slipBean, journalBeans);
+		businessService.registerSlip(slipBean);
 	}
 
 	// =======================전표 수정==========================
 	@PutMapping("/updateSlip")
-	public void updateSlip(@RequestBody JSONObject updateSlipData) {
-		System.out.println("전표 수정 잡힘");
-		System.out.println(updateSlipData);
-		Object slipObj = ((JSONObject) updateSlipData.get("updateSlipData")).get("slipObj");
-		Object journalObj = ((JSONObject) updateSlipData.get("updateSlipData")).get("journalObj");
-		System.out.println(slipObj);
-		System.out.println(journalObj);
-		SlipBean slipBean = null;
-		Gson gson = new Gson();
-		JSONArray slipObjs = JSONArray.fromObject(slipObj);// journalObj를 JSONArray로 변환
-		for (Object slipObjt : slipObjs) {
-			slipBean = gson.fromJson(slipObjt.toString(), SlipBean.class);// slipObj를 SlipBean 클래스로 변환
-		}
-		JSONArray journalObjs = JSONArray.fromObject(journalObj);
-		ArrayList<JournalBean> journalBeans = new ArrayList<>();
-		for (Object journalObjt : journalObjs) {
-			JournalBean journalBean = gson.fromJson(journalObjt.toString(), JournalBean.class);
-			journalBeans.add(journalBean);
+	public void updateSlip(@RequestBody SlipBean slipBean) {
 
-		}
-		businessService.updateSlip(slipBean, journalBeans);
+		businessService.updateSlip(slipBean);
 	}
 
 	// =======================전표 승인 요청==========================
 	@PatchMapping("/approvalSlipRequest")
-	public void approvalSlipRequest(@RequestBody JSONObject patchData) {
-		System.out.println(((JSONObject) patchData.get("patchData")).get("slipNo").getClass().getName());
-		System.out.println(((JSONObject) patchData.get("patchData")).get("slipStatus"));
-		HashMap<String, Object> map = new HashMap<>();
-		map.put("slipNo", ((JSONObject) patchData.get("patchData")).get("slipNo"));
-		map.put("slipStatus", ((JSONObject) patchData.get("patchData")).get("slipStatus"));
-		businessService.approvalSlipRequest(map);
+	public void approvalSlipRequest(@RequestBody SlipBean slipBean) {
+		businessService.approvalSlipRequest(slipBean);
 
 	}
-
+	//=======================전표 승인 완료==========================
+	@PatchMapping("/approvalslip")
+	public void modifyapproveSlip(@RequestBody SlipBean slipBean) {
+		businessService.modifyapproveSlip(slipBean);
+	}
 //병합
 	@GetMapping("/approvalsliplist")
 	public ArrayList<SlipBean> findApprovalSlipList(@RequestParam("startDate") String fromDate,
@@ -269,11 +121,6 @@ public class SlipController {
 		return approvalSlipList;
 	}
 
-	// ============ 이거 없음 ============ //
-	@GetMapping("/disapprovalsliplist")
-	public ArrayList<SlipBean> findDisApprovalSlipList() {
-		return businessService.findDisApprovalSlipList();
-	}
 
 	@GetMapping("/findSlip")
 	public ArrayList<SlipBean> findSlip(@RequestParam String slipNo) {

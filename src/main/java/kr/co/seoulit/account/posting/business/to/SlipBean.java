@@ -1,15 +1,16 @@
 package kr.co.seoulit.account.posting.business.to;
 
 import kr.co.seoulit.account.sys.base.to.BaseBean;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-
+@NoArgsConstructor
+@AllArgsConstructor
 public class SlipBean extends BaseBean {
     private String id;
     private String slipNo;
@@ -27,4 +28,6 @@ public class SlipBean extends BaseBean {
     private String slipStatus;
     private String balanceDivision;
     private String positionCode;
+//    private String status;
+    private List<JournalBean> journalBean; 
 }

@@ -117,33 +117,25 @@ public class BusinessServiceImpl implements BusinessService {
 	// }
 
 	@Override
-	public void registerSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans) {
+	public void registerSlip(SlipBean slipBean) {
 		System.out.println("AppServiceImpl_addSlip 시작");
-
 		StringBuffer slipNo = new StringBuffer();
 		int sum = 0;
-
-		String slipNoDate = slipBean.getReportingDate().replace("-", ""); // 2021-10-27 -> 20211027
-		System.out.println("AppServiceImpl_addSlip 시작");
+		
+		String slipNoDate = slipBean.getReportingDate().replace("-",""); // 2021-10-27 -> 20211027
 		// 처음에 빈값
 		slipNo.append(slipNoDate); // 20200118
 		slipNo.append("SLIP"); // 20200118SLIP
 		String code = "0000" + (slipDAO.selectSlipCount(slipNoDate) + 1) + ""; // 00001 //오늘 작성한 전표의 카운터 +1
 		slipNo.append(code.substring(code.length() - 5)); // 00001 10이상 넘어가는숫자들 처리
-		System.out.println("slipNo: " + slipNo.toString());
+//		System.out.println("slipNo: " + slipNo.toString());
 		slipBean.setSlipNo(slipNo.toString()); // 20200118SLIP00001
 		slipDAO.insertSlip(slipBean);
-		for (JournalBean journalBean : journalBeans) {
+		for (JournalBean journalBean : slipBean.getJournalBean()) {
 			String journalNo = journalDAO.selectJournalName(slipBean.getSlipNo());
 			journalBean.setJournalNo(journalNo);
 			journalBean.setSlipNo(slipNo.toString());
 			journalDAO.insertJournal(journalBean);
-
-			if (journalBean.getJournalDetailList() != null)
-				for (JournalDetailBean journalDetailBean : journalBean.getJournalDetailList()) { // 분개상세항목들
-					journalDetailBean.setJournalNo(journalNo); // 분개번호
-					journalDAO.insertJournalDetailList(journalDetailBean);
-				}
 		}
 	}
 
@@ -154,10 +146,13 @@ public class BusinessServiceImpl implements BusinessService {
 		for (JournalBean journal : list) {
 			System.out.println("removeSlip@@@@ :" + journal.getJournalNo());
 		}
+		
 		journalDAO.deleteJournalAll(slipNo);
-		for (JournalBean journal : list) {
-			journalDAO.deleteJournalDetail(journal.getJournalNo());
-		}
+//		for (JournalBean journal : list) {
+//			journalDAO.deleteJournalDetail(journal.getJournalNo());
+//		}
+
+
 		slipDAO.deleteSlip(slipNo);
 
 	}
@@ -183,12 +178,12 @@ public class BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
-	public void modifyapproveSlip(ArrayList<SlipBean> slipBeans) {
+	public void modifyapproveSlip(SlipBean slipBean) {
 
-		for (SlipBean slipBean : slipBeans) {
-			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
+//		for (SlipBean slipBean : slipBeans) {
+//			slipBean.setSlipStatus(slipBean.getSlipStatus().equals("true") ? "승인완료" : "작성중(반려)");
 			slipApprovalAndReturnDAO.updateapproveSlip(slipBean);
-		}
+		
 	}
 
 	@Override
@@ -248,12 +243,12 @@ public class BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
-	public void updateSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans) {
+	public void updateSlip(SlipBean slipBean) {
 		// TODO Auto-generated method stub
 		System.out.println("AppServiceImpl_addSlip 시작");
 
 		slipDAO.updateSlip(slipBean);
-		for (JournalBean journalBean : journalBeans) {
+		for (JournalBean journalBean : slipBean.getJournalBean()) {
 			journalDAO.updateJournal(journalBean);
 //			if (journalBean.getJournalDetailList() != null)
 //				for (JournalDetailBean journalDetailBean : journalBean.getJournalDetailList()) { // 분개상세항목들
@@ -263,10 +258,10 @@ public class BusinessServiceImpl implements BusinessService {
 	}
 
 	@Override
-	public void approvalSlipRequest(HashMap<String, Object> map) {
+	public void approvalSlipRequest(SlipBean slipBean) {
 		// TODO Auto-generated method stub
 		System.out.println("AppServiceImp_approvalSlipRequest 시작");
-		slipDAO.updateSlipApproval(map);
+		slipDAO.updateSlipApproval(slipBean);
 		
 	}
 
@@ -274,5 +269,11 @@ public class BusinessServiceImpl implements BusinessService {
 	public ArrayList<JournalBean> findApprovalJournalList(String slipNo) {
 		// TODO Auto-generated method stub
 		return slipApprovalAndReturnDAO.selectApprovalJournalList(slipNo);
+	}
+
+	@Override
+	public ArrayList<JournalDetailBean> addJournalDetailList(String accountCode) {
+		// TODO Auto-generated method stub
+		return journalDAO.addJournalDetailList(accountCode);
 	}
 }

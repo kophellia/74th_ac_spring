@@ -20,6 +20,8 @@ public interface JournalMapper {
     public void updateJournal(JournalBean journalBean);
 
     public ArrayList<JournalDetailBean> selectJournalDetailList(String journalNo);
+    
+    public ArrayList<JournalDetailBean> addJournalDetailList(String accountCode);
 
     public String selectJournalDetailDescriptionName(String journalDetailNo);
 

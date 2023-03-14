@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.seoulit.account.settlement.trialbalance.mapper.TotalTrialBalanceMapper;
 import kr.co.seoulit.account.settlement.trialbalance.to.DetailTrialBalanceBean;
+import kr.co.seoulit.account.settlement.trialbalance.to.TotalTrialBalanceBean;
 
 @Service
 @Transactional
@@ -57,4 +58,12 @@ public class TrialBalanceServiceImpl implements TrialBalanceService{
 
 	        return detailTrialBalanceList;
     }
+
+	@Override
+	public ArrayList<TotalTrialBalanceBean> searchTotalTrialBalance(HashMap<String, Object> map) {
+		System.out.println(map);
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		// TODO Auto-generated method stub
+		return totalTrialBalanceDAO.selectTotalTrialBalance(map);
+	}
 }

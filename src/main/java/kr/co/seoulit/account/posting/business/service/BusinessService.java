@@ -10,6 +10,8 @@ import kr.co.seoulit.account.posting.business.to.SlipBean;
 public interface BusinessService {
 
     public ArrayList<JournalDetailBean> findJournalDetailList(String journalNo);
+    
+    public ArrayList<JournalDetailBean> addJournalDetailList(String accountCode);
 
     public String modifyJournalDetail(JournalDetailBean journalDetailBean);
 
@@ -25,13 +27,13 @@ public interface BusinessService {
 
     public ArrayList<SlipBean> findDisApprovalSlipList();
 
-    public void registerSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans);
+    public void registerSlip(SlipBean slipBean);
 
     public void removeSlip(String slipNo);
 
     public String modifySlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans);
 
-    public void modifyapproveSlip(ArrayList<SlipBean> slipBeans);
+    public void modifyapproveSlip(SlipBean slipBean);
 
     public ArrayList<SlipBean> findSlipDataList(String slipDate);
 
@@ -44,10 +46,12 @@ public interface BusinessService {
 
     public ArrayList<SlipBean> findApprovalSlipList(HashMap<String, Object> map);
 
-	public void updateSlip(SlipBean slipBean, ArrayList<JournalBean> journalBeans);
+	public void updateSlip(SlipBean slipBean);
 	
-	public void approvalSlipRequest(HashMap<String, Object> map);
+	public void approvalSlipRequest(SlipBean slipBean);
 	
 	public ArrayList<JournalBean> findApprovalJournalList(String slipNo);
+	
+	
 }
 
