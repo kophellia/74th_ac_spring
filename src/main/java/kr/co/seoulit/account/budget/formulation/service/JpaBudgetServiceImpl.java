@@ -14,8 +14,6 @@ public class JpaBudgetServiceImpl implements JpaBudgetService {
 
    @Override
    public void save(BudgetEntity budgetEntity){
-      System.out.println(budgetEntity);
-      System.out.println(budgetEntity.getAccountInnerCode());
       budgetRepository.save(budgetEntity);
    }
 

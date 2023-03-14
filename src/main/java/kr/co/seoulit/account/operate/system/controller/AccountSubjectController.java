@@ -3,6 +3,8 @@ package kr.co.seoulit.account.operate.system.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import kr.co.seoulit.account.operate.system.entity.AccountEntity;
+import kr.co.seoulit.account.operate.system.service.JpaAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ public class AccountSubjectController {
 
 	@Autowired
 	private SystemService systemService;
+	@Autowired
+	private JpaAccountService jpaAccountService;
 
 	ModelAndView mav = null;
 	ModelMap map = new ModelMap();
@@ -53,21 +57,45 @@ public class AccountSubjectController {
 		return accountList;
 	}
 
+//	@GetMapping("/parentaccountlist") // 계정과목조회
+//	public HashMap<String, Object> getAccountList() {
+//
+//		HashMap<String, Object> map = new HashMap<>();
+//		map.put("accountCodeList", systemService.findParentAccountList());
+//		return map;
+//	}
+
+	// 계정과목조회 JPA 구현완료.
 	@GetMapping("/parentaccountlist") // 계정과목조회
 	public HashMap<String, Object> getAccountList() {
+		String accountInnerCode = "%-%";
+		String s = "0101-0250"; String v = "0101-1000";
+		ArrayList<String> parentAccountInnerCode = new ArrayList<String>();
+		parentAccountInnerCode.add(s); parentAccountInnerCode.add(v);
 
 		HashMap<String, Object> map = new HashMap<>();
-		map.put("accountCodeList", systemService.findParentAccountList());
+
+		System.out.println(jpaAccountService.findParentAccountList(accountInnerCode, parentAccountInnerCode));
+
+		ArrayList<AccountEntity> accountCodeList =  jpaAccountService.findParentAccountList(accountInnerCode, parentAccountInnerCode);
+		map.put("accountCodeList",accountCodeList);
 		return map;
 	}
 
 	@GetMapping("/detailaccountlist")
 	public ArrayList<AccountBean> findDetailAccountList(@RequestParam("code") String code) {
-
 		ArrayList<AccountBean> accountList = systemService.findDetailAccountList(code);
-
 		return accountList;
 	}
+
+	// JPA 구현 실패
+//	@GetMapping("/detailaccountlist")
+//	public ArrayList<AccountEntity> findDetailAccountList(@RequestParam("code") String code) {
+//		String parentAccountInnerCode = "%_%";
+//		ArrayList<AccountEntity> accountList = jpaAccountService.findDetailAccountList(code);
+//		System.out.println("여기에요!!!!!"+accountList);
+//		return accountList;
+//	}
 
 //    fromDate: fromDate,
 //    toDate: toDate,
