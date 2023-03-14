@@ -130,9 +130,7 @@ public class FormulationController {
     // JPA ++ 예산신청 ++ (save insert)
     @PostMapping("/budgetlist")
     public void registerBudget(@RequestBody BudgetEntity budgetEntity){
-        System.out.println(budgetEntity);
         jpaBudgetService.save(budgetEntity);
-
     };
 
     //================================================================================
@@ -153,17 +151,48 @@ public class FormulationController {
     }
 
 
-    @GetMapping("/budgetstatus")
-    public HashMap<String, Object> findBudgetStatus(@RequestParam String budgetObj) {
+//    @GetMapping("/budgetstatus")
+//    public HashMap<String, Object> findBudgetStatus(@RequestParam String budgetObj) {
+//
+//        HashMap<String, Object> params = new HashMap<>();
+//        JSONObject budgetJsonObj = JSONObject.fromObject(budgetObj); //예산
+//        BudgetBean budgetBean = beanCreator.create(budgetJsonObj, BudgetBean.class);
+//        params.put("accountPeriodNo", budgetBean.getAccountPeriodNo());
+//        params.put("deptCode", budgetBean.getDeptCode());
+//        params.put("workplaceCode", budgetBean.getWorkplaceCode());
+//        formulationService.findBudgetStatus(params);
+//
+//        return params;
+//    }
+@PostMapping("/budgetstatus")
+public HashMap<String, Object> searchBudgetStatus(@RequestBody BudgetBean budgetBean) {
+    System.out.println("야ㅡㅡ");
+    System.out.println(budgetBean);
+    System.out.println(budgetBean.getAccountPeriodNo()+","+budgetBean.getDeptCode()+","+budgetBean.getWorkplaceCode());
+    HashMap<String, Object> params = new HashMap<>();
+    params.put("accountPeriodNo", budgetBean.getAccountPeriodNo());
+    params.put("deptCode", budgetBean.getDeptCode());
+    params.put("workplaceCode", budgetBean.getWorkplaceCode());
+    formulationService.findBudgetStatus(params);
 
+    return params;
+}
+
+    @PostMapping("/comparisonBudget")
+    public HashMap<String, Object> findComparisonBudget(@RequestBody BudgetBean budgetBean) {
+        System.out.println("요청옴? ");
         HashMap<String, Object> params = new HashMap<>();
-        JSONObject budgetJsonObj = JSONObject.fromObject(budgetObj); //예산
-        BudgetBean budgetBean = beanCreator.create(budgetJsonObj, BudgetBean.class);
+        System.out.println("버짓빈:" + budgetBean);
+
         params.put("accountPeriodNo", budgetBean.getAccountPeriodNo());
         params.put("deptCode", budgetBean.getDeptCode());
         params.put("workplaceCode", budgetBean.getWorkplaceCode());
-        formulationService.findBudgetStatus(params);
+        params.put("accountInnerCode", budgetBean.getAccountInnerCode());
 
+        params = formulationService.findComparisonBudget(params);
+
+        System.out.println("params = " + params);
+        System.out.println(params);
         return params;
     }
 

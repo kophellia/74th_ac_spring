@@ -2,10 +2,14 @@ package kr.co.seoulit.account.operate.humanresource.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.seoulit.account.operate.humanresource.entity.DepartmentEntity;
+import kr.co.seoulit.account.operate.humanresource.entity.DepartmentSelectList;
+import kr.co.seoulit.account.operate.humanresource.service.JpaDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +28,9 @@ public class HRController {
 
     @Autowired
     private HumanResourceService humanResourceService;
+
+    @Autowired
+    private JpaDepartmentService jpaDepartmentService;
 
     ModelAndView mav;
     ModelMap map = new ModelMap();
@@ -99,13 +106,21 @@ public class HRController {
     }*/
 
     // 복합키사용해야함 key 2개사용
+    // ========== JPA 구현 ==========
     @GetMapping("/deptlist")
-    public ArrayList<DepartmentBean> findDeptList(){
-
-        ArrayList<DepartmentBean> deptList = humanResourceService.findDeptList();
-
+    public List<DepartmentSelectList> findDeptList(){
+        List<DepartmentSelectList> deptList = jpaDepartmentService.findDeptList();
         return deptList;
     }
+
+    // ========== JPA 구현 ==========
+    // 이렇게 사용할려면 앞단에서 칼럼선언 및 _.uniqBy를 활용해야함.
+//    @GetMapping("/deptlist")
+//    public List<DepartmentEntity> findDeptList(){
+//        List<DepartmentEntity> deptList = jpaDepartmentService.find();
+//        System.out.println("실행되고있을까요? "+deptList);
+//        return deptList;
+//    }
     
     /*@GetMapping("/detaildeptlist")
     public ArrayList<DepartmentBean> findDetailDeptList(@RequestParam String workplaceCode) {
@@ -114,10 +129,12 @@ public class HRController {
 
         return detailDeptList;
     }*/
+
+    // =================== JPA구현 ===================
     @GetMapping("/detaildeptlist")
     public HashMap<String, Object> findDetailDeptList(@RequestParam("workplaceCode") String workplaceCode){
         HashMap<String, Object> map =new HashMap<>();
-        ArrayList<DepartmentBean> detailDeptList = humanResourceService.findDetailDeptList(workplaceCode);
+        List<DepartmentEntity> detailDeptList = jpaDepartmentService.findDetailDeptList(workplaceCode);
         map.put("detailDeptList", detailDeptList);
         return map;
     }
