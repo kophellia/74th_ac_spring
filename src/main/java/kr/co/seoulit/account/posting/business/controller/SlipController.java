@@ -77,6 +77,7 @@ public class SlipController {
 	// =======================전표 저장==========================
 	@PostMapping("/registerslip")
 	public void registerSlip(@RequestBody SlipBean slipBean) {
+		System.out.println(slipBean);
 		slipBean.setSlipStatus(slipBean.getSlipStatus());
 
 		for (JournalBean journalBean : slipBean.getJournalBean()) {
@@ -86,7 +87,7 @@ public class SlipController {
 				journalBean.setRightCreditsPrice("0");
 			}
 		}
-		businessService.registerSlip(slipBean);
+		//businessService.registerSlip(slipBean);
 	}
 
 	// =======================전표 수정==========================

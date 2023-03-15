@@ -39,4 +39,5 @@ public interface JournalMapper {
 
     public String selectJournalName(String slipNo);
     
+    public void insertJournalDetailTemp(JournalDetailBean journalDetailBean);
 }

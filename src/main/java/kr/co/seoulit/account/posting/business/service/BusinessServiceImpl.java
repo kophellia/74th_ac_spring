@@ -276,4 +276,13 @@ public class BusinessServiceImpl implements BusinessService {
 		// TODO Auto-generated method stub
 		return journalDAO.addJournalDetailList(accountCode);
 	}
+
+	@Override
+	public void tempModifyJournalDetail(ArrayList<JournalDetailBean> journalDetailBean) {
+		// TODO Auto-generated method stub
+		for(JournalDetailBean journalDetail: journalDetailBean) {
+			journalDetail.setJournalNo("temp");
+			journalDAO.insertJournalDetailTemp(journalDetail);
+		}
+	}
 }
