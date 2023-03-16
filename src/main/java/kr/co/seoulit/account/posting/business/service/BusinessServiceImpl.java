@@ -42,7 +42,7 @@ public class BusinessServiceImpl implements BusinessService {
 		System.out.println("findSelect: " + findSelect);
 		System.out.println("findSearch: " + findSearch);
 
-		journalDAO.updateJournalDetail(journalDetailBean); // 분개번호로 내용만 업데이트함
+		journalDAO.updateJournalDetailList(journalDetailBean); // 분개번호로 내용만 업데이트함
 		if (findSelect || findSearch)
 			dName = journalDAO.selectJournalDetailDescriptionName(journalDetailNo);
 
@@ -182,7 +182,7 @@ public class BusinessServiceImpl implements BusinessService {
 
 				for (JournalDetailBean journalDetailBean : journalBean.getJournalDetailList()) {
 
-					journalDAO.updateJournalDetail(journalDetailBean);
+					journalDAO.updateJournalDetailList(journalDetailBean);
 				}
 			}
 		}
@@ -263,10 +263,10 @@ public class BusinessServiceImpl implements BusinessService {
 		slipDAO.updateSlip(slipBean);
 		for (JournalBean journalBean : slipBean.getJournalBean()) {
 			journalDAO.updateJournal(journalBean);
-//			if (journalBean.getJournalDetailList() != null)
-//				for (JournalDetailBean journalDetailBean : journalBean.getJournalDetailList()) { // 분개상세항목들
-//					journalDAO.updateJournalDetailList(journalDetailBean);
-//				}
+			if (journalBean.getJournalDetailList() != null)
+				for (JournalDetailBean journalDetailBean : journalBean.getJournalDetailList()) { // 분개상세항목들
+					journalDAO.updateJournalDetailList(journalDetailBean);
+				}
 		}
 	}
 
@@ -276,7 +276,7 @@ public class BusinessServiceImpl implements BusinessService {
 		System.out.println("AppServiceImp_approvalSlipRequest 시작");
 		slipDAO.updateSlipApproval(slipBean);
 
-	}
+	} 
 
 	@Override
 	public ArrayList<JournalBean> findApprovalJournalList(String slipNo) {

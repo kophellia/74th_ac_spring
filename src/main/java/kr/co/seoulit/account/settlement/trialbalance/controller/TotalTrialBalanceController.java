@@ -35,14 +35,16 @@ public class TotalTrialBalanceController {
 	@GetMapping("/earlyStatements")
 	public HashMap<String, Object> finddoClosing(@RequestParam("accountPeriodNo") String accountPeriodNo,
 			@RequestParam("callResult") String callResult) {
-
+System.out.println(accountPeriodNo);
+System.out.println(callResult);
 		HashMap<String, Object> params = new HashMap<>();
 		params.put("accountPeriodNo", accountPeriodNo);
 		params.put("callResult", callResult);
 
-		HashMap<String, Object> closingResult = trialBalanceService.findEarlyStatements(params);
+		//HashMap<String, Object> closingResult = trialBalanceService.findEarlyStatements(params);
 
-		return closingResult;
+		//return closingResult;
+		return null;
 	}
 //
 //	@GetMapping("/searchTotalTrialBalance")
