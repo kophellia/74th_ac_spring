@@ -23,7 +23,6 @@ public class PeriodNoController {
 	@Autowired
 	private JpaPeriodService jpaPeriodService;
 
-
 //	@GetMapping("/periodNoList")
 //	public HashMap<String, Object> findPeriodNo() {
 //		HashMap<String, Object> map = new HashMap<>();
@@ -55,12 +54,8 @@ public class PeriodNoController {
 	// JPA 구현. 회계기수일련번호 조회 구현.
 	@GetMapping("/tPeriodNoList")
 	public PeriodEntity findPeriodNo(@RequestParam("yearFirst") String yearFirst,
-									 @RequestParam("yearLast") String yearLast) {
-
-		LocalDate periodStartDate = LocalDate.parse(yearFirst);
-		LocalDate periodEndDate = LocalDate.parse(yearLast);
-
-		PeriodEntity periodEntity = jpaPeriodService.findTPeriodNo(periodStartDate, periodEndDate);
+			@RequestParam("yearLast") String yearLast) {
+		PeriodEntity periodEntity = jpaPeriodService.findTPeriodNo(yearFirst, yearLast);
 		return periodEntity;
 	}
 }

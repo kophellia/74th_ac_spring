@@ -197,7 +197,7 @@
 					#{journalNo},
 					JOURNAL_DETAIL_NO_SEQUENCES.NEXTVAL,
 					#{accountControlCode},
-					#{journalDescription}
+					#{description}
 				)
  		]]>
 	</insert>

@@ -87,7 +87,7 @@ public class SlipController {
 				journalBean.setRightCreditsPrice("0");
 			}
 		}
-		//businessService.registerSlip(slipBean);
+		businessService.registerSlip(slipBean);
 	}
 
 	// =======================전표 수정==========================

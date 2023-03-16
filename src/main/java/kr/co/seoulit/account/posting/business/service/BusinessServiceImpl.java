@@ -130,13 +130,26 @@ public class BusinessServiceImpl implements BusinessService {
 		slipNo.append(code.substring(code.length() - 5)); // 00001 10이상 넘어가는숫자들 처리
 //		System.out.println("slipNo: " + slipNo.toString());
 		slipBean.setSlipNo(slipNo.toString()); // 20200118SLIP00001
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		System.out.println(slipBean);
 		slipDAO.insertSlip(slipBean);
 		for (JournalBean journalBean : slipBean.getJournalBean()) {
 			String journalNo = journalDAO.selectJournalName(slipBean.getSlipNo());
 			journalBean.setJournalNo(journalNo);
 			journalBean.setSlipNo(slipNo.toString());
+			System.out.println(journalBean);
 			journalDAO.insertJournal(journalBean);
+			
+			if(journalBean.getJournalDetailList() != null) {
+				for(JournalDetailBean journalDetailBean : journalBean.getJournalDetailList()) {
+					journalDetailBean.setJournalNo(journalNo);
+					System.out.println(journalDetailBean);
+					
+					journalDAO.insertJournalDetailList(journalDetailBean);
+				}
+			}
 		}
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 	}
 
 	@Override
