@@ -79,14 +79,7 @@ public class SlipController {
 	public void registerSlip(@RequestBody SlipBean slipBean) {
 		System.out.println(slipBean);
 		slipBean.setSlipStatus(slipBean.getSlipStatus());
-
-		for (JournalBean journalBean : slipBean.getJournalBean()) {
-			if (journalBean.getLeftDebtorPrice() == null) {
-				journalBean.setLeftDebtorPrice("0");
-			} else if (journalBean.getRightCreditsPrice() == null) {
-				journalBean.setRightCreditsPrice("0");
-			}
-		}
+		
 		businessService.registerSlip(slipBean);
 	}
 
