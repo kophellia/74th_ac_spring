@@ -1,7 +1,6 @@
 package kr.co.seoulit.account.sys.base.controller;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,27 +27,24 @@ import kr.co.seoulit.account.sys.base.to.DetailCodeBean;
 import kr.co.seoulit.account.sys.common.exception.DataAccessException;
 import net.sf.json.JSONObject;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/base")
 public class CodeListController{
-	
 	@Autowired
     private BaseService baseService;
 	   
 	@GetMapping("/detailcodelist")
- public ArrayList<DetailCodeBean> findDetailCodeList(@RequestParam String divisionCodeNo) {
+ public ArrayList<DetailCodeBean> findDetailCodeList(@RequestParam String divisionCodeNo,
+ 												    @RequestParam(value="detailCodeName", required=false) String detailCodeName) {
      
-		System.out.println(divisionCodeNo);
-         HashMap<String, Object> map = new HashMap<>();
-        
-         map.put("divisionCodeNo", divisionCodeNo);
-//         if (detailCodeName != null) //detailCodeName 입력 시
-//             param.put("detailCodeName", detailCodeName); //param에 값 담음
 
-         ArrayList<DetailCodeBean> detailCodeList = baseService.findDetailCodeList(map);
-         System.out.println("컨트롤ㄹ러ㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓㅓ");
-       System.out.println(detailCodeList);//이제 이건 찍히는데
+         HashMap<String, String> param = new HashMap<>();
+        
+         param.put("divisionCodeNo", divisionCodeNo);
+         if (detailCodeName != null) //detailCodeName 입력 시
+             param.put("detailCodeName", detailCodeName); //param에 값 담음
+
+         ArrayList<DetailCodeBean> detailCodeList = baseService.findDetailCodeList(param);
        
      return detailCodeList;
 

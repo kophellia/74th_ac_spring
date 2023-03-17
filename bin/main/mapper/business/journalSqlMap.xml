@@ -195,7 +195,7 @@
 					DESCRIPTION
 				)VALUES(
 					#{journalNo},
-					JOURNAL_DD_SEQ.NEXTVAL,
+					JOURNAL_DETAIL_NO_SEQUENCES.NEXTVAL,
 					#{accountControlCode},
 					#{description}
 				)

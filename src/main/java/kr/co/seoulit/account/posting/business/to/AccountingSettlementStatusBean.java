@@ -5,6 +5,7 @@ public class AccountingSettlementStatusBean {
 	private String totalTrialBalance;
 	private String incomeStatement;
 	private String financialPosition;
+	private String capitalStatement;
 	
 	public long getAccountPeriodNo() {
 		return accountPeriodNo;
@@ -29,6 +30,12 @@ public class AccountingSettlementStatusBean {
 	}
 	public void setFinancialPosition(String financialPosition) {
 		this.financialPosition = financialPosition;
+	}
+	public String getCapitalStatement() {
+		return capitalStatement;
+	}
+	public void setCapitalStatement(String capitalStatement) {
+		this.capitalStatement = capitalStatement;
 	}
 	
 	
