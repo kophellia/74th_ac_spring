@@ -54,7 +54,7 @@ public class SlipController {
 		map.put("toDate", toDate);
 		map.put("slipStatus", slipStatus);
 		ArrayList<SlipBean> slipFormList = businessService.findRangedSlipList(map);
-
+		System.out.println(slipFormList);
 		return slipFormList;
 	}
 

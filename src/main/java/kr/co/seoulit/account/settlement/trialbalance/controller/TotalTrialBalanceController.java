@@ -37,9 +37,9 @@ public class TotalTrialBalanceController {
 			@RequestParam String callResult) {
 		System.out.println(accountPeriodNo);
 		System.out.println(callResult);
-		HashMap<String, Object> params = new HashMap<>();
-		params.put("accountPeriodNo", accountPeriodNo);
-		params.put("callResult", callResult);
+//		HashMap<String, Object> params = new HashMap<>();
+//		params.put("accountPeriodNo", accountPeriodNo);
+//		params.put("callResult", callResult);
 
 //		HashMap<String, Object> closingResult = trialBalanceService.findEarlyStatements(params);
 //
